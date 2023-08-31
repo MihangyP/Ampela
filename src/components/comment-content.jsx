@@ -1,94 +1,25 @@
+/********************************************************************
+ * -Correction date: 30/08/2023
+ * -Fixing bug: suppression de certain élément dans 'ScrollView' pour 
+ * simplifier la vue et faciliter la maintenance
+ ********************************************************************/
+
+
 import React from "react";
-import {View, ScrollView, Text, Image, StyleSheet} from 'react-native';
-import {SIZES, images} from "../../constants";
+import { ScrollView } from 'react-native';
+import CommentItem from "./forum-comment-item";
+import { images } from "../../constants";
 
-const CommentContent = () => {
-    // const [isScrollEnabled, setIsScrollEnabled] = useState(false);
-
-    // const enableScroll = () => {
-    //     setIsScrollEnabled(true);
-    //   };
-    
-    //   const disableScroll = () => {
-    //     setIsScrollEnabled(false);
-    //   };
+const CommentContent = ({ postId }) => {
     return (
-        <ScrollView 
-        style={{marginTop: 30, height: 300}}>
-            <View style={{marginVertical: 10}}>
-            <View style={styles.header}>
-                <Image source={images.user01} style={styles.img} />
-                <View>
-                <Text style={{fontFamily: "Regular"}}>Jane Green</Text>
-                <Text style={{fontFamily: "Regular"}}>26/06/23</Text>
-                </View>
-            </View>
-            <View style={styles.content}>
-                <Text style={{fontFamily: "Regular", marginVertical: 5}}>Cela dépend, mais généralement, les personnes peuvent se sentir inconfortables et fatiguées</Text>
-            </View>
-        </View>
-        <View style={{marginVertical: 10}}>
-            <View style={styles.header}>
-                <Image source={images.user01} style={styles.img} />
-                <View>
-                <Text style={{fontFamily: "Regular"}}>Jane Green</Text>
-                <Text style={{fontFamily: "Regular"}}>26/06/23</Text>
-                </View>
-            </View>
-            <View style={styles.content}>
-                <Text style={{fontFamily: "Regular", marginVertical: 5}}>Cela dépend, mais généralement, les personnes peuvent se sentir inconfortables et fatiguées</Text>
-            </View>
-        </View>
-        <View style={{marginVertical: 10}}>
-            <View style={styles.header}>
-                <Image source={images.user01} style={styles.img} />
-                <View>
-                <Text style={{fontFamily: "Regular"}}>Jane Green</Text>
-                <Text style={{fontFamily: "Regular"}}>26/06/23</Text>
-                </View>
-            </View>
-            <View style={styles.content}>
-                <Text style={{fontFamily: "Regular", marginVertical: 5}}>Cela dépend, mais généralement, les personnes peuvent se sentir inconfortables et fatiguées</Text>
-            </View>
-        </View>
-        <View style={{marginVertical: 10}}>
-            <View style={styles.header}>
-                <Image source={images.user01} style={styles.img} />
-                <View>
-                <Text style={{fontFamily: "Regular"}}>Jane Green</Text>
-                <Text style={{fontFamily: "Regular"}}>26/06/23</Text>
-                </View>
-            </View>
-            <View style={styles.content}>
-                <Text style={{fontFamily: "Regular", marginVertical: 5}}>Cela dépend, mais généralement, les personnes peuvent se sentir inconfortables et fatiguées</Text>
-            </View>
-        </View>
-        <View style={{marginVertical: 10}}>
-            <View style={styles.header}>
-                <Image source={images.user01} style={styles.img} />
-                <View>
-                <Text style={{fontFamily: "Regular"}}>Jane Green</Text>
-                <Text style={{fontFamily: "Regular"}}>26/06/23</Text>
-                </View>
-            </View>
-            <View style={styles.content}>
-                <Text style={{fontFamily: "Regular", marginVertical: 5}}>Cela dépend, mais généralement, les personnes peuvent se sentir inconfortables et fatiguées</Text>
-            </View>
-        </View>
+        <ScrollView style={{marginTop: 30, height: 300}}>
+            <CommentItem 
+            authorPic={images.user01} 
+            authorName="Jane Doe" 
+            creationDate="30/08/2023" 
+            content="Hello, World!" />
         </ScrollView>
     );
 }
 
-const styles = StyleSheet.create({
-    header: {
-        flexDirection: "row",
-        gap: 5
-    },
-    img: {
-        width: 24,
-        height: 24
-    }
-})
-
 export default CommentContent;
-

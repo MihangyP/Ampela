@@ -72,7 +72,7 @@ const SignupScreen = () => {
 
         Alert.alert("Registration Successful!", "Your account has been created successfully.");
 
-        navigation.navigate("main");
+        navigation.navigate("CalendarScreen");
       } catch (error) {
         console.error("Error during registration:", error.message);
         Alert.alert("Registration Error", error.message);

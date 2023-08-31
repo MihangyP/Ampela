@@ -4,7 +4,7 @@ import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import ContainerNavigation from "./src/components/navigation-container";
 import './src/i18n';
-    
+
 SplashScreen.preventAutoHideAsync();
 
 const App = () => {
@@ -30,7 +30,6 @@ const App = () => {
     // return <View>
     //     <Text>Hello</Text>
     // </View>
-    
 }
 
 export default App;

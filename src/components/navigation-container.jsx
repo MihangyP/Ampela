@@ -36,13 +36,13 @@ const ContainerNavigation = () => {
                 }}
                 initialRouteName='Discovery'
             >
-                <Stack.Screen name="Discovery" component={DiscoveryScreen} />
+                {/* <Stack.Screen name="Discovery" component={DiscoveryScreen} />
                 <Stack.Screen name="PersonalHealthTestScreen" component={PersonalHealthTestScreen} />
                 <Stack.Screen name="LastMenstrualCycleStartAge" component={LastMenstrualCycleStartAge} />
-                <Stack.Screen name="QuestionsSeries" component={QuestionsSeries} />
+                <Stack.Screen name="QuestionsSeries" component={QuestionsSeries} /> */}
                 <Stack.Screen name="AuthentificationScreen" component={AuthentificationScreen} />
                 <Stack.Screen name="CalendarScreen" component={Main} />
-                <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
+                {/* <Stack.Screen name="SignUpScreen" component={SignUpScreen} /> */}
                 <Stack.Screen name="LogInScreen" component={LogInScreen} />
                 <Stack.Screen name="MessageScreen" component={MessageScreen} />
                 <Stack.Screen name="NotificationScreen" component={NotificationScreen} />
@@ -57,7 +57,7 @@ const ContainerNavigation = () => {
                 <Stack.Screen name="ThemeScreen" component={ThemeScreen} />
                 <Stack.Screen name="ArticleContentScreen" component={ArticleContentScreen} />
                 <Stack.Screen name="AccountScreen" component={AccountScreen} />
-                <Stack.Screen name="UsernameAndPasswordScreen" component={UsernameAndPasswordScreen} />
+                {/* <Stack.Screen name="UsernameAndPasswordScreen" component={UsernameAndPasswordScreen} /> */}
             </Stack.Navigator>
         </NavigationContainer>
         </ThemeProvider>
