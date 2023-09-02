@@ -4,7 +4,7 @@ import { collection, addDoc, getDocs, getCountFromServer } from "firebase/firest
 // Ajout du nouveau post
 async function addNewPost(data) {
     try {
-        if (auth.currentUser != null) {
+        if (auth.currentUser) {
             const docRef = await addDoc(collection(database, "posts"), {
                 content: data.content,
                 authorId: data.authorId,
@@ -23,7 +23,7 @@ async function addNewPost(data) {
 // Ajout du nouveau commentaire
 async function addNewComment(data) {
     try {
-        if (auth.currentUser != null) {
+        if (auth.currentUser) {
             const docRef = await addDoc(collection(database, "comments"), {
                 content: data.content,
                 authorId: data.authorId,
@@ -43,7 +43,7 @@ async function addNewComment(data) {
 // Ajout de nouvelle réaction(like) sur un post
 async function addNewLike(data) {
     try {
-        if (auth.currentUser != null) {
+        if (auth.currentUser) {
             const docRef = await addDoc(collection(database, "likes"), {
                 userId: data.userId,
                 postId: data.postId,
