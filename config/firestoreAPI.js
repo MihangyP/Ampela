@@ -2,14 +2,14 @@ import { auth, database } from "./firebase.js";
 import { collection, addDoc, getDocs, getCountFromServer } from "firebase/firestore";
 
 // Ajout du nouveau post
-async function addNewPost(content, authorId, createdAt, updatedAt) {
+async function addNewPost(data) {
     try {
         if (auth.currentUser != null) {
             const docRef = await addDoc(collection(database, "posts"), {
-                content: content,
-                authorId: authorId,
-                createdAt: createdAt,
-                updatedAt: updatedAt
+                content: data.content,
+                authorId: data.authorId,
+                createdAt: data.createdAt,
+                updatedAt: data.updatedAt
             });
             console.log("Post doc written with ID: ", docRef.id);
         } else {
@@ -21,15 +21,15 @@ async function addNewPost(content, authorId, createdAt, updatedAt) {
 }
 
 // Ajout du nouveau commentaire
-async function addNewComment(content, authorId, postId, createdAt, updatedAt) {
+async function addNewComment(data) {
     try {
         if (auth.currentUser != null) {
             const docRef = await addDoc(collection(database, "comments"), {
-                content: content,
-                authorId: authorId,
-                postId: postId,
-                createdAt: createdAt,
-                updatedAt: updatedAt
+                content: data.content,
+                authorId: data.authorId,
+                postId: data.postId,
+                createdAt: data.createdAt,
+                updatedAt: data.updatedAt
             });
             console.log("Comment doc written with ID: ", docRef.id);
         } else {
@@ -41,13 +41,13 @@ async function addNewComment(content, authorId, postId, createdAt, updatedAt) {
 }
 
 // Ajout de nouvelle réaction(like) sur un post
-async function addNewLike(userId, postId, createdAt) {
+async function addNewLike(data) {
     try {
         if (auth.currentUser != null) {
             const docRef = await addDoc(collection(database, "likes"), {
-                userId: userId,
-                postId: postId,
-                createdAt: createdAt
+                userId: data.userId,
+                postId: data.postId,
+                createdAt: data.createdAt
             });
             console.log("Like doc written with ID: ", docRef.id);
         } else {
