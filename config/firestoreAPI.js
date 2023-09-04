@@ -1,4 +1,4 @@
-import { auth, database } from "./firebase.js";
+import { auth, database } from "./firebaseConfig.js";
 import { collection, addDoc, getDocs, getCountFromServer } from "firebase/firestore";
 
 // Ajout du nouveau post
