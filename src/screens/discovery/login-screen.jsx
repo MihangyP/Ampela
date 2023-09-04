@@ -12,7 +12,7 @@ import { Dimensions } from "react-native";
 import Button from "../../components/button";
 import { COLORS, SIZES, images } from "../../../constants";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../../config/firebase";
+import { auth } from "../../../config/firebaseConfig";
 
 const LogInScreen = ({ navigation }) => {
   const [password, setPassword] = useState("");

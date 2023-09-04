@@ -11,9 +11,9 @@ const PersonalHealthTestScreen = ({ navigation }) => {
     const [selectedCheckboxId, setSelectedCheckboxId] = useState(null);
 
     const handleCheckbox1Press = () => {
-        const updateCheckbox1 = { ...checkbox1, isChecked: !checkbox1.isChecked };
-        setCheckbox1(updateCheckbox1);
-        if (updateCheckbox1.isChecked) {
+        const newCheckbox1State = !checkbox1.isChecked;
+        setCheckbox1({ ...checkbox1, isChecked: newCheckbox1State });
+        if (newCheckbox1State) {
             setCheckbox2({ ...checkbox2, isChecked: false });
             setSelectedCheckboxId(checkbox1.id);
         } else {
@@ -22,9 +22,9 @@ const PersonalHealthTestScreen = ({ navigation }) => {
     };
 
     const handleCheckbox2Press = () => {
-        const updateCheckbox2 = { ...checkbox2, isChecked: !checkbox2.isChecked };
-        setCheckbox2(updateCheckbox2);
-        if (updateCheckbox2.isChecked) {
+        const newCheckbox2State = !checkbox2.isChecked;
+        setCheckbox2({ ...checkbox2, isChecked: newCheckbox2State });
+        if (newCheckbox2State) {
             setCheckbox1({ ...checkbox1, isChecked: false });
             setSelectedCheckboxId(checkbox2.id);
         } else {
@@ -51,7 +51,6 @@ const PersonalHealthTestScreen = ({ navigation }) => {
                 <View style={styles.checkboxContainer}>
                     <View style={styles.checkboxItem}>
                         <BouncyCheckbox
-                            ref={(ref) => (bouncyCheckbox1Ref = ref)}
                             size={25}
                             fillColor={COLORS.accent600}
                             disableText
@@ -65,11 +64,10 @@ const PersonalHealthTestScreen = ({ navigation }) => {
                     </View>
                     <View style={styles.checkboxItem}>
                         <BouncyCheckbox
-                            ref={(ref) => (bouncyCheckbox2Ref = ref)}
                             size={25}
                             fillColor={COLORS.accent600}
                             disableText
-                            innerIconStyle={{ borderWidth: 2}}
+                            innerIconStyle={{ borderWidth: 2 }}
                             isChecked={checkbox2.isChecked}
                             onPress={handleCheckbox2Press}
                         />
@@ -78,7 +76,7 @@ const PersonalHealthTestScreen = ({ navigation }) => {
                         </Pressable>
                     </View>
                 </View>
-            </View>    
+            </View>
             <View style={styles.btnBox}>
                 <Button
                     bgColor={COLORS.accent600}
@@ -88,7 +86,7 @@ const PersonalHealthTestScreen = ({ navigation }) => {
                 >
                     Suivant
                 </Button>
-            </View>        
+            </View>
         </View>
     );
 }

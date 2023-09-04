@@ -8,7 +8,7 @@ import QuestionsSeries from '../screens/discovery/questions-series';
 import AuthentificationScreen from '../screens/discovery/authentification-screen';
 import Main from '../screens/main';
 import SignUpScreen from '../screens/discovery/signup-screen';
-import LogInScreen from '../screens/discovery/signup-screen';
+import LogInScreen from '../screens/discovery/login-screen';
 import MessageScreen from '../screens/messages/message-screen';
 import NotificationScreen from '../screens/forum/notification-screen';
 import SettingsScreen from '../screens/settings/settings-screen';
@@ -26,7 +26,7 @@ import UsernameAndPasswordScreen from '../screens/discovery/username-and-passwor
 
 const Stack = createNativeStackNavigator();
 
-const ContainerNavigation = () => {
+const ContainerNavigation = ({onLayout}) => {
     return (
         <ThemeProvider>
             <NavigationContainer>
@@ -36,28 +36,28 @@ const ContainerNavigation = () => {
                 }}
                 initialRouteName='Discovery'
             >
-                <Stack.Screen name="Discovery" component={DiscoveryScreen} />
+                {/* <Stack.Screen name="Discovery" component={DiscoveryScreen} />
                 <Stack.Screen name="PersonalHealthTestScreen" component={PersonalHealthTestScreen} />
                 <Stack.Screen name="LastMenstrualCycleStartAge" component={LastMenstrualCycleStartAge} />
-                <Stack.Screen name="QuestionsSeries" component={QuestionsSeries} />
+                <Stack.Screen name="QuestionsSeries" component={QuestionsSeries} /> */}
                 <Stack.Screen name="AuthentificationScreen" component={AuthentificationScreen} />
                 <Stack.Screen name="CalendarScreen" component={Main} />
                 <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
                 <Stack.Screen name="LogInScreen" component={LogInScreen} />
                 <Stack.Screen name="MessageScreen" component={MessageScreen} />
-                <Stack.Screen name="NotificationScreen" component={NotificationScreen} />
+                {/* <Stack.Screen name="NotificationScreen" component={NotificationScreen} />
                 <Stack.Screen name="SettingsScreen" component={SettingsScreen} />
                 <Stack.Screen name="ChangeLanguageScreen" component={ChangeLanguageScreen} />
                 <Stack.Screen name="FaqScreen" component={FaqScreen} />
-                <Stack.Screen name="InfoScreen" component={InfoScreen} />
+                <Stack.Screen name="InfoScreen" component={InfoScreen} /> */}
                 <Stack.Screen name="MessageContentScreen" component={MessageContentScreen} />
-                <Stack.Screen name="DoctorInformationScreen" component={DoctorInformationScreen} />
+                {/* <Stack.Screen name="DoctorInformationScreen" component={DoctorInformationScreen} />
                 <Stack.Screen name="DoctorAuthScreen" component={DoctorAuthScreen} />
                 <Stack.Screen name="DoctorForumScreen" component={DoctorForumScreen} />
                 <Stack.Screen name="ThemeScreen" component={ThemeScreen} />
                 <Stack.Screen name="ArticleContentScreen" component={ArticleContentScreen} />
                 <Stack.Screen name="AccountScreen" component={AccountScreen} />
-                <Stack.Screen name="UsernameAndPasswordScreen" component={UsernameAndPasswordScreen} />
+                <Stack.Screen name="UsernameAndPasswordScreen" component={UsernameAndPasswordScreen} /> */}
             </Stack.Navigator>
         </NavigationContainer>
         </ThemeProvider>

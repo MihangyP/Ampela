@@ -1,6 +1,11 @@
 import React, { useContext, useState, useEffect, useCallback } from "react";
-import { View, StyleSheet } from "react-native";
-import { GiftedChat, Bubble } from "react-native-gifted-chat";
+import { View, StyleSheet, Image } from "react-native";
+import {
+  GiftedChat,
+  Bubble,
+  InputToolbar,
+  Send,
+} from "react-native-gifted-chat";
 import { ThemeContext } from "../../components/theme-context";
 import HeaderWithGoBack from "../../components/header-with-go-back";
 import { SIZES, COLORS, icons } from "../../../constants";
@@ -12,11 +17,11 @@ import {
   onSnapshot,
   serverTimestamp,
 } from "firebase/firestore";
-import { database, auth } from "../../../config/firebase";
+import { auth, database } from "../../../config/firebaseConfig";
 
 const MessageContentScreen = ({ navigation, route }) => {
   const { theme, toggleTheme } = useContext(ThemeContext);
-  const { user } = route.params;
+  const { user, onMessageSent, handleRefreshList } = route.params;
   const { pseudo, job, email, uid } = user;
 
   const [messages, setMessages] = useState([]);
@@ -45,20 +50,17 @@ const MessageContentScreen = ({ navigation, route }) => {
       const newMessages = [];
       snapshot.forEach((doc) => {
         const messageData = doc.data();
-        console.log(doc.data());
-        console.log(targetUserId);
         if (messageData.createdAt && messageData.createdAt.seconds) {
           newMessages.push({
             _id: doc.id,
             text: messageData.text,
             createdAt: new Date(messageData.createdAt.seconds * 1000),
             user: {
-              _id: messageData.expediteur._id, 
-              name: messageData.expediteur.pseudo, 
+              _id: messageData.expediteur._id,
+              name: messageData.expediteur.pseudo,
               avatar: messageData.expediteur.avatar,
             },
           });
-          
         }
       });
 
@@ -106,6 +108,8 @@ const MessageContentScreen = ({ navigation, route }) => {
         )
           .then(() => {
             console.log("Message sent successfully!");
+            onMessageSent();
+            handleRefreshList();
           })
           .catch((error) => {
             console.error("Error sending message:", error);
@@ -144,6 +148,32 @@ const MessageContentScreen = ({ navigation, route }) => {
     );
   };
 
+  const customtInputToolbar = (props) => {
+    return (
+      <View
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          width: "100%",
+          padding: 20,
+          alignSelf: "center",
+        }}
+      >
+        <InputToolbar
+          {...props}
+          containerStyle={{
+            backgroundColor: "white",
+            borderTopColor: "#E8E8E8",
+            borderTopWidth: 1,
+            borderRadius: 98,
+            paddingHorizontal: 10,
+          }}
+        />
+      </View>
+    );
+  };
+
   return (
     <View
       style={[
@@ -160,7 +190,7 @@ const MessageContentScreen = ({ navigation, route }) => {
         iconLeft={icons.info}
       />
       <GiftedChat
-      style={{padding:10}}
+        style={{ padding: 10 }}
         messages={messages.map((message) => ({
           ...message,
           _id: message._id.toString(),
@@ -168,6 +198,14 @@ const MessageContentScreen = ({ navigation, route }) => {
         onSend={(newMessages) => onSend(newMessages)}
         user={{ _id: currentUser.uid, name: currentUser.displayName }}
         renderBubble={renderBubble}
+        renderInputToolbar={(props) => customtInputToolbar(props)}
+        renderSend={(props) => (
+          <Send {...props}>
+            <View style={{ marginRight: 5 }}>
+              <Image source={icons.send} />
+            </View>
+          </Send>
+        )}
       />
     </View>
   );

@@ -6,25 +6,32 @@
     "orientation": "portrait",
     "icon": "./assets/images/logo/logo-2.png",
     "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./assets/images/logo/logo-2.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
+    // "splash": {
+    //   "image": "./assets/images/logo/logo-2.png",
+    //   "resizeMode": "contain",
+    //   "backgroundColor": "#ffffff"
+    // },
     "assetBundlePatterns": [
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "ampela"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/logo/logo-2.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.maminiaina_mercia.ampela"
     },
     "web": {
       "favicon": "./assets/images/logo/logo-2.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "ec301474-0f83-4123-b6b2-f181a35d70bc"
+      }
     }
   }
 }

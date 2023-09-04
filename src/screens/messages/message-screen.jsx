@@ -7,64 +7,113 @@ import {
   Image,
   TextInput,
 } from "react-native";
-import { getDocs, collection, query, orderBy, limit } from "firebase/firestore";
+import {
+  collection,
+  onSnapshot,
+  query,
+  orderBy,
+  limit,
+} from "firebase/firestore";
 import HeaderWithGoBack from "../../components/header-with-go-back";
 import { ThemeContext } from "../../components/theme-context";
 import { useTranslation } from "react-i18next";
-import { COLORS, images, icons } from "../../../constants";
+import { COLORS, icons } from "../../../constants";
 import MessageItem from "../../components/messageItem";
-import { database, auth } from "../../../config/firebase";
+import { auth, database } from "../../../config/firebaseConfig";
 
 const MessageScreen = ({ navigation }) => {
   const { t } = useTranslation();
   const { theme, toggleTheme } = useContext(ThemeContext);
   const [users, setUsers] = useState([]);
-
   const currentUserUid = auth.currentUser.uid;
+  const [refreshList, setRefreshList] = useState(false);
+  const [searchText, setSearchText] = useState("");
+  const [filteredUsers, setFilteredUsers] = useState([]);
 
-  const fetchUsers = async () => {
+  const handleSearch = (text) => {
+    setSearchText(text);
+  };
+  const handleMessageItemPress = (user) => {
+    navigation.navigate("MessageContentScreen", {
+      user,
+      onMessageSent: () => {
+        fetchUsers();
+      },
+      handleRefreshList,
+    });
+  };
+
+  const handleRefreshList = () => {
+    setRefreshList(!refreshList);
+    setUsers([]);
+  };
+
+  const fetchUsers = () => {
     const db = database;
     const usersCollectionRef = collection(db, "users");
-    const querySnapshot = await getDocs(usersCollectionRef);
 
-    const userList = [];
-    for (const doc of querySnapshot.docs) {
-      const userData = doc.data();
-      if (userData.uid !== currentUserUid) {
-        const conversationId =
-          currentUserUid < userData.uid
-            ? `${currentUserUid}_${userData.uid}`
-            : `${userData.uid}_${currentUserUid}`;
-        const messagesCollectionRef = collection(
-          db,
-          "conversations",
-          conversationId,
-          "messages"
-        );
-        const messagesQuerySnapshot = await getDocs(
-          query(messagesCollectionRef, orderBy("createdAt", "desc"), limit(1))
-        );
-        const lastMessage = messagesQuerySnapshot.docs[0]?.data();
+    const unsubscribeUsers = onSnapshot(usersCollectionRef, (snapshot) => {
+      const unsubscribeMessages = [];
+      const userList = [];
 
-        userList.push({
-          ...userData,
-          lastMessage: lastMessage?.text || "",
-        });
-      }
-    }
+      snapshot.forEach((doc) => {
+        const userData = doc.data();
+        if (userData.uid !== currentUserUid) {
+          const conversationId =
+            currentUserUid < userData.uid
+              ? `${currentUserUid}_${userData.uid}`
+              : `${userData.uid}_${currentUserUid}`;
 
-    setUsers(userList);
+          const messagesCollectionRef = collection(
+            db,
+            "conversations",
+            conversationId,
+            "messages"
+          );
+
+          const unsubscribe = onSnapshot(
+            query(
+              messagesCollectionRef,
+              orderBy("createdAt", "desc"),
+              limit(1)
+            ),
+            (messagesSnapshot) => {
+              const lastMessage = messagesSnapshot.docs[0]?.data();
+
+              userList.push({
+                ...userData,
+                lastMessage: lastMessage?.text || "",
+                lastMessageCreatedAt:
+                  lastMessage?.createdAt?.seconds * 1000 || 0,
+              });
+
+              if (userList.length === snapshot.size - 1) {
+                userList.sort(
+                  (a, b) => b.lastMessageCreatedAt - a.lastMessageCreatedAt
+                );
+                setUsers(userList);
+              }
+            }
+          );
+
+          unsubscribeMessages.push(unsubscribe);
+        }
+      });
+
+      return () => {
+        unsubscribeMessages.forEach((unsubscribe) => unsubscribe());
+        unsubscribeUsers();
+      };
+    });
+
+    // const newMessageEvent = EventListener.listen("newMessageSent", () => {
+    //   fetchUsers();
+    // });
   };
 
   useEffect(() => {
     fetchUsers();
-  }, []);
-
-  const handleMessageItemPress = (user) => {
-    navigation.navigate("MessageContentScreen", {
-      user: user,
-    });
-  };
+  }, [refreshList]);
 
   return (
     <View
@@ -84,23 +133,54 @@ const MessageScreen = ({ navigation }) => {
           <TextInput
             style={{ fontFamily: "Medium", width: "90%" }}
             placeholder={t("rechercher")}
+            onChangeText={(text) => {
+              handleSearch(text);
+              const sanitizedText = text.replace(
+                /[-[\]{}()*+?.,\\^$|#\s]/g,
+                "\\$&"
+              );
+              const regex = new RegExp(sanitizedText, "i");
+              const usersFiltered = users.filter((i) => regex.test(i.pseudo));
+              setFilteredUsers(usersFiltered);
+
+              console.log(filteredUsers);
+            }}
           />
           <Image source={icons.search} style={{ height: 24, width: 24 }} />
         </View>
       </View>
-      <ScrollView>
-        {users.map((user, index) => (
-          <MessageItem
-            key={index}
-            urlImg={{ uri: "https://i.pravatar.cc/200" }}
-            name={user.pseudo}
-            job={user.email}
-            lastMessage={
-              user.lastMessage
-            }
-            onPress={() => handleMessageItemPress(user)}
-          />
-        ))}
+      <ScrollView showsVerticalScrollIndicator={false}>
+        {searchText !== ""
+          ? filteredUsers.map((user, index) => (
+              <MessageItem
+                key={user.uid}
+                urlImg={{
+                  uri:
+                    "https://i.pravatar.cc/" +
+                    (Math.floor(Math.random() * 1000) + 1),
+                }}
+                name={user.pseudo}
+                job={user.email}
+                lastMessage={user.lastMessage}
+                onPress={() => handleMessageItemPress(user)}
+                customStyles={{ marginBottom: 10 }}
+              />
+            ))
+          : users.map((user, index) => (
+              <MessageItem
+                key={user.uid}
+                urlImg={{
+                  uri:
+                    "https://i.pravatar.cc/" +
+                    (Math.floor(Math.random() * 1000) + 1),
+                }}
+                name={user.pseudo}
+                job={user.email}
+                lastMessage={user.lastMessage}
+                onPress={() => handleMessageItemPress(user)}
+                customStyles={{ marginBottom: 10 }}
+              />
+            ))}
       </ScrollView>
     </View>
   );

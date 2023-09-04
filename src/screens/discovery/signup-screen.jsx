@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { Dimensions } from "react-native";
 import { createUserWithEmailAndPassword } from "firebase/auth"; 
-import { auth, database } from "../../../config/firebase";
+import { auth } from "../../../config/firebaseConfig";
 import { getFirestore, doc, setDoc } from "firebase/firestore"; 
 import { useNavigation } from "@react-navigation/native"; 
 import Button from "../../components/button";
@@ -232,7 +232,7 @@ const styles = StyleSheet.create({
     fontFamily: "Bold",
     fontSize: SIZES.xxLarge,
     marginBottom: 15,
-    marginTop: "80%",
+    marginTop: "70%",
     textAlign: "center",
   },
  
@@ -245,7 +245,7 @@ const styles = StyleSheet.create({
   },
   inputBox: {
     position: "absolute",
-    height: "40%",
+    height: "50%",
     backgroundColor: "white",
     bottom: 0,
   },
