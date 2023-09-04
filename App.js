@@ -1,5 +1,6 @@
-import React, { useCallback } from "react";
-import { StyleSheet } from "react-native";
+import React, { useEffect, useState, useCallback } from "react";
+import { View, Text, StyleSheet } from "react-native";
+import ContainerNavigation from "./src/components/navigation-container";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 

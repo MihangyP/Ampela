@@ -59,7 +59,7 @@ async function authenticateUser(email, password) {
   
       if (userData.rows.length === 0) {
         // L'utilisateur n'existe pas encore, insérez-le
-        const InsertUser = 'INSERT INTO users (firstName,lastName,email,address,profession,lastMenstruationDate,durationMenstruation,cycleDuration,picturePath,status) VALUES(?,?,?,?,?,?,?,?,?,?)';
+        const InsertUser = 'INSERT INTO users (firstName, lastName, email, address, profession, lastMenstruationDate, durationMenstruation, cycleDuration, picturePath, status) VALUES(?,?,?,?,?,?,?,?,?,?)';
         const values = [
           data.firstName,
           data.lastName,
