@@ -6,7 +6,6 @@
  * -Props list: postId
  *****************************************************************************/
 
-
 import { useState, useRef } from 'react';
 import { View, Text, StyleSheet, Image, TextInput, Pressable } from 'react-native';
 import { useTranslation } from 'react-i18next';
