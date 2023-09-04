@@ -42,7 +42,7 @@ const ContainerNavigation = ({onLayout}) => {
                 <Stack.Screen name="QuestionsSeries" component={QuestionsSeries} /> */}
                 <Stack.Screen name="AuthentificationScreen" component={AuthentificationScreen} />
                 <Stack.Screen name="CalendarScreen" component={Main} />
-                <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
+                {/* <Stack.Screen name="SignUpScreen" component={SignUpScreen} /> */}
                 <Stack.Screen name="LogInScreen" component={LogInScreen} />
                 <Stack.Screen name="MessageScreen" component={MessageScreen} />
                 {/* <Stack.Screen name="NotificationScreen" component={NotificationScreen} />
@@ -57,7 +57,11 @@ const ContainerNavigation = ({onLayout}) => {
                 <Stack.Screen name="ThemeScreen" component={ThemeScreen} />
                 <Stack.Screen name="ArticleContentScreen" component={ArticleContentScreen} />
                 <Stack.Screen name="AccountScreen" component={AccountScreen} />
+<<<<<<< HEAD
                 <Stack.Screen name="UsernameAndPasswordScreen" component={UsernameAndPasswordScreen} /> */}
+=======
+                {/* <Stack.Screen name="UsernameAndPasswordScreen" component={UsernameAndPasswordScreen} /> */}
+>>>>>>> 2947b5bc57dbebe6bacae97819ef1d377410b17e
             </Stack.Navigator>
         </NavigationContainer>
         </ThemeProvider>

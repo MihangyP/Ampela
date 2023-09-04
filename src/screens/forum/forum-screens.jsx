@@ -79,17 +79,11 @@ const ForumScreen = ({navigation}) => {
         <Text style={styles.textBtn}>{t('posezVotreQuestion')}</Text>
       </TouchableOpacity>
 
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-      >
-        <ForumItem />
-        <ForumItem />
-        <ForumItem />
+      <ScrollView showsVerticalScrollIndicator={false}>
         <ForumItem />
       </ScrollView>
  
       </BackgroundContainer>
-     
     </View>
   );
 };

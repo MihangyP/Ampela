@@ -8,7 +8,7 @@ import {
 } from "react-native-gifted-chat";
 import { ThemeContext } from "../../components/theme-context";
 import HeaderWithGoBack from "../../components/header-with-go-back";
-import { SIZES, COLORS, icons } from "../../../constants";
+import {  COLORS, icons } from "../../../constants";
 import {
   addDoc,
   collection,
