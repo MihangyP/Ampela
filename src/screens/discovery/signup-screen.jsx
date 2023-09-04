@@ -16,6 +16,7 @@ import { useNavigation } from "@react-navigation/native";
 import Button from "../../components/button";
 import { COLORS, SIZES, images } from "../../../constants";
 import firebase from "firebase/app"; 
+import { connectDB, addDataSignup } from "../../../config/databaseLocalConfig"
 
 
 const SignupScreen = () => {
