@@ -1,14 +1,12 @@
-// Yeah man
-
 import React, { useEffect, useState, useCallback } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import ContainerNavigation from "./src/components/navigation-container";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
-
-import ContainerNavigation from "./src/components/navigation-container";
 import './src/i18n';
-// SplashScreen.preventAutoHideAsync();
+
+
+SplashScreen.preventAutoHideAsync();
 
 const App = () => {
   const [fontsLoaded] = useFonts({
