@@ -1,13 +1,11 @@
-import React, { useEffect, useState, useCallback } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import React, { useCallback } from "react";
+import { StyleSheet } from "react-native";
 import ContainerNavigation from "./src/components/navigation-container";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
-import './src/i18n';
+import "./src/i18n";
 
-
-SplashScreen.preventAutoHideAsync();
-
+// SplashScreen.preventAutoHideAsync();
 const App = () => {
   const [fontsLoaded] = useFonts({
     Regular: require("./assets/Fonts/WorkSans-Regular.ttf"),
