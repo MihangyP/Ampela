@@ -18,7 +18,8 @@
         "foregroundImage": "./assets/images/logo/logo-2.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.maminiaina_mercia.ampela"
+      "package": "com.maminiaina_mercia.ampela",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./assets/images/logo/logo-2.png"
