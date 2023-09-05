@@ -6,6 +6,7 @@ import * as SplashScreen from "expo-splash-screen";
 import "./src/i18n";
 
 // SplashScreen.preventAutoHideAsync();
+
 const App = () => {
   const [fontsLoaded] = useFonts({
     Regular: require("./assets/Fonts/WorkSans-Regular.ttf"),

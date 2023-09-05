@@ -42,7 +42,7 @@ const ContainerNavigation = ({onLayout}) => {
                 <Stack.Screen name="QuestionsSeries" component={QuestionsSeries} /> */}
                 <Stack.Screen name="AuthentificationScreen" component={AuthentificationScreen} />
                 <Stack.Screen name="CalendarScreen" component={Main} />
-                {/* <Stack.Screen name="SignUpScreen" component={SignUpScreen} /> */}
+                <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
                 <Stack.Screen name="LogInScreen" component={LogInScreen} />
                 <Stack.Screen name="MessageScreen" component={MessageScreen} />
                 {/* <Stack.Screen name="NotificationScreen" component={NotificationScreen} />

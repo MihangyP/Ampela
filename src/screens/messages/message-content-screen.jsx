@@ -202,7 +202,7 @@ const MessageContentScreen = ({ navigation, route }) => {
         renderSend={(props) => (
           <Send {...props}>
             <View style={{ marginRight: 5 }}>
-              <Image source={icons.send} />
+              <Image size={16} source={icons.send} />
             </View>
           </Send>
         )}
