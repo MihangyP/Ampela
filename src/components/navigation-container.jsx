@@ -57,10 +57,14 @@ const ContainerNavigation = ({onLayout}) => {
                 <Stack.Screen name="ThemeScreen" component={ThemeScreen} />
                 <Stack.Screen name="ArticleContentScreen" component={ArticleContentScreen} />
                 <Stack.Screen name="AccountScreen" component={AccountScreen} />
+<<<<<<< HEAD
                 <Stack.Screen name="UsernameAndPasswordScreen" component={UsernameAndPasswordScreen} /> */}
 
                 {/* <Stack.Screen name="UsernameAndPasswordScreen" component={UsernameAndPasswordScreen} /> */}
 
+=======
+                {/* <Stack.Screen name="UsernameAndPasswordScreen" component={UsernameAndPasswordScreen} /> */}
+>>>>>>> 86499c0354d153a45a30f384bf9cc842c14fecc8
             </Stack.Navigator>
         </NavigationContainer>
         </ThemeProvider>
