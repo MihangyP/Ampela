@@ -1,29 +1,46 @@
-import React, { useCallback } from "react";
-import { StyleSheet } from "react-native";
-import ContainerNavigation from "./src/components/navigation-container";
-import { useFonts } from "expo-font";
-import * as SplashScreen from "expo-splash-screen";
-import "./src/i18n";
+import { View, Text,StyleSheet } from "react-native";
+// // import { useFonts } from "expo-font";
+// // import { useEffect } from "react";
+// // import * as SplashScreen from "expo-splash-screen";
+// // import { SplashScreen } from 'expo';
+// import ContainerNavigation from "./src/components/navigation-container";
+// // import "./src/i18n";
 
-// SplashScreen.preventAutoHideAsync();
+// // SplashScreen.preventAutoHideAsync();
+
 const App = () => {
-  const [fontsLoaded] = useFonts({
-    Regular: require("./assets/Fonts/WorkSans-Regular.ttf"),
-    Medium: require("./assets/Fonts/WorkSans-Medium.ttf"),
-    SBold: require("./assets/Fonts/WorkSans-SemiBold.ttf"),
-    Bold: require("./assets/Fonts/WorkSans-Bold.ttf"),
-  });
-  const onLayoutRootView = useCallback(async () => {
-    if (fontsLoaded) {
-      await SplashScreen.hideAsync();
-    }
-  }, [fontsLoaded]);
 
-  if (!fontsLoaded) {
-    return null;
-  }
-  return <ContainerNavigation onLayout={onLayoutRootView} />;
-};
+// //     useEffect(() => {
+// //         async function hideSplashScreen() {
+// //           await SplashScreen.hideAsync();
+// //         }
+// //         hideSplashScreen();
+// //       }, []);
+
+// //   const [fontsLoaded] = useFonts({
+// //     Regular: require("./assets/Fonts/WorkSans-Regular.ttf"),
+// //     Medium: require("./assets/Fonts/WorkSans-Medium.ttf"),
+// //     SBold: require("./assets/Fonts/WorkSans-SemiBold.ttf"),
+// //     Bold: require("./assets/Fonts/WorkSans-Bold.ttf"),
+// //   });
+
+// //   const onLayoutRootView = useCallback(async () => {
+// //     if (fontsLoaded) {
+// //       await SplashScreen.hideAsync();
+// //     }
+// //   }, [!fontsLoaded]);
+
+// //   if (!fontsLoaded) {
+// //     return null;
+// //   }
+
+//   return <ContainerNavigation />
+
+  return <View>
+      <Text>Hello</Text>
+  </View>
+
+}
 
 const styles = StyleSheet.create({
   splashScreenContainer: {
@@ -37,5 +54,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
 });
+
 
 export default App;
