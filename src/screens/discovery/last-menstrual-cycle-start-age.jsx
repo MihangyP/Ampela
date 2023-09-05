@@ -51,21 +51,29 @@ LocaleConfig.locales["fr"] = {
 LocaleConfig.defaultLocale = "fr";
 
 const LastMenstrualCycleStartAge = ({ navigation, route }) => {
-  const { nomDutilisateur, motDePasse, profession } = route.params;
   const [selected, setSelected] = useState("");
   const { t } = useTranslation();
   const { user } = route.params;
-  console.log(user);
 
   const handleBtnPress = useCallback(() => {
     navigation.navigate("QuestionsSeries", {
-      selected: selected,
-      nomDutilisateur: nomDutilisateur,
-      motDePasse: motDePasse,
-      profession: profession,
+      user: {
+        selected: selected,
+        nomDutilisateur: user.nomDutilisateur,
+        motDePasse: user.motDePasse,
+        profession: user.profession,
+      },
     });
   }, [navigation]);
 
+  const handleDayPressed = useCallback(
+    (day) => {
+      setSelected(day);
+    },
+    [selected]
+  );
+
+  console.log(selected);
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{t("questionDateVosDernieresRegles")}</Text>
@@ -91,7 +99,7 @@ const LastMenstrualCycleStartAge = ({ navigation, route }) => {
             textDayHeaderFontSize: SIZES.medium,
           }}
           onDayPress={(day) => {
-            setSelected(day.dateString); // yyyy-MM-JJ
+            handleDayPressed(day.dateString);
           }}
           markedDates={{
             [selected]: {

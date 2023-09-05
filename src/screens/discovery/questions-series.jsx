@@ -5,10 +5,11 @@ import { useTranslation } from 'react-i18next';
 import { ResponseOfQuestion0, ResponseOfQuestion1 } from '../../components/response-of-question';
 import { COLORS, SIZES } from "../../../constants";
 import { RFValue } from 'react-native-responsive-fontsize';
-import { connectDB, addDataSignup } from '../../../config/databaseLocalConfig';
+import { connectlocalDb, addDataSignup,displayAllUserData } from '../../../config/databaseLocalConfig';
 
 const QuestionsSeries = ({navigation, route}) => {
-    const {selected,nomDutilisateur,motDePasse,profession} = route.params;
+    const {user} = route.params;
+    console.log(route.params);
     const {t} = useTranslation();
 
     const [response0, setResponse0] = useState(null);
@@ -39,10 +40,18 @@ const QuestionsSeries = ({navigation, route}) => {
 
     const handleNextBtnPress = () => {
         if(response0 && response1 ) {
-            connectDB();
+            console.log(user.nomDutilisateur+','+ user.motDePasse+','+user.profession+','+user.selected+','+response0+','+response1+'kghfr');
+            connectlocalDb();
             addDataSignup({
-                
+                username: user.nomDutilisateur,
+                password: user.motDePasse,
+                profession: user.profession,
+                lastMenstruationDate: user.selected,
+                durationMenstruation: response0,
+                cycleDuration: response1
             })
+            displayAllUserData();
+            
             navigation.navigate('CalendarScreen',{
                 
             });
