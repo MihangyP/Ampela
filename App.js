@@ -1,6 +1,6 @@
 import {  StyleSheet } from "react-native";
 import { useFonts } from "expo-font";
-import { useEffect } from "react";
+import { useEffect ,useCallback} from "react";
 import * as SplashScreen from "expo-splash-screen";
 import ContainerNavigation from "./src/components/navigation-container";
 import "./src/i18n";
