@@ -16,6 +16,7 @@ import { images, COLORS, SIZES, FONT } from "../../../constants";
 import Link from "../../components/link";
 import { RFValue } from "react-native-responsive-fontsize";
 
+
 const DiscoveryScreen = ({ navigation }) => {
   let bouncyCheckbox1Ref = null;
   let bouncyCheckbox2Ref = null;

@@ -160,6 +160,7 @@ const UsernameAndPasswordScreen = ({ navigation }) => {
   const [nameText, setNameText] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [user,setUser]=useState({});
   const [text, setText] = useState(
     "(At least 8 characters, one uppercase letter, and one digit)"
   );
@@ -193,6 +194,7 @@ const UsernameAndPasswordScreen = ({ navigation }) => {
       Alert.alert("Passwords do not match");
     } else {
       if (nameText && password && passwordConfirm) {
+        
         navigation.navigate("LastMenstrualCycleStartAge");
       } else {
         Alert.alert("Please fill in all fields");

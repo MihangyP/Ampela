@@ -26,8 +26,9 @@
     },
     "extra": {
       "eas": {
-        "projectId": "ec301474-0f83-4123-b6b2-f181a35d70bc"
+        "projectId": "addcef9a-2f7d-43d4-aa91-10501ed9302b"
       }
-    }
+    },
+    "owner": "ampela"
   }
 }

@@ -5,6 +5,7 @@ import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { COLORS, SIZES } from '../../../constants'; 
 import { RFValue } from 'react-native-responsive-fontsize';
 
+
 const PersonalHealthTestScreen = ({ navigation }) => {
     const [checkbox1, setCheckbox1] = useState({ id: 1, isChecked: false }); 
     const [checkbox2, setCheckbox2] = useState({ id: 2, isChecked: false }); 
@@ -21,6 +22,7 @@ const PersonalHealthTestScreen = ({ navigation }) => {
         }
     };
 
+
     const handleCheckbox2Press = () => {
         const newCheckbox2State = !checkbox2.isChecked;
         setCheckbox2({ ...checkbox2, isChecked: newCheckbox2State });
@@ -31,6 +33,8 @@ const PersonalHealthTestScreen = ({ navigation }) => {
             setSelectedCheckboxId(null);
         }
     };
+
+
 
     const handleNextBtnPress = useCallback(() => {
         if (selectedCheckboxId) {
