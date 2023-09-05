@@ -1,5 +1,5 @@
 import { auth, database } from "./firebaseConfig.js";
-import { collection, addDoc, getDocs, getCountFromServer } from "firebase/firestore";
+import { collection, addDoc, getDocs, getCountFromServer, where, query } from "firebase/firestore";
 
 // Ajout du nouveau post
 async function addNewPost(data) {
@@ -99,18 +99,19 @@ async function getAllComments(postId) {
 // Obtient effectif de réaction pour un post
 async function getLikeNumber(postId) {
     try {
-        let likesNumber = 0;
-        const querySnapshot = await getDocs(collection(database, "likes"));
-        querySnapshot.forEach((doc) => {
-            if (doc.data().postId == postId) {
-                likesNumber++;
-            }
-        });
-        if (likesNumber > 0) {
-            return likesNumber;
+        // Obtient la référence de la collection
+        const colRef = collection(database, "likes");
+
+        // Crée une requête avec une condition
+        const q = query(colRef, where("postId", "==", postId));
+
+        // Obtient nombre docs correspond à la requête
+        const count = getCountFromServer(q);
+
+        if (count > 0) {
+            return count;
         } else {
             console.log("No likes docs written yet.");
-            return "";
         }
     } catch (err) {
         console.log("Error getting likes docs: ", err);
@@ -120,15 +121,17 @@ async function getLikeNumber(postId) {
 // Obtient effectif de commentaire pour un post
 async function getCommentNumber(postId) {
     try {
-        let commentNumber = 0;
-        const querySnapshot = await getDocs(collection(database, "comments"));
-        querySnapshot.forEach((doc) => {
-            if (doc.data().postId == postId) {
-                commentNumber++;
-            }
-        });
-        if (commentNumber > 0) {
-            return commentNumber;
+        // Obtient la référence de la collection
+        const colRef = collection(database, "comments");
+
+        // Crée une requête avec une condition
+        const q = query(colRef, "postId", "==", postId);
+
+        // Obtient nombre docs correspond à la requête
+        const count = getCountFromServer(q);
+
+        if (count > 0) {
+            return count;
         } else {
             console.log("No comments docs written yet.");
             return "";
