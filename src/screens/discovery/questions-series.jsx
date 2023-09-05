@@ -5,7 +5,9 @@ import { useTranslation } from 'react-i18next';
 import { ResponseOfQuestion0, ResponseOfQuestion1 } from '../../components/response-of-question';
 import { COLORS, SIZES } from "../../../constants";
 import { RFValue } from 'react-native-responsive-fontsize';
-import { connectlocalDb, addDataSignup,displayAllUserData } from '../../../config/databaseLocalConfig';
+import * as SQLite from 'expo-sqlite';
+// import { openDatabase } from '../../../config/databaseLocalConfig';
+// import { connectlocalDb, addDataSignup,displayAllUserData } from '../../../config/databaseLocalConfig';
 
 const QuestionsSeries = ({navigation, route}) => {
     const {user} = route.params;
@@ -38,28 +40,93 @@ const QuestionsSeries = ({navigation, route}) => {
         }
       }
 
-    const handleNextBtnPress = () => {
-        if(response0 && response1 ) {
-            console.log(user.nomDutilisateur+','+ user.motDePasse+','+user.profession+','+user.selected+','+response0+','+response1+'kghfr');
-            connectlocalDb();
-            addDataSignup({
-                username: user.nomDutilisateur,
-                password: user.motDePasse,
-                profession: user.profession,
-                lastMenstruationDate: user.selected,
-                durationMenstruation: response0,
-                cycleDuration: response1
-            })
-            displayAllUserData();
-            
-            navigation.navigate('CalendarScreen',{
-                
+      const handleNextBtnPress = () => {
+        if (response0 && response1) {
+          console.log(user.nomDutilisateur + ',' + user.motDePasse + ',' + user.profession + ',' + user.selected + ',' + response0 + ',' + response1 + 'kghfr');
+      
+          try {
+           
+      
+            // Requête SQL pour vérifier si l'utilisateur existe dans la base de données SQLite
+            const query = 'SELECT COUNT(*) FROM users WHERE username = ?';
+            DB.transaction((tx) => {
+              tx.executeSql(query, [user.nomDutilisateur], (_, { rows }) => {
+                if (rows.length > 0) {
+                  // L'utilisateur n'existe pas encore, insérez-le
+                  const InsertUser = 'INSERT INTO users (username, password, profession, lastMenstruationDate, durationMenstruation, cycleDuration) VALUES(?,?,?,?,?,?)';
+                  const values = [
+                    user.nomDutilisateur,
+                    user.motDePasse,
+                    user.profession,
+                    user.selected,
+                    response0,
+                    response1
+                  ];
+      
+                  DB.transaction((tx) => {
+                    tx.executeSql(InsertUser, values, (_, result) => {
+                      console.log('Utilisateur inséré avec succès.');
+                    });
+                  });
+                } else {
+                  // L'utilisateur existe déjà, vous pouvez gérer ce cas ici
+                  console.log('L\'utilisateur existe déjà.');
+                }
+              });
             });
+          } catch (error) {
+            console.error('Erreur lors de l\'ajout d\'utilisateur :', error);
+            throw error;
+          }
+          // displayAllUserData();
+          async function getAllUserDataFromDatabase() {
+            try {
+              const DB = SQLite.openDatabase('ampela.db');
+              
+              // Requête SQL pour sélectionner toutes les données des utilisateurs
+              const query = 'SELECT * FROM users';
+              
+              DB.transaction((tx) => {
+                tx.executeSql(query, [], (_, result) => {
+                  const rows = result.rows;
+          
+                
+                    console.log("Données des utilisateurs :");
+                    console.log("rows: ", rows.length);
+                    // for (let i = 0; i < rows.length; i++) {
+                    //   const user = rows.item(i);
+                    //   console.log(`Utilisateur ${i + 1}:`);
+                    //   console.log("ID :", user.id);
+                    //   console.log("Nom d'utilisateur :", user.username);
+                    //   console.log("Profession :", user.profession);
+                    //   console.log("Date de menstruation :", user.lastMenstruationDate);
+                    //   console.log("Durée des menstruations :", user.durationMenstruation);
+                    //   console.log("Durée du cycle :", user.cycleDuration);
+                    //   // Ajoutez d'autres propriétés ici selon votre schéma de base de données.
+                    // }
+                  
+                    console.log("Aucun utilisateur trouvé.");
+                  
+                });
+              });
+            } catch (error) {
+              console.error("Une erreur s'est produite lors de la récupération des données :", error);
+            }
+          }
+          
+          // Appelez la fonction pour récupérer et afficher les données des utilisateurs dans la console.
+          getAllUserDataFromDatabase();
+          
+          
+          navigation.navigate('CalendarScreen', {
+      
+          });
         } else {
-            Alert.alert("Veuiller repondre à toutes les questions...")
+          Alert.alert("Veuillez répondre à toutes les questions...")
         }
-    }
 
+      }
+      
     return (
         <View style={styles.container}>
             <View style={styles.content}>
