@@ -8,12 +8,11 @@ const db = SQLite.openDatabase('ampela.db');
     tx.executeSql(
       `CREATE TABLE IF NOT EXISTS users (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        firstName VARCHAR(50),
-        lastName VARCHAR(50),
+        username VARCHAR(50),   
         email TEXT UNIQUE,
         address VARCHAR(50),
         profession CHAR,
-        lastMenstruationDate DATETIME,
+        lastMenstruationDate DATE,
         durationMenstruation INTEGER,
         cycleDuration INTEGER,
         picturePath VARCHAR(100),
@@ -59,10 +58,9 @@ async function authenticateUser(email, password) {
   
       if (userData.rows.length === 0) {
         // L'utilisateur n'existe pas encore, insérez-le
-        const InsertUser = 'INSERT INTO users (firstName, lastName, email, address, profession, lastMenstruationDate, durationMenstruation, cycleDuration, picturePath, status) VALUES(?,?,?,?,?,?,?,?,?,?)';
+        const InsertUser = 'INSERT INTO users (email,address,profession,lastMenstruationDate,durationMenstruation,cycleDuration,status) VALUES(?,?,?,?,?,?,?,?,?,?)';
         const values = [
-          data.firstName,
-          data.lastName,
+          data.username,
           data.email,
           data.address,
           data.profession,
@@ -70,7 +68,7 @@ async function authenticateUser(email, password) {
           data.durationMenstruation,
           data.cycleDuration,
           data.picturePath,
-          data.status,
+          data.status
         ];
   
         await db.executeSql(InsertUser, values);

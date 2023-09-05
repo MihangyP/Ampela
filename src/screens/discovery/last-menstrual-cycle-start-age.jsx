@@ -50,12 +50,18 @@ LocaleConfig.locales["fr"] = {
 
 LocaleConfig.defaultLocale = "fr";
 
-const LastMenstrualCycleStartAge = ({ navigation }) => {
+const LastMenstrualCycleStartAge = ({ navigation, route }) => {
+  const {nomDutilisateur,motDePasse,profession} = route.params;
   const [selected, setSelected] = useState('');
   const { t } = useTranslation();
 
   const handleBtnPress = useCallback(() => {
-    navigation.navigate("QuestionsSeries");
+    navigation.navigate("QuestionsSeries",{
+      selected: selected,
+      nomDutilisateur: nomDutilisateur,
+      motDePasse: motDePasse,
+      profession:profession
+    });
   }, [navigation]);
 
   return (
@@ -83,7 +89,7 @@ const LastMenstrualCycleStartAge = ({ navigation }) => {
             textDayHeaderFontSize: SIZES.medium,
           }}
           onDayPress={(day) => {
-            setSelected(day.dateString);
+            setSelected(day.dateString); // yyyy-MM-JJ
           }}
           markedDates={{
             [selected]: {
