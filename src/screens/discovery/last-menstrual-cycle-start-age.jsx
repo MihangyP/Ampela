@@ -50,9 +50,11 @@ LocaleConfig.locales["fr"] = {
 
 LocaleConfig.defaultLocale = "fr";
 
-const LastMenstrualCycleStartAge = ({ navigation }) => {
+const LastMenstrualCycleStartAge = ({ navigation,route }) => {
   const [selected, setSelected] = useState('');
   const { t } = useTranslation();
+  const {user}=route.params;
+  console.log(user);
 
   const handleBtnPress = useCallback(() => {
     navigation.navigate("QuestionsSeries");

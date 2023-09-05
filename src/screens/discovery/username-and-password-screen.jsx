@@ -10,7 +10,6 @@ const UsernameAndPasswordScreen = ({ navigation, route }) => {
   const [nameText, setNameText] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
-  const [user, setUser] = useState({});
   const [text, setText] = useState(
     "(At least 8 characters, one uppercase letter, and one digit)"
   );
@@ -44,12 +43,12 @@ const UsernameAndPasswordScreen = ({ navigation, route }) => {
       Alert.alert("Passwords do not match");
     } else {
       if (nameText && password && passwordConfirm) {
-        navigation.navigate("LastMenstrualCycleStartAge");
-
         navigation.navigate("LastMenstrualCycleStartAge", {
-          nomDutilisateur: nameText,
-          motDePasse: password,
-          profession,
+          user: {
+            nomDutilisateur: nameText,
+            motDePasse: password,
+            profession: null,
+          },
         });
       } else {
         Alert.alert("Please fill in all fields");
