@@ -5,8 +5,10 @@ import { useTranslation } from 'react-i18next';
 import { ResponseOfQuestion0, ResponseOfQuestion1 } from '../../components/response-of-question';
 import { COLORS, SIZES } from "../../../constants";
 import { RFValue } from 'react-native-responsive-fontsize';
+import { connectDB, addDataSignup } from '../../../config/databaseLocalConfig';
 
-const QuestionsSeries = ({navigation}) => {
+const QuestionsSeries = ({navigation, route}) => {
+    const {selected,nomDutilisateur,motDePasse,profession} = route.params;
     const {t} = useTranslation();
 
     const [response0, setResponse0] = useState(null);
@@ -37,7 +39,13 @@ const QuestionsSeries = ({navigation}) => {
 
     const handleNextBtnPress = () => {
         if(response0 && response1 ) {
-            navigation.navigate('CalendarScreen');
+            connectDB();
+            addDataSignup({
+                
+            })
+            navigation.navigate('CalendarScreen',{
+                
+            });
         } else {
             Alert.alert("Veuiller repondre à toutes les questions...")
         }
