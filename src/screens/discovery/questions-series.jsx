@@ -6,12 +6,10 @@ import { ResponseOfQuestion0, ResponseOfQuestion1 } from '../../components/respo
 import { COLORS, SIZES } from "../../../constants";
 import { RFValue } from 'react-native-responsive-fontsize';
 import * as SQLite from 'expo-sqlite';
-import { createTable, insertUser, selectUsers } from '../../../config/databaseLocalConfig';
-
 
 const QuestionsSeries = ({ navigation, route }) => {
   const { user } = route.params; // Accédez à "user" d'abord
-  const { nomDutilisateur, motDePasse, profession,selected } = user; // Ensuite, accédez aux propriétés spécifiques
+  const { nomDutilisateur, motDePasse, profession } = user; // Ensuite, accédez aux propriétés spécifiques
 
   console.log(nomDutilisateur, motDePasse, profession);
 
@@ -43,89 +41,155 @@ const QuestionsSeries = ({ navigation, route }) => {
     }
   }
 
+  const createTable = (db) => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        `CREATE TABLE IF NOT EXISTS user (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          username TEXT UNIQUE NOT NULL,
+          password TEXT NOT NULL,
+          profession TEXT NULL,
+          lastMenstruationDate TEXT NULL,
+          durationMenstruation TEXT NULL,
+          cycleDuration TEXT  NULL
+        );`,
+        [],
+        () => {
+          console.log('Table des utilisateurs créée avec succès.');
+        },
+        (error) => {
+          console.error('Erreur lors de la création de la table des utilisateurs :', error.message);
+        }
+      );
+    });
+  };
+
+  const insertUser = (db, username, password, profession, lastMenstruationDate, durationMenstruation, cycleDuration) => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        `INSERT INTO user (username, password, profession, lastMenstruationDate, durationMenstruation, cycleDuration) VALUES (?, ?, ?, ?, ?, ?);`,
+        [username, password, profession, lastMenstruationDate, durationMenstruation, cycleDuration],
+        () => {
+          console.log('Utilisateur ajouté avec succès.');
+        },
+        (error) => {
+          console.error('Erreur lors de l\'ajout d\'utilisateur :', error.message);
+        }
+      );
+    });
+  };
+
+  const selectUsers = (db) => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        'SELECT * FROM user;',
+        [],
+        (tx, result) => {
+          const rows = result.rows;
+          for (let i = 0; i < rows.length; i++) {
+            const user = rows.item(i);
+            console.log('Utilisateur récupéré :', user);
+          }
+        },
+        (error) => {
+          console.error('Erreur lors de la récupération des utilisateurs :', error.message);
+        }
+      );
+    });
+  };
+
   const handleNextBtnPress = () => {
     if (response0 && response1) {
       try {
         const localDb = SQLite.openDatabase("ampela.db");
-  
-        createTable(localDb); // Utilisez la fonction correctement
-  
+
+        createTable(localDb);
+
         insertUser(localDb, nomDutilisateur, motDePasse, profession, selected, response0, response1);
-  
+
         selectUsers(localDb);
       } catch (error) {
         console.error('Erreur lors de l\'ajout d\'utilisateur :', error.message);
         throw error;
       }
-  
+
       navigation.navigate('CalendarScreen');
     } else {
       Alert.alert("Veuillez répondre à toutes les questions...");
     }
   };
-  
+
   return (
     <View style={styles.container}>
-      <View style={styles.content}>
-        <View style={styles.contentItem}>
-          <Text style={styles.question}>{t('dureeDeVosRegles')}</Text>
-          <FlatList
-            data={menstruationDurations}
-            renderItem={({ item }) => (<ResponseOfQuestion0 text={item} active={response0 === item ? true : false} onPress={() => handleResponsePress0(item)} />)}
-            showsHorizontalScrollIndicator={false}
-            horizontal
-          />
+        <View style={styles.content}>
+            <View style={styles.contentItem}>
+                <Text style={styles.question}>{t('dureeDeVosRegles')}</Text>
+                <FlatList 
+                    data={menstruationDurations}
+                    renderItem={({item}) => (<ResponseOfQuestion0 text={item} active={response0 === item ? true : false} onPress={() => handleResponsePress0(item)}/>)}
+                    showsHorizontalScrollIndicator={false}
+                    horizontal
+                />
+            </View><View style={styles.contentItem}>
+                <Text style={styles.question}>{t('dureeDeVotreCycle')}</Text>
+                <FlatList 
+                    data={cycleDurations}
+                    renderItem={({item}) => (<ResponseOfQuestion1 text={item} active={response1 === item ? true : false}  onPress={() => handleResponsePress1(item)}/>)}
+                    showsHorizontalScrollIndicator={false}
+                    horizontal
+                />
+                <View style={{ marginTop: 15 }}>
+                    <ResponseOfQuestion1 text={dontRememberText} active={response1 === dontRememberText ? true : false}  onPress={() => handleResponsePress1(dontRememberText)}/>
+                </View>
+            </View>
         </View>
-        <View style={styles.contentItem}>
-          <Text style={styles.question}>{t('dureeDeVotreCycle')}</Text>
-          <FlatList
-            data={cycleDurations}
-            renderItem={({ item }) => (<ResponseOfQuestion1 text={item} active={response1 === item ? true : false} onPress={() => handleResponsePress1(item)} />)}
-            showsHorizontalScrollIndicator={false}
-            horizontal
-          />
-          <View style={{ marginTop: 15 }}>
-            <ResponseOfQuestion1 text={dontRememberText} active={response1 === dontRememberText ? true : false} onPress={() => handleResponsePress1(dontRememberText)} />
-          </View>
+        <View style={styles.btnBox}>
+            <Button
+                bgColor={COLORS.accent600}
+                textColor={COLORS.neutral100}
+                borderRadius={15}
+                onPress={handleNextBtnPress}
+            >
+                {t('suivant')}
+            </Button>
         </View>
-      </View>
-      <View style={styles.btnBox}>
-        <Button
-          bgColor={COLORS.accent600}
-          textColor={COLORS.neutral100}
-          borderRadius={15}
-          onPress={handleNextBtnPress}
-        >
-          {t('suivant')}
-        </Button>
-      </View>
-    </View>
-  );
+  <View style={styles.btnBox}>
+    <Button
+      bgColor={COLORS.accent600}
+      textColor={COLORS.neutral100}
+      borderRadius={15}
+      onPress={handleNextBtnPress}
+    >
+      {t('suivant')}
+    </Button>
+  </View>
+</View>
+);
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: COLORS.neutral100
-  },
-  content: {
-    marginTop: "30%",
-    paddingLeft: 20
-  },
-  contentItem: {
-    marginTop: 15
-  },
-  question: {
-    fontFamily: "Bold",
-    fontSize: RFValue(SIZES.xLarge),
-    marginBottom: 8
-  },
+container: {
+flex: 1,
+backgroundColor: COLORS.neutral100
+},
+content: {
+marginTop: "30%",
+paddingLeft: 20
+},
+contentItem: {
+marginTop: 15
+},
+question: {
+fontFamily: "Bold",
+fontSize: RFValue(SIZES.xLarge),
+marginBottom: 8
+},
 
-  btnBox: {
-    position: "absolute",
-    bottom: 30,
-    marginLeft: 20
-  }
+btnBox: {
+position: "absolute",
+bottom: 30,
+marginLeft: 20
+}
 })
 
 export default QuestionsSeries;
