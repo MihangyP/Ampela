@@ -41,62 +41,7 @@ const QuestionsSeries = ({ navigation, route }) => {
     }
   }
 
-  const createTable = (db) => {
-    db.transaction((tx) => {
-      tx.executeSql(
-        `CREATE TABLE IF NOT EXISTS user (
-          id INTEGER PRIMARY KEY AUTOINCREMENT,
-          username TEXT UNIQUE NOT NULL,
-          password TEXT NOT NULL,
-          profession TEXT NULL,
-          lastMenstruationDate TEXT NULL,
-          durationMenstruation TEXT NULL,
-          cycleDuration TEXT  NULL
-        );`,
-        [],
-        () => {
-          console.log('Table des utilisateurs créée avec succès.');
-        },
-        (error) => {
-          console.error('Erreur lors de la création de la table des utilisateurs :', error.message);
-        }
-      );
-    });
-  };
 
-  const insertUser = (db, username, password, profession, lastMenstruationDate, durationMenstruation, cycleDuration) => {
-    db.transaction((tx) => {
-      tx.executeSql(
-        `INSERT INTO user (username, password, profession, lastMenstruationDate, durationMenstruation, cycleDuration) VALUES (?, ?, ?, ?, ?, ?);`,
-        [username, password, profession, lastMenstruationDate, durationMenstruation, cycleDuration],
-        () => {
-          console.log('Utilisateur ajouté avec succès.');
-        },
-        (error) => {
-          console.error('Erreur lors de l\'ajout d\'utilisateur :', error.message);
-        }
-      );
-    });
-  };
-
-  const selectUsers = (db) => {
-    db.transaction((tx) => {
-      tx.executeSql(
-        'SELECT * FROM user;',
-        [],
-        (tx, result) => {
-          const rows = result.rows;
-          for (let i = 0; i < rows.length; i++) {
-            const user = rows.item(i);
-            console.log('Utilisateur récupéré :', user);
-          }
-        },
-        (error) => {
-          console.error('Erreur lors de la récupération des utilisateurs :', error.message);
-        }
-      );
-    });
-  };
 
   const handleNextBtnPress = () => {
     if (response0 && response1) {
