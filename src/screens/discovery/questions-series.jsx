@@ -6,10 +6,11 @@ import { ResponseOfQuestion0, ResponseOfQuestion1 } from '../../components/respo
 import { COLORS, SIZES } from "../../../constants";
 import { RFValue } from 'react-native-responsive-fontsize';
 import * as SQLite from 'expo-sqlite';
+import { createTable, insertUser, selectUsers} from "../../../config/databaseLocalConfig"
 
 const QuestionsSeries = ({ navigation, route }) => {
   const { user } = route.params; // Accédez à "user" d'abord
-  const { nomDutilisateur, motDePasse, profession } = user; // Ensuite, accédez aux propriétés spécifiques
+  const { nomDutilisateur, motDePasse, profession, selected } = user; // Ensuite, accédez aux propriétés spécifiques
 
   console.log(nomDutilisateur, motDePasse, profession);
 
