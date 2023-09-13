@@ -1,10 +1,10 @@
-import React, { useState, useCallback } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import Button from '../../components/button';
-import { useTranslation } from 'react-i18next';
-import { COLORS, SIZES } from '../../../constants';
+import React, { useState, useCallback } from "react";
+import { View, Text, StyleSheet } from "react-native";
+import Button from "../../components/button";
+import { useTranslation } from "react-i18next";
+import { COLORS, SIZES } from "../../../constants";
 import { Calendar, LocaleConfig } from "react-native-calendars";
-import { RFValue } from 'react-native-responsive-fontsize';
+import { RFValue } from "react-native-responsive-fontsize";
 
 LocaleConfig.locales["fr"] = {
   monthNames: [
@@ -51,25 +51,32 @@ LocaleConfig.locales["fr"] = {
 LocaleConfig.defaultLocale = "fr";
 
 const LastMenstrualCycleStartAge = ({ navigation, route }) => {
-  const {nomDutilisateur,motDePasse,profession} = route.params;
-const LastMenstrualCycleStartAge = ({ navigation,route }) => {
-  const [selected, setSelected] = useState('');
+  const [selected, setSelected] = useState("");
   const { t } = useTranslation();
-  const {user}=route.params;
-  console.log(user);
+  const { user } = route.params;
 
   const handleBtnPress = useCallback(() => {
-    navigation.navigate("QuestionsSeries",{
-      selected: selected,
-      nomDutilisateur: nomDutilisateur,
-      motDePasse: motDePasse,
-      profession:profession
+    navigation.navigate("QuestionsSeries", {
+      user: {
+        selected: selected,
+        nomDutilisateur: user.nomDutilisateur,
+        motDePasse: user.motDePasse,
+        profession: user.profession,
+      },
     });
   }, [navigation]);
 
+  const handleDayPressed = useCallback(
+    (day) => {
+      setSelected(day);
+    },
+    [selected]
+  );
+
+  console.log(selected);
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{t('questionDateVosDernieresRegles')}</Text>
+      <Text style={styles.title}>{t("questionDateVosDernieresRegles")}</Text>
       <View style={styles.calendar}>
         <Calendar
           style={{
@@ -92,7 +99,7 @@ const LastMenstrualCycleStartAge = ({ navigation,route }) => {
             textDayHeaderFontSize: SIZES.medium,
           }}
           onDayPress={(day) => {
-            setSelected(day.dateString); // yyyy-MM-JJ
+            handleDayPressed(day.dateString);
           }}
           markedDates={{
             [selected]: {
@@ -110,7 +117,7 @@ const LastMenstrualCycleStartAge = ({ navigation,route }) => {
           textColor={COLORS.accent600}
           onPress={handleBtnPress}
         >
-          {t('jeMenSouviensPas')}
+          {t("jeMenSouviensPas")}
         </Button>
         <Button
           bgColor={COLORS.accent600}
@@ -118,12 +125,12 @@ const LastMenstrualCycleStartAge = ({ navigation,route }) => {
           borderRadius={15}
           onPress={handleBtnPress}
         >
-          {t('suivant')}
+          {t("suivant")}
         </Button>
       </View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
