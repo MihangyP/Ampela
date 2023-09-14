@@ -1,6 +1,41 @@
 import { auth, database } from "./firebaseConfig.js";
 import { collection, addDoc, getDocs, getCountFromServer, where, query } from "firebase/firestore";
+import { Alert } from "react-native";
 
+
+async function addUserCollection(username, password, profession, lastMenstruationDate, durationMenstruation, cycleDuration){
+        try {
+          const userCredential = await createUserWithEmailAndPassword(
+            auth,
+            mailOrTel,
+            password
+          );
+  
+          const user = userCredential.user;
+          const { uid, email } = user;
+  
+          const db = getFirestore();
+          const usersCollectionRef = doc(db, "users", uid);
+  
+          await setDoc(usersCollectionRef, {
+            uid: uid,
+            email: email,
+            pseudo: username,
+            profession: profession,
+            dernierDateMenstruation: lastMenstruationDate,
+            dureeMenstruation: durationMenstruation,
+            dureeCycle: cycleDuration
+          });
+  
+          // setIsAuthenticated(true);
+  
+          Alert.alert("Registration Successful!", "Your account has been created successfully.");
+
+        } catch (error) {
+          console.error("Error during registration:", error.message);
+          Alert.alert("Registration Error", error.message);
+        }
+}
 // Ajout du nouveau post
 async function addNewPost(data) {
     try {
@@ -142,6 +177,7 @@ async function getCommentNumber(postId) {
 }
 
 export {
+    addUserCollection,
     addNewPost,
     addNewComment,
     addNewLike,
