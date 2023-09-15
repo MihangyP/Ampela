@@ -61,7 +61,7 @@ const insertUser = (db, username, password, profession, lastMenstruationDate, du
       }
     );
   });
-};
+};  
 const selectUsers = (db) => {
   db.transaction((tx) => {
     tx.executeSql(
