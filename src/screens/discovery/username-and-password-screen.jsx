@@ -45,6 +45,7 @@ const UsernameAndPasswordScreen = ({ navigation, route }) => {
       if (nameText && password && passwordConfirm) {
         navigation.navigate("LastMenstrualCycleStartAge", {
           user: {
+            selected: null,
             nomDutilisateur: nameText,
             motDePasse: password,
             profession: null,

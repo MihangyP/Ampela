@@ -23,6 +23,8 @@ import DoctorAuthScreen from "../screens/discovery/doctor-auth-screen";
 import ArticleContentScreen from "../screens/articles/article-content-screen";
 import AccountScreen from "../screens/settings/account-screen";
 import UsernameAndPasswordScreen from "../screens/discovery/username-and-password-screen";
+import DoctorSignUpScreen from "../screens/discovery/doctor-signUp-screen";
+
 
 const Stack = createNativeStackNavigator();
 
@@ -89,6 +91,11 @@ const ContainerNavigation = ({ onLayout }) => {
             name="UsernameAndPasswordScreen"
             component={UsernameAndPasswordScreen}
           />
+         <Stack.Screen
+            name="DoctorSignUpScreen"
+            component={DoctorSignUpScreen}
+          />
+
 
         </Stack.Navigator>
       </NavigationContainer>

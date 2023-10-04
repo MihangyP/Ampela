@@ -22,8 +22,8 @@ const DoctorAuthScreen = ({ navigation }) => {
       <Image source={images.wavebg} style={styles.waveBg}/>
       <Text style={styles.title}>Se connecter</Text>
       <View style={{marginTop: 10}}>
-        <Text style={styles.advice}>1- Pour pouvoir vous connecter, veuiller vérifier votre boîte mail afin de trouver la clé que nous vous avons envoyé</Text>
-        <Text style={[styles.advice, {marginTop: 10}]}>2- Copier votre clé API et collez la dans le champ cu-dessus</Text>
+        <TexNt style={styles.advice}>1- Pour pouvoir vous connecter, veuiller vérifier votre boîte mail afin de trouver la clé que nous vous avons envoyé</TexNt>
+        <Text style={[styles.advice, {marginTop: 10}]}>2- Copier votre clé API et collez la dans le champ ci-dessus</Text>
       </View>
       <View style={styles.inputBox}>
         <View style={styles.inputBoxDeeper}>
@@ -31,8 +31,7 @@ const DoctorAuthScreen = ({ navigation }) => {
             cursorColor={COLORS.accent400}
             placeholder="Entrez le clé API"
             style={styles.input}
-          />
-          
+          />          
           <Button
             bgColor={COLORS.accent600}
             textColor={COLORS.neutral100}

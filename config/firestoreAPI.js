@@ -2,7 +2,7 @@ import { auth, database } from "./firebaseConfig.js";
 import { collection, addDoc, getDocs, getCountFromServer, where, query } from "firebase/firestore";
 import { Alert } from "react-native";
 
-
+//ajout des données de l'utilisateur
 async function addUserCollection(username, password, profession, lastMenstruationDate, durationMenstruation, cycleDuration){
         try {
           const userCredential = await createUserWithEmailAndPassword(

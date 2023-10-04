@@ -1,4 +1,4 @@
-import { useContext, useState, useCallback } from "react";
+import { useContext, useState, useCallback, useEffect } from "react";
 import {
   View,
   ScrollView,
@@ -14,6 +14,7 @@ import IndicationCalendar from "../../components/calendar/indication-calendar";
 import { Calendar, LocaleConfig } from "react-native-calendars";
 import ReminderItem from "../../components/calendar/reminder-item";
 import { RFValue } from "react-native-responsive-fontsize";
+import AuthWithGoogle from "../../components/authWithGoogle/authWithGoogle";
 
 LocaleConfig.locales["fr"] = {
   monthNames: [
@@ -102,6 +103,7 @@ LocaleConfig.locales["fr"] = {
 LocaleConfig.defaultLocale = "fr";
 
 const CalendarScreen = () => {
+
   const [translateYOne, setTranslateYOne] = useState(1500);
   const [translateYTwo, setTranslateYTwo] = useState(1500);
   const [translateYThree, setTranslateYThree] = useState(1500);
@@ -123,6 +125,10 @@ const CalendarScreen = () => {
   })
   const { t } = useTranslation();
   const { theme } = useContext(ThemeContext);
+
+  useEffect(() => {
+    console.log('Mandeha');
+  }, []);
   //to fix
   const handleReminderBtnOnePress = useCallback(() => {
     setScrollDisabled(false);
@@ -177,6 +183,9 @@ const CalendarScreen = () => {
 
   return (
     <ScrollView scrollEnabled={scrollDisabled} style={styles.container} showsVerticalScrollIndicator={false}>
+      <View style={styles.authwithgoogleContainer}>
+        <AuthWithGoogle />
+      </View>
       <BackgroundContainer>
         <View
           style={[
@@ -269,6 +278,14 @@ const CalendarScreen = () => {
 };
 
 const styles = StyleSheet.create({
+  authwithgoogleContainer: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: "rgba(0, 0, 0, 0.4)",
+  },
   container: {
     flex: 1
   },

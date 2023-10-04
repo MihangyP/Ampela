@@ -9,6 +9,7 @@ const PersonalHealthTestScreen = ({ navigation }) => {
   const [checkbox1, setCheckbox1] = useState({ id: 1, isChecked: false });
   const [checkbox2, setCheckbox2] = useState({ id: 2, isChecked: false });
   const [selectedCheckboxId, setSelectedCheckboxId] = useState(null);
+  const { user } = route.params;
 
   const handleCheckbox1Press = () => {
     const newCheckbox1State = !checkbox1.isChecked;
