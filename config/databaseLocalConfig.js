@@ -62,6 +62,7 @@ const insertUser = (db, username, password, profession, lastMenstruationDate, du
     );
   });
 };  
+
 const selectUsers = (db) => {
   db.transaction((tx) => {
     tx.executeSql(
@@ -71,7 +72,7 @@ const selectUsers = (db) => {
         const rows = result.rows;
         for (let i = 0; i < rows.length; i++) {
           const user = rows.item(i);
-          console.log('Utilisateur récupéré :', user);
+          // console.log('Utilisateur récupéré :', user);
         }
       },
       (error) => {

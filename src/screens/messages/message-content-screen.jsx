@@ -20,7 +20,7 @@ import {
 import { auth, database } from "../../../config/firebaseConfig";
 
 const MessageContentScreen = ({ navigation, route }) => {
-  const { theme, toggleTheme } = useContext(ThemeContext);
+  const { theme } = useContext(ThemeContext);
   const { user, onMessageSent, handleRefreshList } = route.params;
   const { pseudo, job, email, uid } = user;
 
@@ -93,12 +93,12 @@ const MessageContentScreen = ({ navigation, route }) => {
           expediteur: {
             _id: currentUserUid,
             pseudo: currentUser.displayName || "unknown",
-            avatar: "https://i.pravatar.cc/300",
+            avatar: "https://i.pravatar.cc/300"+Math.floor(Math.random() * 1000) + 1,
           },
           destinateur: {
             _id: uid,
             pseudo: pseudo || "unknown",
-            avatar: "https://i.pravatar.cc/300",
+            avatar: "https://i.pravatar.cc/300"+Math.floor(Math.random() * 1000) + 1,
           },
         };
 
@@ -127,18 +127,22 @@ const MessageContentScreen = ({ navigation, route }) => {
         {...props}
         wrapperStyle={{
           left: {
-            backgroundColor: "white",
+            backgroundColor: theme ==="pink" ? COLORS.neutral100 : "rgba(196, 196, 196, .5)",
+            borderRadius: 15,
           },
           right: {
-            backgroundColor: COLORS.accent500,
+            backgroundColor: theme === 'pink' ? COLORS.accent500 : COLORS.accent800,
+            borderRadius: 15
           },
         }}
         textStyle={{
           left: {
-            color: COLORS.black,
+            color: COLORS.primary,
+            fontFamily: "Regular"
           },
           right: {
             color: "white",
+            fontFamily: "Regular"
           },
         }}
         // position={
@@ -163,9 +167,8 @@ const MessageContentScreen = ({ navigation, route }) => {
         <InputToolbar
           {...props}
           containerStyle={{
-            backgroundColor: "white",
-            borderTopColor: "#E8E8E8",
-            borderTopWidth: 1,
+            backgroundColor: theme === 'pink' ? "white" : "rgba(196, 196, 196, .2)", 
+            borderTopWidth: 0,
             borderRadius: 98,
             paddingHorizontal: 10,
           }}
@@ -196,13 +199,13 @@ const MessageContentScreen = ({ navigation, route }) => {
           _id: message._id.toString(),
         }))}
         onSend={(newMessages) => onSend(newMessages)}
-        user={{ _id: currentUser.uid, name: currentUser.displayName }}
+        user={{_id: currentUser.uid, name: currentUser.displayName}}
         renderBubble={renderBubble}
         renderInputToolbar={(props) => customtInputToolbar(props)}
         renderSend={(props) => (
           <Send {...props}>
-            <View style={{ marginRight: 5 }}>
-              <Image size={16} source={icons.send} />
+            <View>
+              <Image resizeMode="contain" source={icons.send} style={{width: 30, height: 30, marginBottom: 7}} />
             </View>
           </Send>
         )}
@@ -214,6 +217,7 @@ const MessageContentScreen = ({ navigation, route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingHorizontal: 10
   },
 });
 

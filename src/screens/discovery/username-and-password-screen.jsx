@@ -1,6 +1,5 @@
 import React, { useState, useCallback } from "react";
-import { View, Text, StyleSheet, TextInput, Alert } from "react-native";
-import { Dimensions } from "react-native";
+import { View, Text, StyleSheet, TextInput, Alert, Dimensions } from "react-native";
 import Button from "../../components/button";
 import { COLORS, SIZES } from "../../../constants";
 import { RFValue } from "react-native-responsive-fontsize";
@@ -11,7 +10,7 @@ const UsernameAndPasswordScreen = ({ navigation, route }) => {
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [text, setText] = useState(
-    "(At least 8 characters, one uppercase letter, and one digit)"
+    "(Au minimum 8 caractères, une majuscule, et un chiffre)"
   );
   const [colorText, setColorText] = useState("#000000");
   const passwordRegex = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
@@ -23,14 +22,14 @@ const UsernameAndPasswordScreen = ({ navigation, route }) => {
   const handlePasswordChange = (text) => {
     setPassword(text);
     if (text === "") {
-      setText("(At least 8 characters, one uppercase letter, and one digit)");
+      setText("(Au moins 8 caractères, une majuscule, et un chiffre)");
       setColorText("#000000");
     } else if (passwordRegex.test(text)) {
-      setText("Validated");
+      setText("Validé");
       setColorText("green");
     } else {
       setColorText("red");
-      setText("(At least 8 characters, one uppercase letter, and one digit)");
+      setText("(Au moins 8 ccaractères, une majuscule, et un chiffre)");
     }
   };
 
@@ -40,7 +39,7 @@ const UsernameAndPasswordScreen = ({ navigation, route }) => {
 
   const handleNextBtnPress = useCallback(() => {
     if (password !== passwordConfirm) {
-      Alert.alert("Passwords do not match");
+      Alert.alert("Les mots de passe ne sont pas identiques");
     } else {
       if (nameText && password && passwordConfirm) {
         navigation.navigate("LastMenstrualCycleStartAge", {
@@ -52,20 +51,20 @@ const UsernameAndPasswordScreen = ({ navigation, route }) => {
           },
         });
       } else {
-        Alert.alert("Please fill in all fields");
+        Alert.alert("Veuillez compléter tous les champs :)");
       }
     }
   }, [nameText, password, passwordConfirm, navigation]);
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Provide a Username and Password</Text>
+      <Text style={styles.title}>Entrez un nom d'utlisateur et un mot de passe</Text>
       <View style={styles.inputBox}>
         <View style={styles.inputBoxDeeper}>
           <View>
             <TextInput
               cursorColor={COLORS.accent400}
-              placeholder="Username"
+              placeholder="Nom d'utilisateur"
               value={nameText}
               onChangeText={handleUsernameChange}
               style={styles.input}
@@ -76,7 +75,7 @@ const UsernameAndPasswordScreen = ({ navigation, route }) => {
             <TextInput
               secureTextEntry
               cursorColor={COLORS.accent400}
-              placeholder="Password"
+              placeholder="Mot de passe"
               value={password}
               onChangeText={handlePasswordChange}
               style={styles.input}
@@ -96,7 +95,7 @@ const UsernameAndPasswordScreen = ({ navigation, route }) => {
             <TextInput
               secureTextEntry
               cursorColor={COLORS.accent400}
-              placeholder="Confirm Password"
+              placeholder="Confirmez le mot de passe"
               value={passwordConfirm}
               onChangeText={handlePasswordConfirmChange}
               style={styles.input}
@@ -111,7 +110,7 @@ const UsernameAndPasswordScreen = ({ navigation, route }) => {
           borderRadius={15}
           onPress={handleNextBtnPress}
         >
-          Next
+          Suivant
         </Button>
       </View>
     </View>
@@ -130,10 +129,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginTop: 70,
   },
-  inputBox: {
-    height: "32%",
-    backgroundColor: "white",
-  },
   inputBoxDeeper: {
     marginTop: 70,
     marginLeft: 20,
@@ -149,7 +144,7 @@ const styles = StyleSheet.create({
     width: Math.floor(Dimensions.get("window").width) - 40,
   },
   nextBtn: {
-    marginTop: "58%",
+    marginTop: Math.floor(Dimensions.get("window").height) / 6,
     marginLeft: 20,
   },
 });

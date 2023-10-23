@@ -35,10 +35,12 @@ const showActiveCatategoryContent = (activeCategory) => {
 
 const ArticleContent = ({navigation, activeCategory, text}) => {
     const content = showActiveCatategoryContent(activeCategory);
-    const handleArticleItemPress = (title, content) => {
+    const handleArticleItemPress = (title, content,img) => {
+      
         navigation.navigate('ArticleContentScreen', {
             title: title,
-            content: content
+            content: content,
+            img:img,
         }) 
     }
     return (
@@ -47,13 +49,13 @@ const ArticleContent = ({navigation, activeCategory, text}) => {
         >
             {
                 content.content.map((c) => {
-                    // to fix pour la traduction malagasy  
                     if(c.title.toLocaleLowerCase().includes(text.toLocaleLowerCase())) {
-                        return <ArticleItem onPress={handleArticleItemPress}  navigation={navigation} key={c.title} title={c.title} category={c.category}  content={c.content} />
+                        return <ArticleItem onPress={handleArticleItemPress}  navigation={navigation} key={c.title} title={c.title} category={c.category}  content={c.content} img={c.urlImg} />
                     } else {
                         return null; 
                     }
                 } ) 
+
             }
            
         </ScrollView>

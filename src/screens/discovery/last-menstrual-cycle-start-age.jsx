@@ -73,7 +73,7 @@ const LastMenstrualCycleStartAge = ({ navigation, route }) => {
     []
   );
 
-  console.log(selected);
+  // console.log(selected);
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{t("questionDateVosDernieresRegles")}</Text>

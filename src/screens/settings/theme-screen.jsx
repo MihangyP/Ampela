@@ -20,7 +20,7 @@ const ThemeScreen = ({navigation}) => {
             <HeaderWithGoBack title={t('theme')} navigation={navigation} onIconLeftPress={() => navigation.goBack()} />
             <View style={styles.content}>
                 <View style={styles.flex}>
-                    <Text style={styles.medium}>Mode Barbie</Text>
+                    <Text style={styles.medium}>Anna's Rose</Text>
                     <View>
                         <BouncyCheckbox 
                              size={25}

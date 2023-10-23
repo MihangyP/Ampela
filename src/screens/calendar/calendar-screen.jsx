@@ -214,7 +214,7 @@ const CalendarScreen = () => {
           <ReminderContent  onCloseIconPress={handleCloseIconTwoPress} pills={false} type="Jour d'ovulation" onRegisterButtonPress={handleRegisterButtonPress} />
         </View>
         <View
-          style={[
+          style={[ 
             styles.reminderContainer,
             {
               transform: [
@@ -328,8 +328,6 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 10,
     borderRadius: 8
-
-
   },
 });
 

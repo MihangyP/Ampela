@@ -1,15 +1,29 @@
-import {useContext} from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { useEffect ,useState, useContext } from 'react';
+import { View, StyleSheet, ScrollView } from 'react-native';
 import { ThemeContext } from '../../components/theme-context';
 import { SIZES, COLORS } from '../../../constants';
 import HeaderWithGoBack from '../../components/header-with-go-back';
+import FaqItem from '../../components/settings/faq-item';
+import faqdata from '../../faqdata';
 
 const FaqScreen = ({navigation}) => {
     const {theme} = useContext(ThemeContext);
+    const [data, setData] = useState([]);
+    useEffect(() => {
+        setData(faqdata);
+    }, []);
     return (
-        <View style={[styles.container, {backgroundColor: theme === 'pink' ? COLORS.neutral200 : COLORS.neutral100}]}>
+        <View style={styles.container}>
             <HeaderWithGoBack title="F.A.Q" navigation={navigation} />
-            <Text>WAyyyyyyyy</Text>
+            <ScrollView showsVerticalScrollIndicator={false}>
+                <View style={{gap: 10}}>
+                {
+                    data.map((d) => (
+                        <FaqItem key={d.id} question={d.question} response={d.response} />
+                    ))
+                }
+                </View>
+            </ScrollView>
         </View>
     );
 }
@@ -17,7 +31,8 @@ const FaqScreen = ({navigation}) => {
 const styles = StyleSheet.create({
     container: {
         paddingHorizontal: 20,
-        flex: 1
+        flex: 1,
+        backgroundColor: COLORS.neutral100
     },
     header: {
         marginTop: 40,

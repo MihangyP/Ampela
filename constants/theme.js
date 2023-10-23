@@ -3,6 +3,7 @@ const COLORS = {
   
   neutral400: "#808080",
   neutral300: "#C4C4C4",
+  neutral280: "#FFF2E4",
   neutral250: "#EEDCAE",
   neutral200: "#FEDADA",
   neutral100: "#FFFFFF",

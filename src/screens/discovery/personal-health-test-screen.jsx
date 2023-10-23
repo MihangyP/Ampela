@@ -5,11 +5,14 @@ import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { COLORS, SIZES } from "../../../constants";
 import { RFValue } from "react-native-responsive-fontsize";
 
-const PersonalHealthTestScreen = ({ navigation }) => {
+const PersonalHealthTestScreen = ({ navigation, route }) => {
   const [checkbox1, setCheckbox1] = useState({ id: 1, isChecked: false });
   const [checkbox2, setCheckbox2] = useState({ id: 2, isChecked: false });
   const [selectedCheckboxId, setSelectedCheckboxId] = useState(null);
-  const { user } = route.params;
+  // const { user } = route.params; // User n'existe pas
+ let bouncyCheckbox1Ref = null;
+ let bouncyCheckbox2Ref = null;
+
 
   const handleCheckbox1Press = () => {
     const newCheckbox1State = !checkbox1.isChecked;
@@ -52,6 +55,7 @@ const PersonalHealthTestScreen = ({ navigation }) => {
         <View style={styles.checkboxContainer}>
           <View style={styles.checkboxItem}>
             <BouncyCheckbox
+              ref={(ref) => (bouncyCheckbox1Ref = ref)}
               size={25}
               fillColor={COLORS.accent600}
               disableText
@@ -59,7 +63,7 @@ const PersonalHealthTestScreen = ({ navigation }) => {
               isChecked={checkbox1.isChecked}
               onPress={handleCheckbox1Press}
             />
-            <Pressable onPress={handleCheckbox1Press}>
+            <Pressable onPress={() => bouncyCheckbox1Ref?.onPress()}>
               <Text style={styles.checkboxText}>
                 Oui, je suis un personnel de santé (Gynécologue, sage femme)
               </Text>
@@ -67,6 +71,7 @@ const PersonalHealthTestScreen = ({ navigation }) => {
           </View>
           <View style={styles.checkboxItem}>
             <BouncyCheckbox
+             ref={(ref) => (bouncyCheckbox2Ref = ref)}
               size={25}
               fillColor={COLORS.accent600}
               disableText
@@ -74,7 +79,7 @@ const PersonalHealthTestScreen = ({ navigation }) => {
               isChecked={checkbox2.isChecked}
               onPress={handleCheckbox2Press}
             />
-            <Pressable onPress={handleCheckbox2Press}>
+            <Pressable onPress={() => bouncyCheckbox2Ref?.onPress()}>
               <Text style={styles.checkboxText}>
                 Non, je ne suis qu'un simple utilisateur
               </Text>

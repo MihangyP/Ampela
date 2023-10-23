@@ -3,46 +3,46 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { COLORS, SIZES, images } from '../../../constants';
 import Button from '../../components/button';
 
-const AuthentificationScreen = ({navigation}) => {
+const AuthentificationScreen = ({ navigation }) => {
     return (
         <View style={styles.container}>
-             <TouchableOpacity style={styles.ignoreContainer}
-               onPress={() => navigation.navigate('CalendarScreen')}
-             ><Text style={styles.ignoreText}>Ignorer</Text></TouchableOpacity>
-             <Image source={images.wavebg} style={styles.waveBg}/>
-             <Text style={styles.title}>Authentification</Text>
-             <Text style={styles.subtitle}>Afin d'acceder au forum et aux messages privés avec les personnes de santé, vous devez créer un compte.</Text>
-             <View style={styles.btnBox}>
+            <TouchableOpacity style={styles.ignoreContainer}
+                onPress={() => navigation.navigate('CalendarScreen')}
+            ><Text style={styles.ignoreText}>Ignorer</Text></TouchableOpacity>
+            <Image source={images.wavebg} style={styles.waveBg} />
+            <Text style={styles.title}>Authentification</Text>
+            <Text style={styles.subtitle}>Afin d'acceder au forum et aux messages privés avec les personnes de santé, vous devez créer un compte.</Text>
+            <View style={styles.btnBox}>
                 <Button
-                   border={true}
-                   borderRadius={15} 
-                   onPress={() => navigation.navigate('LogInScreen')}
+                    border={true}
+                    borderRadius={15}
+                    onPress={() => navigation.navigate('LogInScreen')}
                 >
                     Se connecter
                 </Button>
                 <Button
-                     border={true}
-                     borderRadius={15}
-                     onPress={() => navigation.navigate('SignUpScreen')}
+                    border={true}
+                    borderRadius={15}
+                    onPress={() => navigation.navigate('SignUpScreen')}
                 >
                     Créer un compte
                 </Button>
                 <Button
-                  bgColor={COLORS.accent600}
-                  textColor={COLORS.neutral100}
-                  borderRadius={15}
+                    bgColor={COLORS.accent600}
+                    textColor={COLORS.neutral100}
+                    borderRadius={15}
                 >
                     Se connecter avec key API
                 </Button>
                 <Button
-                  bgColor={COLORS.accent600}
-                  textColor={COLORS.neutral100}
-                  borderRadius={15}
+                    bgColor={COLORS.accent600}
+                    textColor={COLORS.neutral100}
+                    borderRadius={15}
                 >
                     Se connecter avec Google
                 </Button>
-                
-             </View>
+
+            </View>
         </View>
     );
 }
@@ -66,8 +66,8 @@ const styles = StyleSheet.create({
         right: 20
     },
     ignoreText: {
-       fontFamily: "Medium",
-       color: COLORS.neutral400
+        fontFamily: "Medium",
+        color: COLORS.neutral400
     },
     title: {
         textAlign: "center",
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 20
     },
     btnBox: {
-        position:"absolute",
+        position: "absolute",
         bottom: 10,
         marginLeft: 20,
         gap: 8

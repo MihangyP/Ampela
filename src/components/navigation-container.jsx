@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { ThemeProvider } from "./theme-context";
@@ -25,10 +26,52 @@ import AccountScreen from "../screens/settings/account-screen";
 import UsernameAndPasswordScreen from "../screens/discovery/username-and-password-screen";
 import DoctorSignUpScreen from "../screens/discovery/doctor-signUp-screen";
 
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+
+
 
 const Stack = createNativeStackNavigator();
 
 const ContainerNavigation = ({ onLayout }) => {
+  const [isFirstTime, setIsFirstTime] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+
+  const checkFirstTime = async () => {
+    try {
+      const isFirstTimeValue = await AsyncStorage.getItem('statue');
+      console.log("Firstime", isFirstTimeValue);
+      if (isFirstTimeValue === null) {
+        await AsyncStorage.setItem('statue', 'true');
+      }
+      return isFirstTimeValue === null;
+    } catch (error) {
+      console.error('Error checking first time:', error);
+      return true;
+    }
+  };
+
+
+  checkFirstTime().then((i) => {
+    setIsFirstTime(i);
+    console.log("Is it the first time?", i);
+  });
+
+
+
+  useEffect(() => {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setIsAuthenticated(true);
+      } else {
+        setIsAuthenticated(false);
+      }
+    });
+  }, []);
+
+
   return (
     <ThemeProvider>
       <NavigationContainer>
@@ -36,30 +79,41 @@ const ContainerNavigation = ({ onLayout }) => {
           screenOptions={{
             headerShown: false,
           }}
+          // initialRouteName={isFirstTime ? "Discovery" : "LogInScreen"}
           initialRouteName="Discovery"
         >
-          <Stack.Screen name="Discovery" component={DiscoveryScreen} />
-          <Stack.Screen
-            name="PersonalHealthTestScreen"
-            component={PersonalHealthTestScreen}
-          />
-          <Stack.Screen
-            name="LastMenstrualCycleStartAge"
-            component={LastMenstrualCycleStartAge}
-          />
-          <Stack.Screen name="QuestionsSeries" component={QuestionsSeries} />
-          <Stack.Screen
-            name="AuthentificationScreen"
-            component={AuthentificationScreen}
-          />
+          {/* Ecrans de découverte */}
+          {/* {isFirstTime && ( */}
+          <>
+            <Stack.Screen name="Discovery" component={DiscoveryScreen} />
+            <Stack.Screen
+              name="PersonalHealthTestScreen"
+              component={PersonalHealthTestScreen}
+            />
+            <Stack.Screen
+              name="LastMenstrualCycleStartAge"
+              component={LastMenstrualCycleStartAge}
+            />
+            <Stack.Screen name="QuestionsSeries" component={QuestionsSeries} />
+            <Stack.Screen
+              name="AuthentificationScreen"
+              component={AuthentificationScreen}
+            />
+            <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
+          </>
+          {/* )} */}
+
+          {/* Ecrans de connexion */}
+          {/* {isAuthenticated == false && */}
+          <>
+            <Stack.Screen name="LogInScreen" component={LogInScreen} /></>
+          {/* } */}
           <Stack.Screen name="CalendarScreen" component={Main} />
-          <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
-          <Stack.Screen name="LogInScreen" component={LogInScreen} />
-          <Stack.Screen name="MessageScreen" component={MessageScreen} />
           <Stack.Screen
             name="NotificationScreen"
             component={NotificationScreen}
           />
+          <Stack.Screen name="MessageScreen" component={MessageScreen} />
           <Stack.Screen name="SettingsScreen" component={SettingsScreen} />
           <Stack.Screen
             name="ChangeLanguageScreen"
@@ -86,17 +140,14 @@ const ContainerNavigation = ({ onLayout }) => {
             component={ArticleContentScreen}
           />
           <Stack.Screen name="AccountScreen" component={AccountScreen} />
-
           <Stack.Screen
             name="UsernameAndPasswordScreen"
             component={UsernameAndPasswordScreen}
           />
-         <Stack.Screen
+          <Stack.Screen
             name="DoctorSignUpScreen"
             component={DoctorSignUpScreen}
           />
-
-
         </Stack.Navigator>
       </NavigationContainer>
     </ThemeProvider>

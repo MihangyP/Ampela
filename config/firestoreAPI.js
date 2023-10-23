@@ -1,23 +1,23 @@
 import { auth, database } from "./firebaseConfig.js";
-import { collection, addDoc, getDocs, getCountFromServer, where, query } from "firebase/firestore";
+import { collection, addDoc, getDocs, getCountFromServer, where, query, updateDoc } from "firebase/firestore";
 import { Alert } from "react-native";
 
 //ajout des données de l'utilisateur
-async function addUserCollection(username, password, profession, lastMenstruationDate, durationMenstruation, cycleDuration){
-        try {
-          const userCredential = await createUserWithEmailAndPassword(
+async function addUserCollection(username, password, profession, lastMenstruationDate, durationMenstruation, cycleDuration) {
+    try {
+        const userCredential = await createUserWithEmailAndPassword(
             auth,
             mailOrTel,
             password
-          );
-  
-          const user = userCredential.user;
-          const { uid, email } = user;
-  
-          const db = getFirestore();
-          const usersCollectionRef = doc(db, "users", uid);
-  
-          await setDoc(usersCollectionRef, {
+        );
+
+        const user = userCredential.user;
+        const { uid, email } = user;
+
+        const db = getFirestore();
+        const usersCollectionRef = doc(db, "users", uid);
+
+        await setDoc(usersCollectionRef, {
             uid: uid,
             email: email,
             pseudo: username,
@@ -25,28 +25,41 @@ async function addUserCollection(username, password, profession, lastMenstruatio
             dernierDateMenstruation: lastMenstruationDate,
             dureeMenstruation: durationMenstruation,
             dureeCycle: cycleDuration
-          });
-  
-          // setIsAuthenticated(true);
-  
-          Alert.alert("Registration Successful!", "Your account has been created successfully.");
+        });
 
-        } catch (error) {
-          console.error("Error during registration:", error.message);
-          Alert.alert("Registration Error", error.message);
-        }
+        // setIsAuthenticated(true);
+
+        Alert.alert("Registration Successful!", "Your account has been created successfully.");
+
+    } catch (error) {
+        console.error("Error during registration:", error.message);
+        Alert.alert("Registration Error", error.message);
+    }
 }
+
+
 // Ajout du nouveau post
 async function addNewPost(data) {
+    console.log(data);
     try {
         if (auth.currentUser) {
             const docRef = await addDoc(collection(database, "posts"), {
                 content: data.content,
                 authorId: data.authorId,
+                like:data.like,
+
                 createdAt: data.createdAt,
                 updatedAt: data.updatedAt
             });
-            console.log("Post doc written with ID: ", docRef.id);
+
+           
+            const postId = docRef.id;
+
+            console.log(postId);
+          
+            await updateDoc(docRef, { postId });
+
+            console.log("Nouveau post ajouté avec succès. ID du post :", postId);
         } else {
             return { msg: "no-auth" };
         }
@@ -57,6 +70,7 @@ async function addNewPost(data) {
 
 // Ajout du nouveau commentaire
 async function addNewComment(data) {
+    console.log(data);
     try {
         if (auth.currentUser) {
             const docRef = await addDoc(collection(database, "comments"), {
@@ -74,6 +88,7 @@ async function addNewComment(data) {
         console.log("Error adding new comment: ", err);
     }
 }
+
 
 // Ajout de nouvelle réaction(like) sur un post
 async function addNewLike(data) {
@@ -93,35 +108,37 @@ async function addNewLike(data) {
     }
 }
 
+
 // Obtient tout posts
-async function getAllPosts() {
+function getAllPosts() {
     try {
         const posts = [];
-        const querySnapshot = await getDocs(collection(database, "posts"));
+        const querySnapshot = getDocs(collection(database, "posts"));
         querySnapshot.forEach((doc) => {
-            posts.push(doc.data());
+            // Pour chaque document, vous pouvez extraire ses données
+            console.log(doc);
+            const post = doc.data();
+            posts.push(post);
         });
-        if (posts) {
-            return posts;
-        } else {
-            console.log("No posts docs written yet.");
-        }
+        return posts;
     } catch (err) {
-        console.log("Error getting posts docs: ", err);
+        console.error("Erreur lors de la récupération des messages : ", err);
+        throw err; // Vous pouvez également lever l'erreur pour gérer les erreurs à l'extérieur de cette fonction
     }
 }
 
 // Obtient tout commentaires concernant post publié
-async function getAllComments(postId) {
+function getAllComments(postId) {
     try {
         const comments = [];
-        const querySnapshot = await getDocs(collection(database, "comments"));
+        const querySnapshot = getDocs(collection(database, "comments"));
         querySnapshot.forEach((doc) => {
+            console.log(doc);
             if (doc.data().postId == postId) {
                 comments.push(doc.data());
             }
         });
-        if (comments) {
+        if (comments.length != 0) {
             return comments;
         } else {
             console.log("No comments docs written yet.");

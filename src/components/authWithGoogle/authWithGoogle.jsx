@@ -6,7 +6,7 @@ import { SIZES, COLORS } from '../../../constants';
 const AuthWithGoogle = () => {
     return (
         <View style={styles.container}>
-            <View style={ignoreContainer}>
+            <View style={styles.ignoreContainer}>
                 <Text style={{fontFamily: "Regular"}}>Ignorer</Text>
             </View>
 

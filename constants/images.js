@@ -24,7 +24,59 @@ import planificationFamilliale from "../assets/images/cards/Card-3.png";
 
 import imgArticle from "../assets/images/img_article.png";
 
+import abscenceDeRegles from "../assets/images/articles/abscence-de-regles.png";
+import bonneHygienneIntime from "../assets/images/articles/bonne-hygienne-intime.png";
+import culotteMenstruelle from "../assets/images/articles/culotte-menstruelle.png";
+import cup from "../assets/images/articles/cup.png";
+import cycleMenstruel from "../assets/images/articles/cycle-menstruel.png";
+import definitionsEtAvantages from "../assets/images/articles/definitions-et-avantages.png";
+import differentsTypesProtegeHygienique from "../assets/images/articles/differents-types-protege-hygienique.png";
+import douleurMenstruelle from "../assets/images/articles/douleur-menstruelle.png";
+import endometriose from "../assets/images/articles/endometriose.png";
+import fibromes from "../assets/images/articles/fibromes.png";
+import hygienneIntimePendantLesRegles from "../assets/images/articles/hygienne-intime-pendant-les-regles.png";
+import kysteOvarien from "../assets/images/articles/kyste-ovarien.png";
+import menopause from "../assets/images/articles/menopause.png";
+import methodeBarriere from "../assets/images/articles/methode-barriere.png";
+import methodeChirurgicale from "../assets/images/articles/methode-chirurgicale.png";
+import methodeHormonale from "../assets/images/articles/methode-hormonale.png";
+import methodeNaturelle from "../assets/images/articles/methode-naturelle.png";
+import mycoseVaginal from "../assets/images/articles/mycose-vaginal.png";
+import protegeSlip from "../assets/images/articles/protege-slip.png";
+import saignementDehorsRegles from "../assets/images/articles/saignement-dehors-regles.png";
+import servitteHygieniqueJetable from "../assets/images/articles/serviette-hygienique-jetable.png";
+import servietteHygieniqueLavable from "../assets/images/articles/serviette-hygienique-lavable.png";
+import spotting from "../assets/images/articles/spotting.png";
+import syndromePremenstruel from "../assets/images/articles/syndrome-premenstruel.png";
+import tampon from "../assets/images/articles/tampon.png";
+import tissuVsServiette from "../assets/images/articles/tissu-vs-serviette.png";
+import typesDePlanningFamilial from "../assets/images/articles/types-de-planning-familial.png";
+import perteVaginal from "../assets/images/articles/pertes-vaginales.png";
+import methodeMecanique from "../assets/images/articles/methode-mecanique.png"
+
 export default {
+  typesDePlanningFamilial,
+  perteVaginal,
+  bonneHygienneIntime,
+  douleurMenstruelle,
+  protegeSlip,
+  servietteHygieniqueLavable,
+  servitteHygieniqueJetable,
+  mycoseVaginal,
+  methodeBarriere,
+  methodeChirurgicale,
+  methodeHormonale, 
+  methodeNaturelle,
+  methodeMecanique,
+  culotteMenstruelle,
+  tissuVsServiette,
+  cup,
+  definitionsEtAvantages,
+  differentsTypesProtegeHygienique,
+  endometriose,
+  fibromes,
+  hygienneIntimePendantLesRegles,
+  menopause,
   logo1,
   logo2,
   wavebg,
@@ -44,5 +96,11 @@ export default {
   hygieneMenstruelle,
   troublesEtMaladies,
   planificationFamilliale,
-  imgArticle
+  imgArticle,
+  cycleMenstruel,
+  saignementDehorsRegles,
+  kysteOvarien,
+  tampon,
+  syndromePremenstruel,
+  spotting, abscenceDeRegles,
 };

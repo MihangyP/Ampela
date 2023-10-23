@@ -59,6 +59,7 @@ import stresseIcon from "../assets/icons/stresse-icon.png";
 import passwordIcon from "../assets/icons/password-icon.png";
 import uploadOrangeIcon from "../assets/icons/upload-orange-icon.png";
 import phoneIcon from "../assets/icons/phone-icon.png";
+import arrowDown from "../assets/icons/arrow-down-s-line.png";
 
 export default {
   heart,
@@ -121,5 +122,6 @@ export default {
   stresseIcon,
   passwordIcon,
   uploadOrangeIcon,
-  phoneIcon
+  phoneIcon,
+  arrowDown
 };

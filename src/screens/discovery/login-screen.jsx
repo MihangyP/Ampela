@@ -1,51 +1,97 @@
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
   StyleSheet,
   TextInput,
   Image,
-  Alert,
   TouchableOpacity,
 } from "react-native";
 import { Dimensions } from "react-native";
 import Button from "../../components/button";
 import { COLORS, SIZES, images } from "../../../constants";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, fetchSignInMethodsForEmail, sendEmailVerification } from "firebase/auth";
 import { auth } from "../../../config/firebaseConfig";
-import { authenticateUser } from "../../../config/databaseLocalConfig";
+import CustomPopup from "../../components/CustomPopup";
 
 const LogInScreen = ({ navigation }) => {
   const [password, setPassword] = useState("");
-  const [mailOrTel, setMailOrTel] = useState(""); 
-  
+  const [mailOrTel, setMailOrTel] = useState("");
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
+  const [popupMessage, setPopupMessage] = useState("");
+  const [popupEmail, setPopupEmail] = useState("");
+  const [isLoading, setIsLoading] = useState(false); // État de chargement
+  const [inputsDisabled, setInputsDisabled] = useState(false);
+
+
+  useEffect(() => {
+    setInputsDisabled(isLoading);
+  }, [isLoading]);
+
   const handleMailOrTextChange = (text) => {
     setMailOrTel(text);
   }
- 
+
   const handlePasswordChange = (text) => {
     setPassword(text);
   };
+
+  const handlePopupClose = () => {
+    setIsPopupVisible(false);
+  };
+
   const handleLogInBtnPress = async () => {
     if (mailOrTel && password) {
       try {
-      
-        signInWithEmailAndPassword(auth, mailOrTel, password)
-        .then(() => {
-          navigation.navigate("CalendarScreen");
-          console.log("Login success");
-        })
-        .catch((err) => Alert.alert("Login error", err.message));
-      
+        const signInMethods = await fetchSignInMethodsForEmail(auth, mailOrTel);
+
+        if (signInMethods.length === 0) {
+          setPopupMessage("Utilisateur introuvable");
+          setIsPopupVisible(true);
+        } else {
+         
+          setIsLoading(true);
+
+          signInWithEmailAndPassword(auth, mailOrTel, password)
+            .then((userCredential) => {
+              const user = userCredential.user;
+              if (!user.emailVerified) {
+                sendEmailVerification(user);
+                setPopupMessage("Compte non confirmé");
+                setPopupEmail(mailOrTel);
+                setIsPopupVisible(true);
+              } else {
+                navigation.navigate("CalendarScreen");
+                console.log("Login success");
+              }
+            })
+            .catch((err) => {
+              if (err.code === "auth/wrong-password") {
+                setPopupMessage("Mot de passe incorrect");
+                setPopupEmail(mailOrTel);
+                setIsPopupVisible(true);
+              } else {
+                setPopupMessage("Erreur de connexion");
+                setPopupEmail(err.message);
+                setIsPopupVisible(true);
+              }
+            })
+            .finally(() => {
+            
+              setIsLoading(false);
+            });
+        }
       } catch (error) {
-        
-        Alert.alert("Erreur lors de la connexion", error.message);
+        setPopupMessage("Erreur lors de la connexion");
+        setPopupEmail(error.message);
+        setIsPopupVisible(true);
       }
     } else {
-      Alert.alert("Veuillez remplir tous les champs...");
+      setPopupMessage("Veuillez remplir tous les champs...");
+      setIsPopupVisible(true);
     }
   };
-  
+
   return (
     <View style={styles.container}>
       <TouchableOpacity
@@ -56,7 +102,7 @@ const LogInScreen = ({ navigation }) => {
       </TouchableOpacity>
       <Image source={images.wavebg} style={styles.waveBg} />
       <Text style={styles.title}>Se connecter</Text>
-     
+
       <View style={styles.inputBox}>
         <View style={styles.inputBoxDeeper}>
           <TextInput
@@ -65,34 +111,43 @@ const LogInScreen = ({ navigation }) => {
             onChangeText={handleMailOrTextChange}
             placeholder="Mail ou Tel"
             style={styles.input}
+            editable={!inputsDisabled}
           />
-          
-            <TextInput
-              secureTextEntry
-              cursorColor={COLORS.accent400}
-              value={password}
-              onChangeText={handlePasswordChange}
-              placeholder="Mot de passe"
-              style={styles.input}
-            />
-            
-        
+
+          <TextInput
+            secureTextEntry
+            cursorColor={COLORS.accent400}
+            value={password}
+            onChangeText={handlePasswordChange}
+            placeholder="Mot de passe"
+            style={styles.input}
+            editable={!inputsDisabled}
+          />
+
           <Button
             bgColor={COLORS.accent600}
             textColor={COLORS.neutral100}
             borderRadius={15}
             onPress={handleLogInBtnPress}
+            disabled={isLoading} 
           >
-            Se connecter
+            {isLoading ? "Chargement..." : "Se connecter"}
           </Button>
           <Text style={styles.textBottom}>
             Vous n'avez pas de compte ?
-            <Text style={styles.textLogIn}
+            <Text
+              style={styles.textLogIn}
               onPress={() => navigation.navigate('SignUpScreen')}
             > Inscrivez-vous</Text>
           </Text>
         </View>
       </View>
+      <CustomPopup
+        message={popupMessage}
+        email={popupEmail}
+        visible={isPopupVisible}
+        onClose={handlePopupClose}
+      />
     </View>
   );
 };

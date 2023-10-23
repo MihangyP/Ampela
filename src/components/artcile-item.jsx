@@ -6,9 +6,10 @@ import {images} from '../../constants';
 import { ThemeContext } from './theme-context';
 import { RFValue } from 'react-native-responsive-fontsize';
 
-const ArticleItem = ({navigation ,title, category, content, onPress}) => {
+const ArticleItem = ({navigation ,title, category, content, onPress, img}) => {
     const {t} = useTranslation();
     let categoryText = null;
+   
     switch (category) {
         case 'Menstruations': 
            categoryText = t('menstruations');
@@ -20,7 +21,7 @@ const ArticleItem = ({navigation ,title, category, content, onPress}) => {
             categoryText = t('troublesEtMaladies');
             break;
         case 'Planning Familiale':
-            categoryText = t('plannigFamiliale');
+            categoryText = t('planningFamiliale');
             break;
         case 'Astuces': 
             categoryText = t('astuces');
@@ -32,11 +33,12 @@ const ArticleItem = ({navigation ,title, category, content, onPress}) => {
     const handleTextPress = () => {
         navigation.navigate("ArticleContentScreen", {
             title: title,
-            content: content
+            content: content,
+            img,
         });
     }
     const handleContainerPress = () => {
-        onPress(title, content);
+        onPress(title, content,img);
     }
     return (
         <Pressable style={styles.container} onPress={handleContainerPress}>
@@ -44,8 +46,8 @@ const ArticleItem = ({navigation ,title, category, content, onPress}) => {
             <View style={[styles.category, {backgroundColor: theme === 'pink' ? COLORS.accent400 : COLORS.neutral250}]}>
                 <Text style={{fontFamily: 'Regular', color: theme === 'pink' ? COLORS.neutral100 : COLORS.primary}}>{categoryText}</Text>
             </View>
-            <View style={{marginVertical: 10}}>
-                <Image source={images.imgArticle} style={{width: 303, height: 303}} />
+            <View style={styles.img}>
+                <Image source={img} style={{height: 280, width: 280}} resizeMode='contain' />
             </View>
             <Text style={styles.content}
                numberOfLines={4}
@@ -82,6 +84,14 @@ const styles = StyleSheet.create({
     content: {
         fontFamily: 'Regular',
         lineHeight: 20
+    },
+    img: {
+        marginVertical: 10,
+        height: 300,
+        backgroundColor: COLORS.neutral280,
+        alignItems: "center",
+        justifyContent: "center",
+        borderRadius: 10
     }
 })
 

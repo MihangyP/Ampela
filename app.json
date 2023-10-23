@@ -24,11 +24,13 @@
     "web": {
       "favicon": "./assets/images/logo/logo-2.png"
     },
+    "packagerOpts": {
+      "devPort": 8082
+    },
     "extra": {
       "eas": {
-        "projectId": "addcef9a-2f7d-43d4-aa91-10501ed9302b"
+        "projectId": "3f77356e-dc44-4d5e-bfcd-dbe3c7b3c432"
       }
-    },
-    "owner": "ampela"
+    }
   }
 }
