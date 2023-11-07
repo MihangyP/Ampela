@@ -13,30 +13,30 @@ const Tab = createBottomTabNavigator();
 
 const Main = () => {
   const { theme } = useContext(ThemeContext);
-  const shouldBlockBackNavigation = true;
+  // const shouldBlockBackNavigation = true;
  
 
-  useFocusEffect(
-    React.useCallback(() => {
-      const onBackPress = () => {
-        if (shouldBlockBackNavigation) {
-          return true;
-        }
-        return false;
-      };
+  // useFocusEffect(
+  //   React.useCallback(() => {
+  //     const onBackPress = () => {
+  //       if (shouldBlockBackNavigation) {
+  //         return true;
+  //       }
+  //       return false;
+  //     };
 
 
-      const backHandler = BackHandler.addEventListener(
-        'hardwareBackPress',
-        onBackPress
-      );
+  //     const backHandler = BackHandler.addEventListener(
+  //       'hardwareBackPress',
+  //       onBackPress
+  //     );
 
-      return () => {
+  //     return () => {
 
-        backHandler.remove();
-      };
-    }, [shouldBlockBackNavigation])
-  );
+  //       backHandler.remove();
+  //     };
+  //   }, [shouldBlockBackNavigation])
+  // );
   
   return (
     <Tab.Navigator

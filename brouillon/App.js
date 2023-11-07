@@ -12,12 +12,12 @@ const App = () => {
   //   hideSplashScreen();
   // }, [hideSplashScreen]);
 
-  const [fontsLoaded] = useFonts({
-    Regular: require("./assets/Fonts/WorkSans-Regular.ttf"),
-    Medium: require("./assets/Fonts/WorkSans-Medium.ttf"),
-    SBold: require("./assets/Fonts/WorkSans-SemiBold.ttf"),
-    Bold: require("./assets/Fonts/WorkSans-Bold.ttf"),
-  });
+  // const [fontsLoaded] = useFonts({
+  //   Regular: require("./assets/Fonts/WorkSans-Regular.ttf"),
+  //   Medium: require("./assets/Fonts/WorkSans-Medium.ttf"),
+  //   SBold: require("./assets/Fonts/WorkSans-SemiBold.ttf"),
+  //   Bold: require("./assets/Fonts/WorkSans-Bold.ttf"),
+  // });
 
   // const hideSplashScreen = useCallback(async () => {
   //   if (!fontsLoaded) {
@@ -37,15 +37,14 @@ const App = () => {
   //   SplashScreen.preventAutoHideAsync();
   // }, []);
 
-  if (!fontsLoaded) {
-    return null;
-  }
+  // if (!fontsLoaded) {
+  //   return null;
+  // }
 
-
-
-
-  return <ContainerNavigation />
-
+  <Text>Hello</Text>
+  // <>
+  // <ContainerNavigation />
+  // </>
 };
 
 

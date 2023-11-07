@@ -7,12 +7,13 @@ const createTable = (db) => {
     tx.executeSql(
       `CREATE TABLE IF NOT EXISTS user (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        username TEXT UNIQUE NOT NULL,
-        password TEXT NOT NULL,
-        profession TEXT NULL,
-        lastMenstruationDate TEXT NULL,
-        durationMenstruation TEXT NULL,
-        cycleDuration TEXT  NULL
+        username VARCHAR  NOT NULL,
+        password VARCHAR NOT NULL,
+        profession VARCHAR NULL,
+        lastMenstruationDate VARCHAR NULL,
+        durationMenstruation VARCHAR NULL,
+        cycleDuration VARCHAR NULL,
+        email VARCHAR NULL
       );`,
       [],
       () => {
@@ -24,6 +25,7 @@ const createTable = (db) => {
     );
   });
 };
+
 
 
 
@@ -49,19 +51,25 @@ async function authenticateUser(email, password) {
 }
 
 const insertUser = (db, username, password, profession, lastMenstruationDate, durationMenstruation, cycleDuration) => {
+  console.log(username, password, profession, lastMenstruationDate, durationMenstruation, cycleDuration);
   db.transaction((tx) => {
     tx.executeSql(
       `INSERT INTO user (username, password, profession, lastMenstruationDate, durationMenstruation, cycleDuration) VALUES (?, ?, ?, ?, ?, ?);`,
       [username, password, profession, lastMenstruationDate, durationMenstruation, cycleDuration],
-      () => {
-        console.log('Utilisateur ajouté avec succès.');
+      (_, results) => {
+        if (results.rowsAffected > 0) {
+          console.log('Utilisateur ajouté avec succès.');
+        } else {
+          console.error('Erreur lors de l\'ajout d\'utilisateur : Aucune ligne n\'a été affectée.');
+        }
       },
       (error) => {
         console.error('Erreur lors de l\'ajout d\'utilisateur :', error.message);
       }
     );
   });
-};  
+};
+
 
 const selectUsers = (db) => {
   db.transaction((tx) => {
@@ -72,7 +80,7 @@ const selectUsers = (db) => {
         const rows = result.rows;
         for (let i = 0; i < rows.length; i++) {
           const user = rows.item(i);
-          // console.log('Utilisateur récupéré :', user);
+          console.log('Utilisateur récupéré :', user);
         }
       },
       (error) => {
@@ -81,6 +89,50 @@ const selectUsers = (db) => {
     );
   });
 };
+
+
+async function getLastInsertedUserId(db) {
+  return new Promise((resolve, reject) => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        'SELECT id FROM user ORDER BY id DESC LIMIT 1;',
+        [],
+        (tx, result) => {
+          if (result.rows.length > 0) {
+            resolve(result.rows.item(0).id);
+          } else {
+            reject('Aucun utilisateur trouvé.');
+          }
+        },
+        (error) => {
+          reject(error.message);
+        }
+      );
+    });
+  });
+}
+
+
+async function updateEmailForUser(db, userId, newEmail) {
+  return new Promise((resolve, reject) => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        'UPDATE user SET email = ? WHERE id = ?',
+        [newEmail, userId],
+        (tx, result) => {
+          if (result.rowsAffected > 0) {
+            resolve({ id: userId, email: newEmail });
+          } else {
+            reject('Aucune mise à jour effectuée.');
+          }
+        },
+        (error) => {
+          reject(error.message);
+        }
+      );
+    });
+  });
+}
 
 
 // async function addDataSignup(data) {
@@ -116,4 +168,4 @@ const selectUsers = (db) => {
 //   }
 // }
 
-export { createTable, insertUser, selectUsers, authenticateUser  };
+export { createTable, insertUser, selectUsers, authenticateUser,updateEmailForUser,getLastInsertedUserId };

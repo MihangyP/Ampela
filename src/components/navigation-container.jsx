@@ -34,42 +34,42 @@ const Stack = createNativeStackNavigator();
 
 
 const ContainerNavigation = ({ onLayout }) => {
-  // const [isFirstTime, setIsFirstTime] = useState(true);
-  // const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isFirstTime, setIsFirstTime] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
 
-  // const checkFirstTime = async () => {
-  //   try {
-  //     const isFirstTimeValue = await AsyncStorage.getItem('statue');
-  //     console.log("Firstime", isFirstTimeValue);
-  //     if (isFirstTimeValue === null) {
-  //       await AsyncStorage.setItem('statue', 'true');
-  //     }
-  //     return isFirstTimeValue === null;
-  //   } catch (error) {
-  //     console.error('Error checking first time:', error);
-  //     return true;
-  //   }
-  // };
+  const checkFirstTime = async () => {
+    try {
+      const isFirstTimeValue = await AsyncStorage.getItem('statue');
+      console.log("Firstime", isFirstTimeValue);
+      if (isFirstTimeValue === null) {
+        await AsyncStorage.setItem('statue', 'true');
+      }
+      return isFirstTimeValue === null;
+    } catch (error) {
+      console.error('Error checking first time:', error);
+      return true;
+    }
+  };
 
 
-  // checkFirstTime().then((i) => {
-  //   setIsFirstTime(i);
-  //   console.log("Is it the first time?", i);
-  // }); 
+  checkFirstTime().then((i) => {
+    setIsFirstTime(i);
+    console.log("Is it the first time?", i);
+  });
 
 
 
-  // useEffect(() => {
-  //   const auth = getAuth();
-  //   onAuthStateChanged(auth, (user) => {
-  //     if (user) {
-  //       setIsAuthenticated(true);
-  //     } else {
-  //       setIsAuthenticated(false);
-  //     }
-  //   });
-  // }, []);
+  useEffect(() => {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setIsAuthenticated(true);
+      } else {
+        setIsAuthenticated(false);
+      }
+    });
+  }, []);
 
 
   return (
@@ -78,21 +78,21 @@ const ContainerNavigation = ({ onLayout }) => {
         <Stack.Navigator
           screenOptions={{
             headerShown: false,
-          }} 
-          
-          initialRouteName="CalendarScreen"
+          }}
+
+          initialRouteName="Discovery"
         >
 
-            {/* <Stack.Screen name="Discovery" component={DiscoveryScreen} />
-            <Stack.Screen name="PersonalHealthTestScreen" component={PersonalHealthTestScreen} />
-              <Stack.Screen name="LastMenstrualCycleStartAge" component={LastMenstrualCycleStartAge} />
-            <Stack.Screen name="QuestionsSeries" component={QuestionsSeries} />
-            <Stack.Screen
-              name="AuthentificationScreen"
-                component={AuthentificationScreen}
-            />
-            <Stack.Screen name="SignUpScreen" component={SignUpScreen} />         
-            <Stack.Screen name="LogInScreen" component={LogInScreen} /> */}
+          <Stack.Screen name="Discovery" component={DiscoveryScreen} />
+          <Stack.Screen name="PersonalHealthTestScreen" component={PersonalHealthTestScreen} />
+          <Stack.Screen name="LastMenstrualCycleStartAge" component={LastMenstrualCycleStartAge} />
+          <Stack.Screen name="QuestionsSeries" component={QuestionsSeries} />
+          <Stack.Screen
+            name="AuthentificationScreen"
+            component={AuthentificationScreen}
+          />
+          <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
+          <Stack.Screen name="LogInScreen" component={LogInScreen} />
           <Stack.Screen name="CalendarScreen" component={Main} />
           <Stack.Screen
             name="NotificationScreen"

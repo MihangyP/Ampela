@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, Text, Modal, StyleSheet, Linking } from 'react-native';
-import {COLORS} from "../../constants";
+import { COLORS } from "../../constants";
 
-const CustomPopup = ({ message, email, visible, onClose}) => {
+const CustomPopup = ({ message, email, error, visible, onClose }) => {
   return (
     <Modal
       animationType="fade"
@@ -12,11 +12,11 @@ const CustomPopup = ({ message, email, visible, onClose}) => {
     >
       <View style={styles.modalContainer}>
         <View style={styles.container}>
-          <Text style={{fontFamily: "Regular"}}>{message}</Text>
+          <Text style={{ fontFamily: "Regular" }}>{message}</Text>
           {email.includes('@') ? (
             <Text
               style={styles.link}
-              onPress={() => {  
+              onPress={() => {
                 Linking.openURL(`mailto:${email}`);
                 onClose();
               }}
@@ -26,6 +26,8 @@ const CustomPopup = ({ message, email, visible, onClose}) => {
           ) : (
             <Text>{email}</Text>
           )}
+
+          {/* {error && <Text></Text>} */}
         </View>
       </View>
     </Modal>
@@ -33,9 +35,9 @@ const CustomPopup = ({ message, email, visible, onClose}) => {
 };
 
 const styles = StyleSheet.create({
-  modalContainer: {  
+  modalContainer: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)', 
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
     justifyContent: 'center',
     alignItems: 'center',
   },

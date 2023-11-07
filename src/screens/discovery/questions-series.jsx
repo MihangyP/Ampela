@@ -51,62 +51,57 @@ const QuestionsSeries = ({ navigation, route }) => {
 
   const handleNextBtnPress = async () => {
     if (response0 && response1) {
-      try {
-        const localDb = SQLite.openDatabase("ampela.db");
 
-        createTable(localDb);
+      const localDb = SQLite.openDatabase("ampela.db");
 
-        insertUser(localDb, nomDutilisateur, motDePasse, profession, selected, response0, response1);
-
-        selectUsers(localDb);
+      createTable(localDb);
+      insertUser(localDb, nomDutilisateur, motDePasse, profession, selected, response0, response1);
+      selectUsers(localDb);
 
 
-        // const netInfo = await NetInfo.fetch();
+      // const netInfo = await NetInfo.fetch();
 
-        // if (netInfo.isConnected) {
-        //   // L'utilisateur a une connexion Internet, appelez la fonction pour ajouter des données
-        //   try {
-        //     const userCredential = await createUserWithEmailAndPassword(
-        //       auth,
-        //       mailOrTel,
-        //       password
-        //     );
+      // if (netInfo.isConnected) {
+      //   // L'utilisateur a une connexion Internet, appelez la fonction pour ajouter des données
+      //   try {
+      //     const userCredential = await createUserWithEmailAndPassword(
+      //       auth,
+      //       mailOrTel,
+      //       password
+      //     );
 
-        //     const user = userCredential.user;
-        //     const { uid, email } = user;
+      //     const user = userCredential.user;
+      //     const { uid, email } = user;
 
-        //     const db = getFirestore();
-        //     const usersCollectionRef = doc(db, "users", uid);
+      //     const db = getFirestore();
+      //     const usersCollectionRef = doc(db, "users", uid);
 
-        //     await setDoc(usersCollectionRef, {
-        //       uid: uid,
-        //       email: email,
-        //       pseudo: nomDutilisateur,
-        //       profession: profession,
-        //       dernierDateMenstruation: lastMenstruationDate,
-        //       dureeMenstruation: response0,
-        //       dureeCycle: response1
-        //     });
+      //     await setDoc(usersCollectionRef, {
+      //       uid: uid,
+      //       email: email,
+      //       pseudo: nomDutilisateur,
+      //       profession: profession,
+      //       dernierDateMenstruation: lastMenstruationDate,
+      //       dureeMenstruation: response0,
+      //       dureeCycle: response1
+      //     });
 
-        //     // setIsAuthenticated(true);
+      //     // setIsAuthenticated(true);
 
-        //     Alert.alert("Registration Successful!", "Your account has been created successfully.");
+      //     Alert.alert("Registration Successful!", "Your account has been created successfully.");
 
-        //   } catch (error) {
-        //     console.error("Error during registration:", error.message);
-        //     Alert.alert("Registration Error", error.message);
-        //   }
+      //   } catch (error) {
+      //     console.error("Error during registration:", error.message);
+      //     Alert.alert("Registration Error", error.message);
+      //   }
 
-        //   // Maintenant que les données ont été ajoutées, vous pouvez naviguer vers la page suivante.
-        //   navigation.navigate('CalendarScreen');
-        // } else {
-        //   // Aucune connexion Internet, affichez un message d'erreur ou prenez d'autres mesures nécessaires
-        //   console.error('Aucune connexion Internet disponible.');
-        // }
-      } catch (error) {
-        console.error('Erreur lors de l\'ajout d\'utilisateur :', error.message);
-        throw error;
-      }
+      //   // Maintenant que les données ont été ajoutées, vous pouvez naviguer vers la page suivante.
+      //   navigation.navigate('CalendarScreen');
+      // } else {
+      //   // Aucune connexion Internet, affichez un message d'erreur ou prenez d'autres mesures nécessaires
+      //   console.error('Aucune connexion Internet disponible.');
+      // }
+
       const durationMenstruation = response0;
       const lastMenstruationDate = response1;
       navigation.navigate('SignUpScreen', { nomDutilisateur, motDePasse, cycleDurations, durationMenstruation, lastMenstruationDate, profession });

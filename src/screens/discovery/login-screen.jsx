@@ -13,6 +13,7 @@ import { COLORS, SIZES, images } from "../../../constants";
 import { signInWithEmailAndPassword, fetchSignInMethodsForEmail, sendEmailVerification } from "firebase/auth";
 import { auth } from "../../../config/firebaseConfig";
 import CustomPopup from "../../components/CustomPopup";
+import { getLastInsertedUserId, updateEmailForUser } from "../../../config/databaseLocalConfig";
 
 const LogInScreen = ({ navigation }) => {
   const [password, setPassword] = useState("");
@@ -49,11 +50,11 @@ const LogInScreen = ({ navigation }) => {
           setPopupMessage("Utilisateur introuvable");
           setIsPopupVisible(true);
         } else {
-         
+
           setIsLoading(true);
 
           signInWithEmailAndPassword(auth, mailOrTel, password)
-            .then((userCredential) => {
+            .then(async (userCredential) => {
               const user = userCredential.user;
               if (!user.emailVerified) {
                 sendEmailVerification(user);
@@ -61,6 +62,11 @@ const LogInScreen = ({ navigation }) => {
                 setPopupEmail(mailOrTel);
                 setIsPopupVisible(true);
               } else {
+                const localDb = SQLite.openDatabase("ampela.db");
+                const lastInsertedUserId = await getLastInsertedUserId(localDb);
+                const newEmail = email;
+
+                const localUser = await updateEmailForUser(localDb, lastInsertedUserId, newEmail);
                 navigation.navigate("CalendarScreen");
                 console.log("Login success");
               }
@@ -77,7 +83,7 @@ const LogInScreen = ({ navigation }) => {
               }
             })
             .finally(() => {
-            
+
               setIsLoading(false);
             });
         }
@@ -129,7 +135,7 @@ const LogInScreen = ({ navigation }) => {
             textColor={COLORS.neutral100}
             borderRadius={15}
             onPress={handleLogInBtnPress}
-            disabled={isLoading} 
+            disabled={isLoading}
           >
             {isLoading ? "Chargement..." : "Se connecter"}
           </Button>

@@ -1,21 +1,21 @@
 import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { View, Text, StyleSheet, TextInput, Image, TouchableOpacity, Linking, Modal, Pressable } from 'react-native';
 import { Dimensions } from 'react-native';
-import { createUserWithEmailAndPassword, sendEmailVerification, fetchSignInMethodsForEmail } from 'firebase/auth';
+import { createUserWithEmailAndPassword, sendEmailVerification, fetchSignInMethodsForEmail, chec } from 'firebase/auth';
 import { auth } from '../../../config/firebaseConfig';
 import { getFirestore, doc, setDoc } from 'firebase/firestore';
 import { useNavigation } from '@react-navigation/native';
 import Button from '../../components/button';
 import { COLORS, SIZES, images } from '../../../constants';
 import CustomPopup from '../../components/CustomPopup';
-
+import { getLastInsertedUserId, updateEmailForUser } from '../../../config/databaseLocalConfig';
 const SignupScreen = ({ route }) => {
   const navigation = useNavigation();
   const [nameText, setNameText] = useState('');
   const [password, setPassword] = useState('');
   const [mailOrTel, setMailOrTel] = useState('');
   const { nomDutilisateur, motDePasse, cycleDurations, durationMenstruation, lastMenstruationDate, profession } = route.params;
-  
+
   const [text, setText] = useState('(At least 8 characters, one uppercase letter, and one digit)');
   const [colorText, setColorText] = useState('#000000');
   const [isPopupVisible, setIsPopupVisible] = useState(false);
@@ -38,11 +38,16 @@ const SignupScreen = ({ route }) => {
     setIsPopupVisible(false);
   };
 
- useEffect
+  useEffect
   const handleSignUpBtnPress = async () => {
     if (mailOrTel) {
       try {
-        setIsLoading(true); 
+        setIsLoading(true);
+
+
+
+
+
 
         const userCredential = await createUserWithEmailAndPassword(
           auth,
@@ -50,41 +55,48 @@ const SignupScreen = ({ route }) => {
           motDePasse,
         );
 
-        const signInMethods = await fetchSignInMethodsForEmail(auth, mailOrTel);
-
         const user = userCredential.user;
         const { uid, email } = user;
 
-        if (signInMethods.length > 0) {
 
-          if (user.emailVerified) {
-            const db = getFirestore();
-            const usersCollectionRef = doc(db, 'users', uid);
 
-            await setDoc(usersCollectionRef, {
-              uid: uid,
-              email: email,
-              pseudo: nomDutilisateur,
-              cycleDuration: cycleDurations,
-              durationMenstruation: durationMenstruation,
-              lastMenstruationDate: lastMenstruationDate,
-              profession: profession,
-            });
-            navigation.navigate('CalendarScreen');
-          } else {
-            await sendEmailVerification(user);
-            setPopupMessage('Un e-mail de vérification a été envoyé à votre adresse. Vérifiez votre e-mail pour accéder à votre compte.');
-            setPopupEmail(mailOrTel);
-            setIsPopupVisible(true);
-          }
-        } else {
-          setPopupMessage('L\'utilisateur avec cet email existe déjà');
-          setPopupEmail(error.message);
-          setIsPopupVisible(true);
+        if (emailVerified) {
+          const db = getFirestore();
+          const usersCollectionRef = doc(db, 'users', uid);
+
+          await setDoc(usersCollectionRef, {
+            uid: uid,
+            email: email,
+            pseudo: nomDutilisateur,
+            cycleDuration: cycleDurations,
+            durationMenstruation: durationMenstruation,
+            lastMenstruationDate: lastMenstruationDate,
+            profession: profession,
+          });
+
+          const localDb = SQLite.openDatabase("ampela.db");
+          const lastInsertedUserId = await getLastInsertedUserId(localDb);
+          const newEmail = email;
+
+          const localUser = await updateEmailForUser(localDb, lastInsertedUserId, newEmail);
+          navigation.navigate('CalendarScreen');
         }
+
       } catch (error) {
-        setPopupMessage('L\'utilisateur avec cet email existe déjà');
-        setPopupEmail(error.message);
+        if (error.code === 'auth/email-already-in-use') {
+          setPopupMessage('L\'adresse e-mail est déjà associée à un compte.');
+        } else if (error.code === 'auth/invalid-email') {
+          setPopupMessage('L\'adresse e-mail est invalide.');
+        } else if (error.code === 'auth/weak-password') {
+          setPopupMessage('Le mot de passe est trop faible. Veuillez choisir un mot de passe plus fort.');
+        } else if (error.code === 'auth/network-request-failed') {
+          setPopupMessage('Une erreur de réseau s\'est produite. Veuillez vérifier votre connexion Internet.');
+        } else if (error.code === 'auth/user-disabled') {
+          setPopupMessage('Votre compte a été désactivé. Contactez l\'assistance pour obtenir de l\'aide.');
+        } else {
+          setPopupMessage('Une erreur s\'est produite lors de la création de l\'utilisateur : ' + error.message);
+        }
+        // setPopupEmail(mailOrTel);
         setIsPopupVisible(true);
       } finally {
         setIsLoading(false);
@@ -94,6 +106,7 @@ const SignupScreen = ({ route }) => {
       setPopupMessage('Veuillez remplir tous les champs, y compris votre adresse e-mail.');
     }
   };
+
 
   return (
     <View style={styles.container}>
@@ -108,19 +121,19 @@ const SignupScreen = ({ route }) => {
 
       <View style={styles.inputBox}>
         <View style={styles.inputBoxDeeper}>
-         
-            <View style={styles.infoContainer}>
-              <Text style={styles.infoText}>
-                En ajoutant votre adresse e-mail, vous pourrez :
-              </Text>
-              <Text style={styles.infoText}>
-                - Participer au forum et discuter avec d'autres utilisateurs.
-              </Text>
-              <Text style={styles.infoText}>
-                - Accéder au chat privé pour des discussions en temps réel.
-              </Text>
-            </View>
-         
+
+          <View style={styles.infoContainer}>
+            <Text style={styles.infoText}>
+              En ajoutant votre adresse e-mail, vous pourrez :
+            </Text>
+            <Text style={styles.infoText}>
+              - Participer au forum et discuter avec d'autres utilisateurs.
+            </Text>
+            <Text style={styles.infoText}>
+              - Accéder au chat privé pour des discussions en temps réel.
+            </Text>
+          </View>
+
           <View>
             <TextInput
               cursorColor={COLORS.accent400}
@@ -142,20 +155,20 @@ const SignupScreen = ({ route }) => {
               {isLoading ? "Chargement..." : "S'inscrire"}
             </Button>
             <Text style={styles.textBottom}>
-             
-               
-                Vous avez déjà un compte ?
-              
+
+
+              Vous avez déjà un compte ?
+
               <Text
-                 onPress={() => navigation.navigate('LogInScreen')}
+                onPress={() => navigation.navigate('LogInScreen')}
                 style={styles.textLogIn}
-               >
-               {" "} Connectez-vous
-              </Text>   
-              
-              
-              
-              
+              >
+                {" "} Connectez-vous
+              </Text>
+
+
+
+
             </Text>
           </View>
         </View>
