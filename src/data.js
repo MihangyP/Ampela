@@ -7,7 +7,7 @@ const data = [
                 title: "ceQueSontLesMenstruations",
                 category: "Menstruations",
                 content: "ceQueSontLesMenstruationsContent",
-                urlImg: img.images.culotteMenstruelle,
+                urlImg: img.images.ceQueSontLesMenstruations,
             },
             {
                 title: "leCycleMenstruel",
@@ -19,7 +19,7 @@ const data = [
                 title: "lesPhasesDuCycleMenstruel",
                 category: "Menstruations",
                 content: "lesPhasesDuCycleMenstruelContent",
-                urlImg: img.images.culotteMenstruelle
+                urlImg: img.images.phasesDuCycleMenstruel
             },
             {
                 title: "syndromeMenstruel",
@@ -41,7 +41,7 @@ const data = [
                 title: "pertesAnormales",
                 category: "Menstruations",
                 content: "pertesAnormalesContent",
-                urlImg: img.images.culotteMenstruelle
+                urlImg: img.images.pertesAnormales
             }, {
                 title: "laMenopause",
                 category: "Menstruations",
@@ -72,7 +72,7 @@ const data = [
                 title: "laProtectionEnTissu",
                 category: "Hygiène menstruelle",
                 content: "laProtectionEnTissuContent",
-                urlImg: img.images.culotteMenstruelle
+                urlImg: img.images.protectionEnTissu
             },
             {
                 title: "tissuVsServiette",
@@ -121,7 +121,7 @@ const data = [
                 title: "dysmenorrhees",
                 category: "Troubles et maladies",
                 content: "dysmenorrheesContent",
-                urlImg: img.images.culotteMenstruelle
+                urlImg: img.images.douleurMenstruelle
             }, {
                 title: "amenorrhee",
                 category: "Troubles et maladies",
@@ -131,7 +131,7 @@ const data = [
                 title: "saignementEnDehorsDesRegles",
                 category: "Troubles et maladies",
                 content: "saignementEnDehorsDesReglesContent",
-                urlImg: img.images.culotteMenstruelle
+                urlImg: img.images.saignementDehorsRegles
             }, {
                 title: "mycoseVaginale",
                 category: "Troubles et maladies",
@@ -211,33 +211,33 @@ const data = [
                 title: "lesBonnesPratiquesDurantLaMenstruation",
                 category: "Astuces",
                 content: "lesBonnesPratiquesDurantLaMenstruationContent",
-                urlImg: img.images.culotteMenstruelle
+                urlImg: img.images.lesBonnesPratiqueDurantLaMenstruation
             }
             , {
                 title: "alimentationPendantLesRegles",
                 category: "Astuces",
                 content: "alimentationPendantLesReglesContent",
-                urlImg: img.images.culotteMenstruelle
+                urlImg: img.images.alimentationPendantLesRegles
             }
             , {
                 title: "etreActiveDurantLesRegles",
                 category: "Astuces",
                 content: "etreActiveDurantLesReglesContent",
-                urlImg: img.images.culotteMenstruelle
+                urlImg: img.images.etreActiveDurantLesRegles
             }
             , {
                 title: "uneBonneHygieneIntime",
                 category: "Astuces",
                 content: "uneBonneHygieneIntimeContent",
-                urlImg: img.images.culotteMenstruelle
+                urlImg: img.images.bonneHygienneIntime
             }
             , {
                 title: "soulagerLesDouleursMenstruelles",
                 category: "Astuces",
                 content: "soulagerLesDouleursMenstruellesContent",
-                urlImg: img.images.culotteMenstruelle
+                urlImg: img.images.soulagerLesDouleursMenstruels  
             }
-        ]
+        ]    
     }
 ]
 

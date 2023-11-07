@@ -4,12 +4,14 @@ import HeaderWithGoBack from '../../components/header-with-go-back';
 import { ThemeContext } from '../../components/theme-context';
 import { useTranslation } from 'react-i18next';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
+
 import { SIZES, COLORS } from '../../../constants';
 
 const ThemeScreen = ({navigation}) => {
     const {t} = useTranslation();
     const {theme, toggleTheme} = useContext(ThemeContext);
     const [checkboxState, setCheckboxState] = useState(true);
+    const [toggleCheckBox, setToggleCheckBox] = useState(false);
 
     const handleCheckboxChange =   () => {
         setCheckboxState();
@@ -22,6 +24,7 @@ const ThemeScreen = ({navigation}) => {
                 <View style={styles.flex}>
                     <Text style={styles.medium}>Anna's Rose</Text>
                     <View>
+                  
                         <BouncyCheckbox 
                              size={25}
                              fillColor={theme === 'pink' ? COLORS.accent600 : COLORS.accent800}

@@ -1,13 +1,11 @@
 import { useEffect ,useState, useContext } from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
-import { ThemeContext } from '../../components/theme-context';
 import { SIZES, COLORS } from '../../../constants';
 import HeaderWithGoBack from '../../components/header-with-go-back';
 import FaqItem from '../../components/settings/faq-item';
 import faqdata from '../../faqdata';
 
 const FaqScreen = ({navigation}) => {
-    const {theme} = useContext(ThemeContext);
     const [data, setData] = useState([]);
     useEffect(() => {
         setData(faqdata);
@@ -19,7 +17,7 @@ const FaqScreen = ({navigation}) => {
                 <View style={{gap: 10}}>
                 {
                     data.map((d) => (
-                        <FaqItem key={d.id} question={d.question} response={d.response} />
+                        <FaqItem key={d.id} question={d.question} response={d.response} list={d.list ? d.list : []} />
                     ))
                 }
                 </View>

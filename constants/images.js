@@ -52,9 +52,25 @@ import tampon from "../assets/images/articles/tampon.png";
 import tissuVsServiette from "../assets/images/articles/tissu-vs-serviette.png";
 import typesDePlanningFamilial from "../assets/images/articles/types-de-planning-familial.png";
 import perteVaginal from "../assets/images/articles/pertes-vaginales.png";
-import methodeMecanique from "../assets/images/articles/methode-mecanique.png"
+import methodeMecanique from "../assets/images/articles/methode-mecanique.png";
+import soulagerLesDouleursMenstruels from "../assets/images/articles/soulager_les_douleurs_menstruels.png";
+import alimentationPendantLesRegles from "../assets/images/articles/alimentation_pendant_les_regles.png";
+import pertesAnormales from "../assets/images/articles/pertes_anormales.png";
+import phasesDuCycleMenstruel from "../assets/images/articles/phases_du_cycles_menstruels.png";
+import protectionEnTissu from "../assets/images/articles/protection_en_tissu.png";
+import etreActiveDurantLesRegles from "../assets/images/articles/etre_active_durant_les_regles.png";
+import lesBonnesPratiqueDurantLaMenstruation from "../assets/images/articles/les_bonnes_pratiques_durant_la_menstruation.png";
+import ceQueSontLesMenstruations from "../assets/images/articles/ce-que-sont-les-menstruations.png";
 
 export default {
+  ceQueSontLesMenstruations,
+  etreActiveDurantLesRegles,
+  lesBonnesPratiqueDurantLaMenstruation,
+  soulagerLesDouleursMenstruels,
+  alimentationPendantLesRegles,
+   pertesAnormales,
+  phasesDuCycleMenstruel,
+  protectionEnTissu,
   typesDePlanningFamilial,
   perteVaginal,
   bonneHygienneIntime,

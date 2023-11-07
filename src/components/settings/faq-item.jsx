@@ -1,31 +1,54 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { Text, View, StyleSheet, Pressable, Image } from 'react-native';
 import { COLORS, SIZES, icons } from '../../../constants';
 import { ThemeContext } from '../theme-context';
+import { useTranslation } from 'react-i18next';
 
-const FaqItem = ({question, response}) => {
+// [
+//     {
+//         title: "intro",
+//         content: "Titlleee"
+//     },
+//     {
+//         title: "list",
+//         content: ["Hey", "Hello", "Way man negga"]
+//     }
+// ]
+
+const FaqItem = ({question, response, list}) => {
     const {theme} = useContext(ThemeContext);
+    const {t} = useTranslation();
     const [active, setActive] = useState(false);
+   
     const handlePress = () => {
         setActive(a => !a);
     }
+    
     return (
         <Pressable onPress={handlePress} style={[styles.container, {backgroundColor: theme === 'pink' ? COLORS.neutral200  : COLORS.neutral280}]}>
             <View style={{flexDirection: "row",  alignItems: "center", justifyContent: "space-between"}}>
-                    <Text style={styles.question}>{question}</Text>
+                <View style={{width: "90%"}}>
+                <Text style={styles.question}>{t(question)}</Text>
+                </View>
                     <Pressable onPress={handlePress} style={{
                         transform: [
-                            {rotateZ: "0deg"}
+                            {rotateZ: active ? "180deg" : "0deg"}
                         ]
                     }}>
                         <Image source={icons.arrowDown} style={{width: 20, height: 20}} />
                     </Pressable>
             </View>    
-            {
+           {
                 active ?
-                <Text style={styles.response}>{response}</Text> :
+                (   
+                <View>
+                    <Text style={styles.response}>{response}</Text>  
+                </View>                  
+                )
+                   
+                 :
                 null
-            }
+            } 
         </Pressable>
     );
 }

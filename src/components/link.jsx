@@ -1,8 +1,10 @@
-import { useCallback } from 'react';
+import { useCallback, useContext } from 'react';
 import { Text, Linking, Alert, StyleSheet } from 'react-native';
 import { COLORS } from '../../constants';
+import { ThemeContext } from './theme-context';
 
 const Link = ({url, children}) => {
+    const {theme} = useContext(ThemeContext);
     const handlePress = useCallback(async () => {
         const supported = await Linking.canOpenURL(url);
   
@@ -13,13 +15,7 @@ const Link = ({url, children}) => {
         }
     }, [url]);
   
-    return <Text style={styles.textAccent600} onPress={handlePress}>{children}</Text>;
+    return <Text style={{color: theme === "pink" ? COLORS.accent600 : COLORS.accent800}} onPress={handlePress}>{children}</Text>;
 }
-
-const styles = StyleSheet.create({
-    textAccent600: {
-        color: COLORS.accent600
-    }
-}); 
 
 export default Link;

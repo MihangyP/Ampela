@@ -26,7 +26,7 @@
     "infoDoc": "Mombamomba",
     "partager": "Zaraina",
     "reinitialisation": "Ampody",
-    "deconnexion": "Mivoka",
+    "deconnexion": "Mivoaka",
     "ecrireUnCommentaire": "Manorata kaomantera",
 
 
@@ -136,7 +136,29 @@
     "alimentationPendantLesReglesContent": "Ireto misy sakafo tsara hohanina raha te ho salama mandritra ny fadimbolana : ny voankazo (toy ny akondro izay misy potasioma sy ny voasary izay misy vitaminina) sy ny legioma maitso (petits pois, epinara, anandrano); ny voamaina (tsaramaso, kabaro, antsoroko…); ny sakafo misy oméga-3 (zavoka, trondro, menaka colza, atody); ny karazana voanjo; ny sakamalao mampihena ny fanaintainan’ny kibo; ny vary, ny hena sy ny sôkôla mainty manolo ny « fer » very mandritra ny fadimbolana; Mba hampihena ny fizihitry ny kibo, tsara ny misotro rano maro. Manolo ny rano very ihany koa izany ary mametra ny karainkona ny tranonjaza izay mahatonga ny zihinofon-kibo. Misy sakafo indray tsy azo hanina satria miteraka soritr’aretina toy ny mony, zihinofo sy ny fizihitry ny kibo. Anisan’izany : ny sira sy ny siramamy izay mampizihitra ny kibo; ny kafe, dite sy ny zafa-pisotro misy gazy; ny sakafo vita amin’ny ronono; ny toaka sy ny sigara; ny sakafo be menaka izay miteraka mony",
     "etreActiveDurantLesReglesContent": "Betsaka ny mihevitra fa ratsy ny manao fanatanjahantena rehefa tonga fotoana, ampirisihina nefa izany. Fa kosa, raha mahatsapa harerahana ilay vehivavy madrintra ny fadimbolany dia tokony maka aina izy. Manamaivana ny fanaintaina ny manao fanatanjahantena fa tsy tokony  atao mahery vaika loatra. Mampahazo aina ny dia tongotra, ny yoga sy manitatra ary ny dihy.",
     "uneBonneHygieneIntimeContent": "Tsy mandritra ny fadimbolana ihany no diovina ny fivaviana fa mandritra ny volana manontolo. Ny fahazarana tsara dia afaka isorohana olana isan-karazany. Mba hisorohana ny fangirifiriana noho ny fikasohana, dia ampirisihina ny fanaovana atin'akanjo vita amin'ny landihazo ary aleo manao akanjo tsy tery loatra. Tsara ny mamany aorian’ny firaisana ara-nofo mba hanariana ny mikraoba. Ny eo ivelany ihany no tokony sasana, ny fivaviana anatiny dia manadio tena ary ny fampidirana ny rantsan-tananao ao dia mety manimba ny « flore vaginale ». Ny tanana ihany no tokony anasana ny fivaviana ary savony manana « PH neutre » no ampiasana fa tsy savony manitra. Indroa isan'andro ihany no tokony handiovana ny fivaviana. Aorian'ny fanadiovana dia mifafa tsara (aloha makany afara) amin'ny lamba malefaka satria ny hamandoana dia mampivoatra ny bakteria.",
-    "soulagerLesDouleursMenstruellesContent": "Ny faharariana mandritra ny fadimbolana matetika dia tsy ahavitan’ny vehivavy ny raharaha fataony andavanandro. Tsy mahomby an’ny vehivavy sasany ny fihinanana fanafody matetika, noho izany, ireto misy vahaolana natioraly mety ho solony : asiana zavatra mafana eo amin’ny kibo na lamosina; orina moramora ilay faritra manaintaina; tambavy fa tandremana tsy ho matetika loatra; osorana menaka ny kibo. Tsara ny manatona dokotera alohan’ny ampiasana ny tambavy sy ny menaka.  Marihina fa tokony manatona dokotera ihany koa raha maharitra ny  fanaintainana satria mety ho aretina izany."
+    "soulagerLesDouleursMenstruellesContent": "Ny faharariana mandritra ny fadimbolana matetika dia tsy ahavitan’ny vehivavy ny raharaha fataony andavanandro. Tsy mahomby an’ny vehivavy sasany ny fihinanana fanafody matetika, noho izany, ireto misy vahaolana natioraly mety ho solony : asiana zavatra mafana eo amin’ny kibo na lamosina; orina moramora ilay faritra manaintaina; tambavy fa tandremana tsy ho matetika loatra; osorana menaka ny kibo. Tsara ny manatona dokotera alohan’ny ampiasana ny tambavy sy ny menaka.  Marihina fa tokony manatona dokotera ihany koa raha maharitra ny  fanaintainana satria mety ho aretina izany.",
+
+    "questcequeAmpela": "Inona ny App Ampela ?",
+    "pourquoiAmpelaSouhaiteMesInfos": "Nahoana no te-hahazo ny mombamomba ahy ny App ?",
+    "estcequeMesDonneesSontSecurisees": "Voaaro ve ny mombamomba ahy ?",
+    "cycleIrregulierAmpelaMaider": "Tsy ara-dalàna ny tsingeriko. Afaka manampy ahy ihany ve ny App ?",
+    "commentActiverRappels": "Ahoana no ahafahako mampiditra fampahatsiahivana ?",
+    "puisJeAjouterSymptomesEtEmotions": "Afaka mampiditra soritr'aretina sy fihetseham-po ve aho?",
+    "commentParticiperAuForum": "Ahoana ny fandraisana anjara amin'ny Forum?",
+    "commentInteragirAvecLesPersonnelsDeSante": "Ahoana ny ifandraisako amin'ny mpiasan'ny fahasalamana ?",
+    "commentAjouterUnMotDePasse": "Ahoana ny fampidirana tenimiafina  ?",
+    "commentContacterSupportTechnique": "Ahoana no ahafahako mifandray amin'ny fanohanana ara-teknika raha manana olana aho ?",
     
+
+    "introInfo": "Ampela dia application ho an'ny vehivavy, izay ahitana kalandrie momba ny tsingerin'ny fadimbolana, « forum », ary ahafahana miresaka miaraka amin'ireompitsabo amin’ny alalan’ny hafatra miafina. Mora azo ny fampiasana azy noho ny fisian’ny teny frantsay sy malagasy. Manome fampahalalana mazava momba ny fadimbolana, ny fikorontanana mety hiseho ary ny fahadiovana mandritran’izany, ny aretina azo avy amin'ny firaisana, ny fandrindrana ny fianakaviana. Izany no mahatonga azy ho fitaovana ilaina amin'ny fahazoana ny fadimbolana. ",
+    "calendrierDuCycleMenstruel": "Kalandrien’ny tsingerin'ny fadimbolana",
+    "calendrierDuCycleMenstruelContent": "Ampela dia manolotra kalandrie momba ny tsingerin'ny fadimbolana ho an'ny vehivavy mba hanaraha-maso ny fadim-bolany amin’ny alalan’ny fampahafantarana ny mombamomba azy nampidiriny. Izany no ahafahana maminavina ny tsingerin’ny fadimbolana manaraka, ka ahazoan’ny mpampiasa azy fampahatsiahivana manokana momba ny fadimbolana, ny famokarana atodinaina ary ny fanabeazana aizana. Na ny fanabeazana aizana, na ny faniriana ny fitondrana vohoka, na ny fahafantarana ny vatana fotsiny no tanjona dia mety amin’ny vehivavy rehetra ny fampiasana ny Ampela. ",
+    "articleContent": "Ampela dia manome fampahalalana ny mpampiasa azy momba ny fadimbolana na dia tsy misy « internet » aza. Tsotra sy fohy ary azo takarin’ny olona rehetra ny lahatsoratra ao.",
+    "forumEtMessagePriveAvecLePersonnelDeSante": "Forum sy hafatra miafina miaraka amin'ny mpiasan'ny fahasalamana",
+    "forumEtMessagePriveAvecLePersonnelDeSanteContent": "Ampela dia manolotra sehatra iray izay ahafahana mametraka fanontaniana, mizara traikefa ary ahazoana torohevitra avy amin'ireo vehivavy manana olana mitovy. Ankoatr'izay, Ampela dia manolotra rafitra ahafahana mifandray mivantana amin'ny mpiasan'ny fahasalamana fidina. Na manana fanontaniana momba ny tsingerin'ny fadimbolana, na manahy momba ny fahasalaman'ny taovam-pananahana, na mila torohevitra matihanina fotsiny, dia afaka manampy amin’ny dingana rehetra ny Ampela.",
+    "parametresEtPartageDeLapplication": "Tefy sy fizarana ny application Ampela",
+    "parametresEtPartageDeLapplicationContent": "Mba hanamora ny fahazahoana ny fampiasana azy dia afaka misafidy teny frantsay sy malagasy ny mpampiasa. Fanampin'izany, ny application dia afaka zaraina amin'ny vehivavy hafa amin’ny alalan’ny sehatra iray. Izany no ahafahana manitatra ny fahalalana ny Ampela ary anampiana ny vehivavy rehetra eo amin’ny fiarahamonina. ",
+    "partenariat": "Fiaraha-miasa",
+    "siteWeb": "Tranon-kala"
 
 }
