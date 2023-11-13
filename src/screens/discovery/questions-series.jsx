@@ -6,7 +6,8 @@ import { ResponseOfQuestion0, ResponseOfQuestion1 } from '../../components/respo
 import { COLORS, SIZES } from "../../../constants";
 import { RFValue } from 'react-native-responsive-fontsize';
 import * as SQLite from 'expo-sqlite';
-import { createTable, insertUser, selectUsers } from "../../../config/databaseLocalConfig"
+import { createTable, deleteAllUsers, insertUser, selectUsers } from "../../../config/databaseLocalConfig";
+import db from '../../../config/databaseInstance';
 import NetInfo from '@react-native-community/netinfo';
 import firebase from "firebase/app";
 // import { connectDB, addDataSignup } from "../../../config/databaseLocalConfig"
@@ -18,11 +19,10 @@ import { getFirestore, doc, setDoc } from "firebase/firestore";
 const QuestionsSeries = ({ navigation, route }) => {
   const { user } = route.params;
   const { nomDutilisateur, motDePasse, profession, selected } = user;
-
   const { t } = useTranslation();
 
-  const [response0, setResponse0] = useState(null);
-  const [response1, setResponse1] = useState(null);
+  const [response0, setResponse0] = useState("");
+  const [response1, setResponse1] = useState("");
   const dontRememberText = t('jeMenSouviensPas');
 
   const handleResponsePress0 = useCallback((item) => {
@@ -47,16 +47,25 @@ const QuestionsSeries = ({ navigation, route }) => {
     }
   }
 
+  function getNumberFromString(strs) {
+    if(strs === dontRememberText) {
+      return 28;
+    } else {
+      const arrs = strs.split(' ');
+      return parseInt(arrs[0], 10);
+    }
+  }
 
-
+  
   const handleNextBtnPress = async () => {
     if (response0 && response1) {
 
-      const localDb = SQLite.openDatabase("ampela.db");
-
-      createTable(localDb);
-      insertUser(localDb, nomDutilisateur, motDePasse, profession, selected, response0, response1);
-      selectUsers(localDb);
+      // const localDb = SQLite.openDatabase("ampela.db");
+      
+      
+      createTable(db);
+      insertUser(db, nomDutilisateur, motDePasse, profession, selected, getNumberFromString(response0), getNumberFromString(response1));
+      selectUsers(db);
 
 
       // const netInfo = await NetInfo.fetch();

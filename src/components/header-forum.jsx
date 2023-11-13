@@ -1,17 +1,19 @@
 import {useContext} from "react";
-import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, Image, StyleSheet, TouchableOpacity, Pressable } from "react-native";
 import { ThemeContext } from "./theme-context";
-import { COLORS, SIZES, images, icons } from "../../constants";
+import { COLORS, images, icons } from "../../constants";
 
-const HeaderForum = ({navigation, isDoctor}) => {
+const HeaderForum = ({navigation, isDoctor,screen}) => {
   const {theme} = useContext(ThemeContext);
-
+console.log(screen);
   return (
     <View style={styles.container}>
-      <Image source={images.user06} style={{ width: 44, height: 44 }} />
-      {/* <Text style={{fontSize: SIZES.large, fontFamily: "SBold", marginLeft: 50}}>Forum</Text> */}
+      <Pressable onPress={() => navigation.openDrawer()}>
+         <Image source={images.user06} style={{ width: 44, height: 44 }} />
+      </Pressable>
+   
       <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
-        <TouchableOpacity onPress={() => navigation.navigate('MessageScreen')} style={{padding: 10}}>
+        <TouchableOpacity onPress={() => navigation.navigate(screen)} style={{padding: 10}}>
           <Image
             source={icons.message}
             resizeMode="contain"

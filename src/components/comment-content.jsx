@@ -4,7 +4,7 @@ import CommentItem from "./forum-comment-item";
 import { collection, getDocs, onSnapshot, query, where } from "firebase/firestore";
 import { database } from "../../config/firebaseConfig";
 
-const CommentContent = ({ post }) => {
+const CommentContent = ({ post, refToCommentItem }) => {
     const [comments, setComments] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -81,13 +81,13 @@ const CommentContent = ({ post }) => {
     }
 
     return (
-        <ScrollView style={{ marginTop: 30, height: 300 }}>
+        <ScrollView style={{ marginTop: 30, height: 300 }} ref={refToCommentItem}>
             {comments && comments.length > 0 ? (
                 comments.map((comment, index) => (
                     <CommentItem
                         key={index}
                         authorPic={{
-                            uri: "https://i.pravatar.cc/300"+Math.floor(Math.random() * 1000) + 1
+                            uri: "https://i.pravatar.cc/300" + Math.floor(Math.random() * 1000) + 1
                         }}
                         authorName={comment.authorName}
                         creationDate={comment.formattedDate}

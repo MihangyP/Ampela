@@ -26,7 +26,7 @@ const FaqItem = ({question, response, list}) => {
     
     return (
         <Pressable onPress={handlePress} style={[styles.container, {backgroundColor: theme === 'pink' ? COLORS.neutral200  : COLORS.neutral280}]}>
-            <View style={{flexDirection: "row",  alignItems: "center", justifyContent: "space-between"}}>
+            <View style={{flexDirection: "row",  alignItems: "flex-start", justifyContent: "space-between"}}>
                 <View style={{width: "90%"}}>
                 <Text style={styles.question}>{t(question)}</Text>
                 </View>
@@ -42,7 +42,8 @@ const FaqItem = ({question, response, list}) => {
                 active ?
                 (   
                 <View>
-                    <Text style={styles.response}>{response}</Text>  
+                    <Text style={styles.response}>{t(response)}</Text>  
+                    {list ? list.map((d) => <Text key={d} style={styles.response}>- {t(d)}</Text>) : null}
                 </View>                  
                 )
                    
@@ -60,11 +61,11 @@ const styles = StyleSheet.create({
     },
     question: {
         fontFamily: "SBold",
-        fontSize: SIZES.medium,
+        fontSize: SIZES.xmedium,
     },
     response: {
         fontFamily: "Regular",
-        fontSize: SIZES.small,
+        fontSize: SIZES.medium,
         marginTop: 10
     }
 })

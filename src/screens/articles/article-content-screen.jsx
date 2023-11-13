@@ -9,7 +9,7 @@ import { RFValue } from 'react-native-responsive-fontsize';
 
 const ArticleContentScreen = ({route, navigation}) => {
     const {theme} = useContext(ThemeContext);
-    const {title, content,img} = route.params;
+    const {title, content, list, imgInside, content2, list2, img} = route.params;
     const {t} = useTranslation();
     return (
         <ScrollView style={styles.container} showsVerticalScrollIndicator={false} >
@@ -25,10 +25,36 @@ const ArticleContentScreen = ({route, navigation}) => {
                 </View>
             </View>
               
-          <View style={{marginTop: 20, paddingHorizontal: 20}}>
-            <Text style={styles.content}>
+          <View style={{marginTop: 20, paddingHorizontal: 20, gap: 12}}>
+            {
+                content.map((c) => <Text key={c} style={styles.content}>{t(c)}</Text>)
+            }
+            {/* <Text style={styles.content}>
                 {t(content)}
-            </Text>
+            </Text> */}
+            <View>
+                 {
+                list ? (
+                    list.map((c) => <Text key={c} style={styles.content}>- {c}</Text>)
+                ) : null
+            }
+            </View>
+            <View style={{alignItems: "center"}}>
+            {
+                imgInside ? <Image source={img} resizeMode='contain' style={{width: 330, height: 330}} /> : null
+            }
+           
+            </View>
+            {
+                content2 ? (content2.map((c) => <Text key={c} style={styles.content}>{c}</Text>)) : null
+            }
+             <View>
+                 {
+                list2 ? (
+                    list2.map((c) => <Text key={c} style={styles.content}>- {c}</Text>)
+                ) : null
+            }
+            </View>
           </View>
         </ScrollView>
 

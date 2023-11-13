@@ -13,7 +13,8 @@ import { COLORS, SIZES, images } from "../../../constants";
 import { signInWithEmailAndPassword, fetchSignInMethodsForEmail, sendEmailVerification } from "firebase/auth";
 import { auth } from "../../../config/firebaseConfig";
 import CustomPopup from "../../components/CustomPopup";
-import { getLastInsertedUserId, updateEmailForUser } from "../../../config/databaseLocalConfig";
+import { getLastInsertedUserId, selectUsers, updateEmailForUser } from "../../../config/databaseLocalConfig";
+import * as SQLite from 'expo-sqlite';
 
 const LogInScreen = ({ navigation }) => {
   const [password, setPassword] = useState("");
@@ -21,7 +22,7 @@ const LogInScreen = ({ navigation }) => {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
   const [popupEmail, setPopupEmail] = useState("");
-  const [isLoading, setIsLoading] = useState(false); // État de chargement
+  const [isLoading, setIsLoading] = useState(false);
   const [inputsDisabled, setInputsDisabled] = useState(false);
 
 
@@ -64,9 +65,10 @@ const LogInScreen = ({ navigation }) => {
               } else {
                 const localDb = SQLite.openDatabase("ampela.db");
                 const lastInsertedUserId = await getLastInsertedUserId(localDb);
-                const newEmail = email;
+                // console.log(lastInsertedUserId);
 
-                const localUser = await updateEmailForUser(localDb, lastInsertedUserId, newEmail);
+                updateEmailForUser(localDb, lastInsertedUserId, mailOrTel);
+                // selectUsers(localDb);
                 navigation.navigate("CalendarScreen");
                 console.log("Login success");
               }

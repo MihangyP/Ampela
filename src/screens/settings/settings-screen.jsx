@@ -15,8 +15,10 @@ import SettingItem from "../../components/setting-item";
 import { COLORS, SIZES, images, icons } from "../../../constants";
 import BackgroundContainer from "../../components/background-container";
 import { RFValue } from "react-native-responsive-fontsize";
+import { signOut } from "firebase/auth";
+import { auth } from "../../../config/firebaseConfig";
 
-const SettingsScreen = ({navigation}) => {
+const SettingsScreen = ({ navigation }) => {
   const { t } = useTranslation();
   const { theme } = useContext(ThemeContext);
   const [scrollEnabled, setScrollEnabled] = useState(true);
@@ -104,19 +106,26 @@ const SettingsScreen = ({navigation}) => {
   };
   const handleConfirmLogOutBtnPress = () => {
     setScrollEnabled(true);
-    Animated.timing(anotherTwoTranslateYAnim, {
-      toValue: screenHeight + 1000,
-      duration: 0,
-      useNativeDriver: true,
-    }).start();
-  };
+    signOut(auth)
+      .then(() => {
+        Animated.timing(anotherTwoTranslateYAnim, {
+          toValue: screenHeight + 1000,
+          duration: 0,
+          useNativeDriver: true,
+        }).start();
+        navigation.navigate('LogInScreen')
+      })
+      .catch((error) => {
 
+        console.error("Erreur lors de la déconnexion : ", error);
+      });
+  };
   return (
     <ScrollView scrollEnabled={scrollEnabled} style={styles.container} showsVerticalScrollIndicator={false}>
       <BackgroundContainer>
-     
-          <Text style={styles.title}>{t("parametre")}</Text>
-  
+
+        <Text style={styles.title}>{t("parametre")}</Text>
+
         <View style={styles.profilContainer}>
           <Image source={images.user06} resizeMode="contain" />
           <Text style={{ fontFamily: "Medium" }}>Charline Bukowskis</Text>
@@ -155,57 +164,57 @@ const SettingsScreen = ({navigation}) => {
             </View>
           </View>
           <View>
-              <Text style={styles.subtitle}>{t('general')}</Text>
-              <View style={{ marginLeft: 15, marginTop: 10, gap: 15 }}>
-                <SettingItem
-                  title={t("langues")}
-                  urlIcon={icons.language}
-                  chevronRight={true}
-                  navigation={navigation}
-                  routeToNavigate="ChangeLanguageScreen"
-                />
-                <SettingItem
-                  title={t("theme")}
-                  urlIcon={icons.themeIcon}
-                  chevronRight={true}
-                  navigation={navigation}
-                  routeToNavigate="ThemeScreen"
-                />
-                <SettingItem
-                  title={t("faq")}
-                  urlIcon={icons.question}
-                  chevronRight={true}
-                  navigation={navigation}
-                  routeToNavigate="FaqScreen"
-                />
-                <SettingItem
-                  title={t("infoAmpela")}
-                  urlIcon={icons.info}
-                  chevronRight={true}
-                  navigation={navigation}
-                  routeToNavigate="InfoScreen"
-                />
-                <TouchableOpacity
-                  style={styles.settingsItem}
-                  onPress={handleSharingPress}
-                >
-                  <View style={styles.left}>
-                    <Image source={icons.sharing} style={styles.settingIcon} />
-                    <Text style={styles.settingTitle}>{t("partager")}</Text>
-                  </View>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.settingsItem}
-                  onPress={handleReinitialisationBtnPress}
-                >
-                  <View style={styles.left}>
-                    <Image source={icons.refresh} style={styles.settingIcon} />
-                    <Text style={styles.settingTitle}>
-                      {t("reinitialisation")}
-                    </Text>
-                  </View>
-                </TouchableOpacity>
-              </View>
+            <Text style={styles.subtitle}>{t('general')}</Text>
+            <View style={{ marginLeft: 15, marginTop: 10, gap: 15 }}>
+              <SettingItem
+                title={t("langues")}
+                urlIcon={icons.language}
+                chevronRight={true}
+                navigation={navigation}
+                routeToNavigate="ChangeLanguageScreen"
+              />
+              <SettingItem
+                title={t("theme")}
+                urlIcon={icons.themeIcon}
+                chevronRight={true}
+                navigation={navigation}
+                routeToNavigate="ThemeScreen"
+              />
+              <SettingItem
+                title={t("faq")}
+                urlIcon={icons.question}
+                chevronRight={true}
+                navigation={navigation}
+                routeToNavigate="FaqScreen"
+              />
+              <SettingItem
+                title={t("infoAmpela")}
+                urlIcon={icons.info}
+                chevronRight={true}
+                navigation={navigation}
+                routeToNavigate="InfoScreen"
+              />
+              <TouchableOpacity
+                style={styles.settingsItem}
+                onPress={handleSharingPress}
+              >
+                <View style={styles.left}>
+                  <Image source={icons.sharing} style={styles.settingIcon} />
+                  <Text style={styles.settingTitle}>{t("partager")}</Text>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.settingsItem}
+                onPress={handleReinitialisationBtnPress}
+              >
+                <View style={styles.left}>
+                  <Image source={icons.refresh} style={styles.settingIcon} />
+                  <Text style={styles.settingTitle}>
+                    {t("reinitialisation")}
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            </View>
           </View>
           <View>
             <Text style={styles.subtitle}>{t('feedback')}</Text>

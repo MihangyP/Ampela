@@ -1,19 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, Modal, StyleSheet, Linking } from 'react-native';
 import { COLORS } from "../../constants";
+import { TouchableOpacity } from 'react-native';
+
 
 const CustomPopup = ({ message, email, error, visible, onClose }) => {
+  // const [visible, setVisible] = useState(isVisible);
   return (
     <Modal
       animationType="fade"
       transparent={true}
       visible={visible}
       onRequestClose={onClose}
+      
     >
       <View style={styles.modalContainer}>
-        <View style={styles.container}>
-          <Text style={{ fontFamily: "Regular" }}>{message}</Text>
-          {email.includes('@') ? (
+        <View className="bg-white p-2 py-5 rounded-md text-center w-[80%] min-h-[180px] flex items-center flex-col justify-center">
+          <TouchableOpacity className="absolute top-0 right-0 m-3 mr-5" onPress={() => { visible=false }}>
+            <Text className=" text-2xl">X</Text>
+          </TouchableOpacity>
+          <Text style={{ fontFamily: "Regular" }} className="text-center">{message}</Text>
+          {email.includes('@') && email != "" ? (
             <Text
               style={styles.link}
               onPress={() => {
@@ -27,7 +34,7 @@ const CustomPopup = ({ message, email, error, visible, onClose }) => {
             <Text>{email}</Text>
           )}
 
-          {/* {error && <Text></Text>} */}
+          {/* <Text></Text> */}
         </View>
       </View>
     </Modal>

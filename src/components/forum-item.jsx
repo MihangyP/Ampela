@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { View, Text, StyleSheet, Image, TextInput, Pressable } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { COLORS, SIZES, icons } from '../../constants';
@@ -9,7 +9,8 @@ import { getAuth } from 'firebase/auth';
 import { collection, onSnapshot, query, where, getDocs, doc, deleteDoc, getDoc, updateDoc } from "firebase/firestore";
 import { database } from '../../config/firebaseConfig';
 
-const ForumItem = ({ post }) => {
+const ForumItem = ({ post, refToCommentItem }) => {
+    console.log(refToCommentItem);
     const { t } = useTranslation();
     const [isLikeIconPressed, setIsLikeIconPressed] = useState(false);
     const [isCommentIconPressed, setIsCommentIconPressed] = useState(false);
@@ -17,12 +18,13 @@ const ForumItem = ({ post }) => {
     const [authorName, setAuthorName] = useState('');
     const [likeCount, setLikeCount] = useState(post.like);
     const [commentCount, setCommentCount] = useState(0);
+    const [isDisabled, setIsDisabled] = useState(false);
 
     useEffect(() => {
         try {
             const likesRef = collection(database, 'likes');
             const likesQuery = query(likesRef, where('postId', '==', post.postId));
-    
+
             const unsubscribeLikes = onSnapshot(likesQuery, (likesSnapshot) => {
                 try {
                     setLikeCount(likesSnapshot.size);
@@ -30,10 +32,10 @@ const ForumItem = ({ post }) => {
                     console.error("Erreur lors de la mise à jour du nombre de likes :", error);
                 }
             });
-    
+
             const commentsRef = collection(database, 'comments');
             const commentsQuery = query(commentsRef, where('postId', '==', post.postId));
-    
+
             const unsubscribeComments = onSnapshot(commentsQuery, (commentsSnapshot) => {
                 try {
                     setCommentCount(commentsSnapshot.size);
@@ -41,7 +43,7 @@ const ForumItem = ({ post }) => {
                     console.error("Erreur lors de la mise à jour du nombre de commentaires :", error);
                 }
             });
-    
+
             return () => {
                 unsubscribeLikes();
                 unsubscribeComments();
@@ -50,7 +52,7 @@ const ForumItem = ({ post }) => {
             console.error("Erreur dans useEffect :", error);
         }
     }, [post.postId]);
-    
+
 
     const checkUserLikedPost = async (userId, postId) => {
         try {
@@ -84,7 +86,7 @@ const ForumItem = ({ post }) => {
     useEffect(() => {
         const fetchAuthorName = async () => {
             try {
-               
+
                 const usersCollection = collection(database, 'users');
                 const authorQuery = query(usersCollection, where('uid', '==', post.authorId));
                 const authorSnapshot = await getDocs(authorQuery);
@@ -141,7 +143,7 @@ const ForumItem = ({ post }) => {
         const userId = getAuth().currentUser.uid;
         const postId = post.postId;
         const postRef = doc(database, "posts", postId);
-
+        setIsDisabled(true);
         try {
             const postDoc = await getDoc(postRef);
 
@@ -149,19 +151,25 @@ const ForumItem = ({ post }) => {
                 console.error("Le post n'existe pas.");
                 return;
             }
-            const currentLikes = postDoc.data().like;
-            if (isLikeIconPressed) {
-                await removeLike(userId, postId);
-                await updateDoc(postRef, { like: currentLikes - 1 });
+            if (postDoc.data()) {
+                const currentLikes = postDoc.data().like;
+                if (isLikeIconPressed) {
+                    await removeLike(userId, postId);
+                    await updateDoc(postRef, { like: currentLikes - 1 });
+                } else {
+                    await addNewLike({ userId, postId, createdAt: new Date() });
+                    await updateDoc(postRef, { like: currentLikes + 1 });
+                }
             } else {
-                await addNewLike({ userId, postId, createdAt: new Date() });
-                await updateDoc(postRef, { like: currentLikes + 1 });
+                console.log("error");
             }
             // setLikeCount((prevLikeCount) => isLikeIconPressed ? prevLikeCount - 1 : prevLikeCount + 1);
             setIsLikeIconPressed(!isLikeIconPressed);
+            console.log(isLikeIconPressed);
         } catch (error) {
             console.error("Erreur lors de la mise à jour du nombre de likes : ", error);
         }
+        setIsDisabled(false);
     };
 
     const handleCommentIconPress = () => {
@@ -170,6 +178,7 @@ const ForumItem = ({ post }) => {
 
     const handleCommentSent = async () => {
         if (commentValue.trim() !== "") {
+            setCommentValue("");
             const commentData = {
                 content: commentValue,
                 postId: post.postId,
@@ -217,12 +226,14 @@ const ForumItem = ({ post }) => {
 
             <View style={styles.reactions}>
                 <View style={styles.like}>
-                    <Pressable onPress={handleLikeIconPress}>
+                    <Pressable disabled={isDisabled} onPress={handleLikeIconPress} >
                         <Image
                             source={isLikeIconPressed ? icons.heartFill : icons.heart}
-                            style={{ width: 24, height: 22 }}
+                            style={{ width: 23, height: 20 }}
+                            resizeMode='contain'
                         />
                     </Pressable>
+
                     <Text style={styles.textSmall}>
                         {likeCount} {t('reactions')}
                     </Text>
@@ -235,7 +246,7 @@ const ForumItem = ({ post }) => {
                 </Pressable>
             </View>
 
-            {isCommentIconPressed ? <CommentContent post={post} /> : null}
+            {isCommentIconPressed ? <CommentContent post={post} refToCommentItem={refToCommentItem} /> : null}
 
             <View style={styles.commentBox}>
                 <TextInput

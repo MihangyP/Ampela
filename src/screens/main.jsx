@@ -70,6 +70,7 @@ const Main = () => {
           )
         }}
       />
+
       <Tab.Screen name="Forum" component={ForumScreen}
         options={{
           tabBarIcon: ({ focused }) => (

@@ -1,19 +1,19 @@
-import {useContext} from 'react';
+import { useContext } from 'react';
 import { Text, View, StyleSheet, Pressable, Image } from 'react-native';
 import { SIZES, COLORS } from '../../constants';
 import { useTranslation } from 'react-i18next';
-import {images} from '../../constants';
+import { images } from '../../constants';
 import { ThemeContext } from './theme-context';
 import { RFValue } from 'react-native-responsive-fontsize';
 
-const ArticleItem = ({navigation ,title, category, content, onPress, img}) => {
-    const {t} = useTranslation();
+const ArticleItem = ({ navigation, title, category, content, list, imgInside, content2, list2, onPress, img }) => {
+    const { t } = useTranslation();
     let categoryText = null;
-   
+
     switch (category) {
-        case 'Menstruations': 
-           categoryText = t('menstruations');
-           break;
+        case 'Menstruations':
+            categoryText = t('menstruations');
+            break;
         case 'Hygiène menstruelle':
             categoryText = t('hygieneMenstruelle');
             break;
@@ -23,42 +23,46 @@ const ArticleItem = ({navigation ,title, category, content, onPress, img}) => {
         case 'Planning Familiale':
             categoryText = t('planningFamiliale');
             break;
-        case 'Astuces': 
+        case 'Astuces':
             categoryText = t('astuces');
             break;
         default:
             return null;
     }
-    const {theme} = useContext(ThemeContext);
+    const { theme } = useContext(ThemeContext);
     const handleTextPress = () => {
         navigation.navigate("ArticleContentScreen", {
-            title: title,
-            content: content,
+            title,
+            content,
+            list,
+            imgInside,
+            content2,
+            list2,
             img,
         });
     }
     const handleContainerPress = () => {
-        onPress(title, content,img);
+        onPress(title, content, list, imgInside, content2, list2, img);
     }
     return (
         <Pressable style={styles.container} onPress={handleContainerPress}>
             <Text style={styles.title}>{t(title)}</Text>
-            <View style={[styles.category, {backgroundColor: theme === 'pink' ? COLORS.accent400 : COLORS.neutral250}]}>
-                <Text style={{fontFamily: 'Regular', color: theme === 'pink' ? COLORS.neutral100 : COLORS.primary}}>{categoryText}</Text>
+            <View style={[styles.category, { backgroundColor: theme === 'pink' ? COLORS.accent400 : COLORS.neutral250 }]}>
+                <Text style={{ fontFamily: 'Regular', color: theme === 'pink' ? COLORS.neutral100 : COLORS.primary }}>{categoryText}</Text>
             </View>
             <View style={styles.img}>
-                <Image source={img} style={{height: 280, width: 280}} resizeMode='contain' />
+                <Image source={img} style={{ height: 280, width: 280 }} resizeMode='contain' />
             </View>
             <Text style={styles.content}
-               numberOfLines={4}
+                numberOfLines={4}
             >
-               {t(content)}
+                {t(content)}
             </Text>
             <Pressable onPress={handleTextPress}>
-                <Text style={{color: theme === 'pink' ? COLORS.accent600 : COLORS.accent800 , fontFamily: "Regular",marginTop: 6}} 
-            >Voir plus {">"} </Text>
+                <Text style={{ color: theme === 'pink' ? COLORS.accent600 : COLORS.accent800, fontFamily: "Regular", marginTop: 6 }}
+                >Voir plus {">"} </Text>
             </Pressable>
-            
+
         </Pressable>
     );
 }

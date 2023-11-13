@@ -24,6 +24,7 @@ const SIZES = {
   xSmall: 10,
   small: 13,
   medium: 15,
+  xmedium: 17,
   large: 20,
   xLarge: 24,
   xxLarge: 34,

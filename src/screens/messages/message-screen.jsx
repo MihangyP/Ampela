@@ -58,7 +58,8 @@ const MessageScreen = ({ navigation }) => {
 
       snapshot.forEach((doc) => {
         const userData = doc.data();
-        if (userData.uid !== currentUserUid) {
+        console.log(userData);
+        if (userData.uid !== currentUserUid && userData.role === "docteur") {
           const conversationId =
             currentUserUid < userData.uid
               ? `${currentUserUid}_${userData.uid}`
@@ -160,7 +161,7 @@ const MessageScreen = ({ navigation }) => {
                     (Math.floor(Math.random() * 1000) + 1),
                 }}
                 name={user.pseudo}
-                job={user.email}
+                job={user.profession}
                 lastMessage={user.lastMessage}
                 onPress={() => handleMessageItemPress(user)}
                 customStyles={{ marginBottom: 10 }}
@@ -175,7 +176,7 @@ const MessageScreen = ({ navigation }) => {
                     (Math.floor(Math.random() * 1000) + 1),
                 }}
                 name={user.pseudo}
-                job={user.email}
+                job={user.profession}
                 lastMessage={user.lastMessage}
                 onPress={() => handleMessageItemPress(user)}
                 customStyles={{ marginBottom: 10 }}

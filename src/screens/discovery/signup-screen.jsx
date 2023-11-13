@@ -9,6 +9,8 @@ import Button from '../../components/button';
 import { COLORS, SIZES, images } from '../../../constants';
 import CustomPopup from '../../components/CustomPopup';
 import { getLastInsertedUserId, updateEmailForUser } from '../../../config/databaseLocalConfig';
+import * as SQLite from 'expo-sqlite';
+
 const SignupScreen = ({ route }) => {
   const navigation = useNavigation();
   const [nameText, setNameText] = useState('');
@@ -44,11 +46,6 @@ const SignupScreen = ({ route }) => {
       try {
         setIsLoading(true);
 
-
-
-
-
-
         const userCredential = await createUserWithEmailAndPassword(
           auth,
           mailOrTel,
@@ -56,11 +53,12 @@ const SignupScreen = ({ route }) => {
         );
 
         const user = userCredential.user;
-        const { uid, email } = user;
-
-
+        const { uid, email, emailVerified } = user;
 
         if (emailVerified) {
+
+        } else {
+          await sendEmailVerification(user);
           const db = getFirestore();
           const usersCollectionRef = doc(db, 'users', uid);
 
@@ -78,11 +76,15 @@ const SignupScreen = ({ route }) => {
           const lastInsertedUserId = await getLastInsertedUserId(localDb);
           const newEmail = email;
 
-          const localUser = await updateEmailForUser(localDb, lastInsertedUserId, newEmail);
-          navigation.navigate('CalendarScreen');
+          updateEmailForUser(localDb, lastInsertedUserId, newEmail);
+          // navigation.navigate('CalendarScreen');
+          setPopupMessage("Votre compte n'est pas encore confirmé. Veuillez vérifier votre e-mail. ");
+          setPopupEmail(mailOrTel);
+          setIsPopupVisible(true);
         }
 
       } catch (error) {
+        setPopupEmail("");
         if (error.code === 'auth/email-already-in-use') {
           setPopupMessage('L\'adresse e-mail est déjà associée à un compte.');
         } else if (error.code === 'auth/invalid-email') {
@@ -96,7 +98,7 @@ const SignupScreen = ({ route }) => {
         } else {
           setPopupMessage('Une erreur s\'est produite lors de la création de l\'utilisateur : ' + error.message);
         }
-        // setPopupEmail(mailOrTel);
+
         setIsPopupVisible(true);
       } finally {
         setIsLoading(false);

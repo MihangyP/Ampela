@@ -15,6 +15,8 @@ import { Calendar, LocaleConfig } from "react-native-calendars";
 import ReminderItem from "../../components/calendar/reminder-item";
 import { RFValue } from "react-native-responsive-fontsize";
 import AuthWithGoogle from "../../components/authWithGoogle/authWithGoogle";
+import { getMenstruationData } from "../../../config/databaseLocalConfig";
+import db from "../../../config/databaseInstance";
 
 LocaleConfig.locales["fr"] = {
   monthNames: [
@@ -126,9 +128,6 @@ const CalendarScreen = () => {
   const { t } = useTranslation();
   const { theme } = useContext(ThemeContext);
 
-  useEffect(() => {
-    console.log('Mandeha');
-  }, []);
   //to fix
   const handleReminderBtnOnePress = useCallback(() => {
     setScrollDisabled(false);
@@ -179,7 +178,9 @@ const CalendarScreen = () => {
       }
   }, []); 
 
-
+  // To fix
+  getMenstruationData(db, "Mihangy Pierrot");
+  
 
   return (
     <ScrollView scrollEnabled={scrollDisabled} style={styles.container} showsVerticalScrollIndicator={false}>

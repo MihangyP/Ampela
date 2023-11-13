@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
+import {SIZES, COLORS} from "../../constants"; 
 
 const CommentItem = ({ authorPic, authorName, creationDate, content }) => {
     return (
@@ -8,8 +9,8 @@ const CommentItem = ({ authorPic, authorName, creationDate, content }) => {
                 <View style={styles.header}>
                     <Image source={authorPic} style={styles.img} />
                     <View>
-                        <Text style={styles.txt}>{authorName}</Text>
-                        <Text style={styles.txt}>{creationDate}</Text>
+                        <Text style={{fontFamily: "SBold"}}>{authorName}</Text>
+                        <Text style={[styles.txt, {fontSize: SIZES.small} ]}>{creationDate}</Text>
                     </View>
                 </View>
             </View>
@@ -34,9 +35,10 @@ const styles = StyleSheet.create({
         fontFamily: "Regular"
     },
     content: {
-        color: "#ccc",
+        color: COLORS.primary,
         fontFamily: "Regular",
-        marginVertical: 5
+        marginVertical: 5,
+        fontSize: SIZES.medium
     }
 });
 

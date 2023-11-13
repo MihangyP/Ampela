@@ -3,7 +3,8 @@ import { useFonts } from "expo-font";
 import { useEffect, useCallback } from "react";
 import * as SplashScreen from "expo-splash-screen";
 import ContainerNavigation from "./src/components/navigation-container";
-// import "./src/i18n";
+import "./src/i18n";
+
 import React from 'react';
 
 const App = () => {
@@ -49,5 +50,11 @@ const App = () => {
 };
 
 
-
-export default App;
+// process(styles)
+//   .then(() => {
+//     ReactDOM.render(<App />, document.getElementById('root'));
+//   })
+//   .catch((error) => {
+//     console.error(error);
+//   });
+export default App ;

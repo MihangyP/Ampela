@@ -25,9 +25,14 @@ import ArticleContentScreen from "../screens/articles/article-content-screen";
 import AccountScreen from "../screens/settings/account-screen";
 import UsernameAndPasswordScreen from "../screens/discovery/username-and-password-screen";
 import DoctorSignUpScreen from "../screens/discovery/doctor-signUp-screen";
+import DoctorLogInScreen from "../screens/discovery/doctor-login-screen";
+import DoctorSignUpFollowingScreen from "../screens/discovery/doctor-signUp-following-screen";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import MainDoctorScreen from "../screens/forum/doctor-forum-screen";
+import DoctorMessageScreen from "../screens/messages/message-screen-doctor";
+
 
 
 const Stack = createNativeStackNavigator();
@@ -83,7 +88,7 @@ const ContainerNavigation = ({ onLayout }) => {
           initialRouteName="Discovery"
         >
 
-          <Stack.Screen name="Discovery" component={DiscoveryScreen} />
+         <Stack.Screen name="Discovery" component={DiscoveryScreen} />
           <Stack.Screen name="PersonalHealthTestScreen" component={PersonalHealthTestScreen} />
           <Stack.Screen name="LastMenstrualCycleStartAge" component={LastMenstrualCycleStartAge} />
           <Stack.Screen name="QuestionsSeries" component={QuestionsSeries} />
@@ -92,12 +97,13 @@ const ContainerNavigation = ({ onLayout }) => {
             component={AuthentificationScreen}
           />
           <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
-          <Stack.Screen name="LogInScreen" component={LogInScreen} />
+          <Stack.Screen name="LogInScreen" component={LogInScreen} /> 
           <Stack.Screen name="CalendarScreen" component={Main} />
           <Stack.Screen
             name="NotificationScreen"
             component={NotificationScreen}
           />
+          <Stack.Screen name="DoctorMessageScreen" component={DoctorMessageScreen} />
           <Stack.Screen name="MessageScreen" component={MessageScreen} />
           <Stack.Screen name="SettingsScreen" component={SettingsScreen} />
           <Stack.Screen
@@ -116,8 +122,8 @@ const ContainerNavigation = ({ onLayout }) => {
           />
           <Stack.Screen name="DoctorAuthScreen" component={DoctorAuthScreen} />
           <Stack.Screen
-            name="DoctorForumScreen"
-            component={DoctorForumScreen}
+            name="MainDoctorScreen"
+            component={MainDoctorScreen}
           />
           <Stack.Screen name="ThemeScreen" component={ThemeScreen} />
           <Stack.Screen
@@ -133,6 +139,15 @@ const ContainerNavigation = ({ onLayout }) => {
             name="DoctorSignUpScreen"
             component={DoctorSignUpScreen}
           />
+          <Stack.Screen
+            name="DoctorSignUpFollowingScreen"
+            component={DoctorSignUpFollowingScreen}
+          />
+          <Stack.Screen
+            name="DoctorLogInScreen"
+            component={DoctorLogInScreen}
+          />
+
         </Stack.Navigator>
       </NavigationContainer>
     </ThemeProvider>

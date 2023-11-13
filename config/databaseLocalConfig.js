@@ -10,9 +10,9 @@ const createTable = (db) => {
         username VARCHAR  NOT NULL,
         password VARCHAR NOT NULL,
         profession VARCHAR NULL,
-        lastMenstruationDate VARCHAR NULL,
-        durationMenstruation VARCHAR NULL,
-        cycleDuration VARCHAR NULL,
+        lastMenstruationDate DATE NULL,
+        durationMenstruation INT NULL,
+        cycleDuration INT NULL,
         email VARCHAR NULL
       );`,
       [],
@@ -90,12 +90,47 @@ const selectUsers = (db) => {
   });
 };
 
+// Select user data from DB
+function getMenstruationData(db, username) {
+  db.transaction((tx) => {
+    tx.executeSql(
+      'SELECT lastMenstruationDate, durationMenstruation, cycleMenstruation FROM user WHERE username=?;',
+      [username],
+      (tx, result) => {
+        let data = [];
+        const row = result.rows[0];
+        console.log("row: ", row);
+      },
+      (error) => {
+        console.log(error);
+      }
+    )
+  })
+}
 
+
+// Delete all records from user table
+function deleteAllUsers(db) {
+  db.transaction((tx) => {
+    tx.executeSql(
+      'DELETE FROM user;',
+      [],
+      (tx, result) => {
+        console.log('result rows');
+      },
+      (error) => {
+        console.log(error);
+      }
+    )
+  })
+}
+
+// Retourne l'ID du dernier utilisateur inséré
 async function getLastInsertedUserId(db) {
   return new Promise((resolve, reject) => {
     db.transaction((tx) => {
       tx.executeSql(
-        'SELECT id FROM user ORDER BY id DESC LIMIT 1;',
+        'SELECT * FROM user ORDER BY id DESC LIMIT 1;',
         [],
         (tx, result) => {
           if (result.rows.length > 0) {
@@ -113,6 +148,7 @@ async function getLastInsertedUserId(db) {
 }
 
 
+// Fetch and update email
 async function updateEmailForUser(db, userId, newEmail) {
   return new Promise((resolve, reject) => {
     db.transaction((tx) => {
@@ -123,7 +159,7 @@ async function updateEmailForUser(db, userId, newEmail) {
           if (result.rowsAffected > 0) {
             resolve({ id: userId, email: newEmail });
           } else {
-            reject('Aucune mise à jour effectuée.');
+            reject('No update made.');
           }
         },
         (error) => {
@@ -168,4 +204,4 @@ async function updateEmailForUser(db, userId, newEmail) {
 //   }
 // }
 
-export { createTable, insertUser, selectUsers, authenticateUser,updateEmailForUser,getLastInsertedUserId };
+export { createTable, insertUser, selectUsers, authenticateUser, updateEmailForUser, getLastInsertedUserId, deleteAllUsers, getMenstruationData };

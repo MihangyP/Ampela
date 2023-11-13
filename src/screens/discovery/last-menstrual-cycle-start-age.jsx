@@ -58,7 +58,7 @@ const LastMenstrualCycleStartAge = ({ navigation, route }) => {
   const handleBtnPress = useCallback(() => {
     navigation.navigate("QuestionsSeries", {
       user: {
-        selected: user.selected,
+        selected,
         nomDutilisateur: user.nomDutilisateur,
         motDePasse: user.motDePasse,
         profession: user.profession,
@@ -67,13 +67,12 @@ const LastMenstrualCycleStartAge = ({ navigation, route }) => {
   }, [navigation]);
 
   const handleDayPressed = useCallback(
-    (day) => {
-      setSelected(day);
+    (date) => {
+      setSelected(date);
     },
     []
   );
 
-  // console.log(selected);
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{t("questionDateVosDernieresRegles")}</Text>

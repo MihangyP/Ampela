@@ -143,7 +143,7 @@ const ForumScreen = ({ navigation }) => {
           </View>
         </Animated.View>
 
-        <HeaderForum navigation={navigation} isDoctor={false} />
+        <HeaderForum navigation={navigation} isDoctor={false} screen={"MessageScreen"} />
         <TouchableOpacity style={[styles.btn, { backgroundColor: theme === 'pink' ? COLORS.accent600 : COLORS.accent800 }]} onPress={handleAskQuestionBtnPress}>
           <Text style={styles.textBtn}>{t('posezVotreQuestion')}</Text>
         </TouchableOpacity>

@@ -35,12 +35,16 @@ const showActiveCatategoryContent = (activeCategory) => {
 
 const ArticleContent = ({navigation, activeCategory, text}) => {
     const content = showActiveCatategoryContent(activeCategory);
-    const handleArticleItemPress = (title, content,img) => {
+    const handleArticleItemPress = (title, content, list, imgInside, content2, list2, img) => {
       
         navigation.navigate('ArticleContentScreen', {
-            title: title,
-            content: content,
-            img:img,
+            title,
+            content,
+            list,
+            imgInside,
+            content2,
+            list2,
+            img,
         }) 
     }
     return (
@@ -50,14 +54,14 @@ const ArticleContent = ({navigation, activeCategory, text}) => {
             {
                 content.content.map((c) => {
                     if(c.title.toLocaleLowerCase().includes(text.toLocaleLowerCase())) {
-                        return <ArticleItem onPress={handleArticleItemPress}  navigation={navigation} key={c.title} title={c.title} category={c.category}  content={c.content} img={c.urlImg} />
+                        return <ArticleItem onPress={handleArticleItemPress}  navigation={navigation} key={c.title} title={c.title} category={c.category}  content={c.content} list={c.list ? c.list : null} imgInside={c.imgInside ? c.imgInside : false} content2={c.content2 ? c.content2 : null} list2={c.list2 ? c.list2 : null} img={c.urlImg} />
                     } else {
                         return null; 
                     }
                 } ) 
 
             }
-           
+        
         </ScrollView>
     );
 }

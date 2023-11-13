@@ -17,7 +17,7 @@ const FaqScreen = ({navigation}) => {
                 <View style={{gap: 10}}>
                 {
                     data.map((d) => (
-                        <FaqItem key={d.id} question={d.question} response={d.response} list={d.list ? d.list : []} />
+                        <FaqItem key={d.id} question={d.question} response={d.response} list={d.list ? d.list : ""} />
                     ))
                 }
                 </View>

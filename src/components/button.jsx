@@ -3,16 +3,19 @@ import { Text, View, Image, TouchableOpacity, StyleSheet } from "react-native";
 import { Dimensions } from "react-native";
 import { COLORS } from "../../constants";
 
-const Button = ({ bgColor, textColor, borderRadius, onPress, children, border, icon, opacity }) => {
+const Button = ({ bgColor, textColor, borderRadius, onPress, children, border, icon, opacity, disable }) => {
+  console.log(disable);
   return (
     <TouchableOpacity style={[styles.button, {
-        backgroundColor: bgColor,
-        borderWidth: border ? 1 : 0,
-        borderColor: border ? COLORS.primary : "transparent",
-        borderRadius: borderRadius ? borderRadius : 0,
-        opacity: opacity
+      backgroundColor: bgColor,
+      borderWidth: border ? 1 : 0,
+      borderColor: border ? COLORS.primary : "transparent",
+      borderRadius: borderRadius ? borderRadius : 0,
+      opacity: opacity
     }]}
-     onPress={onPress}
+      disabled={disable}
+      className="rounded-full"
+      onPress={onPress}
     >
       <View style={styles.flex}>
         <Text style={[styles.buttonText, {
@@ -20,10 +23,10 @@ const Button = ({ bgColor, textColor, borderRadius, onPress, children, border, i
         }]}>{children}</Text>
         {
           icon ?
-          <Image source={icon} resizeMode="contain" style={styles.icon}/>
-          : null
+            <Image source={icon} resizeMode="contain" style={styles.icon} />
+            : null
         }
-      </View>      
+      </View>
     </TouchableOpacity>
   );
 };
@@ -35,7 +38,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     textAlign: "center",
-    fontFamily: 'Regular'
+    fontFamily: 'SBold',
   },
   flex: {
     flexDirection: "row",
