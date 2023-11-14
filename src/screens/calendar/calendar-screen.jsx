@@ -105,7 +105,6 @@ LocaleConfig.locales["fr"] = {
 LocaleConfig.defaultLocale = "fr";
 
 const CalendarScreen = () => {
-
   const [translateYOne, setTranslateYOne] = useState(1500);
   const [translateYTwo, setTranslateYTwo] = useState(1500);
   const [translateYThree, setTranslateYThree] = useState(1500);
@@ -132,55 +131,54 @@ const CalendarScreen = () => {
   const handleReminderBtnOnePress = useCallback(() => {
     setScrollDisabled(false);
     setTranslateYOne(0);
-  }, []); 
+  }, []);
   const handleReminderBtnTwoPress = useCallback(() => {
     setScrollDisabled(false);
     setTranslateYTwo(0);
-  }, []); 
+  }, []);
   const handleReminderBtnThreePress = useCallback(() => {
     setScrollDisabled(false);
     setTranslateYThree(0);
-  }, []); 
+  }, []);
 
   const handleCloseIconOnePress = useCallback(() => {
     setScrollDisabled(true);
     setTranslateYOne(1500);
-  }, []); 
+  }, []);
   const handleCloseIconTwoPress = useCallback(() => {
     setScrollDisabled(true);
     setTranslateYTwo(1500);
-  }, []); 
+  }, []);
   const handleCloseIconThreePress = useCallback(() => {
     setScrollDisabled(true);
     setTranslateYThree(1500);
-  }); 
+  });
 
   const handleRegisterButtonPress = useCallback((type, hour, minutes, active) => {
     setScrollDisabled(true);
     switch (type) {
-        case "Début des règles":
-          setTime1({...time1, hour: hour, minutes: minutes});
-          setHowmanytimeReminder1(active);
-          setTranslateYOne(1500);
-          break;
-        case "Jour d'ovulation":
-          setTime2({...time2, hour: hour, minutes: minutes});
-          setHowmanytimeReminder2(active);
-          setTranslateYTwo(1500);
-          break;
-          case "Prise de pillule":
-          setTime3({...time3, hour: hour, minutes: minutes})
-          setHowmanytimeReminder3(active);
-          setTranslateYThree(1500);
-          break;
-        default:
-          return null;  
-      }
-  }, []); 
+      case "Début des règles":
+        setTime1({ ...time1, hour: hour, minutes: minutes });
+        setHowmanytimeReminder1(active);
+        setTranslateYOne(1500);
+        break;
+      case "Jour d'ovulation":
+        setTime2({ ...time2, hour: hour, minutes: minutes });
+        setHowmanytimeReminder2(active);
+        setTranslateYTwo(1500);
+        break;
+      case "Prise de pillule":
+        setTime3({ ...time3, hour: hour, minutes: minutes })
+        setHowmanytimeReminder3(active);
+        setTranslateYThree(1500);
+        break;
+      default:
+        return null;
+    }
+  }, []);
 
   // To fix
-  getMenstruationData(db, "Mihangy Pierrot");
-  
+  getMenstruationData(db, "Mihangy");
 
   return (
     <ScrollView scrollEnabled={scrollDisabled} style={styles.container} showsVerticalScrollIndicator={false}>
@@ -199,7 +197,7 @@ const CalendarScreen = () => {
             },
           ]}
         >
-          <ReminderContent  onCloseIconPress={handleCloseIconOnePress} pills={false} type="Début des règles" onRegisterButtonPress={handleRegisterButtonPress} />
+          <ReminderContent onCloseIconPress={handleCloseIconOnePress} pills={false} type="Début des règles" onRegisterButtonPress={handleRegisterButtonPress} />
         </View>
         <View
           style={[
@@ -212,10 +210,10 @@ const CalendarScreen = () => {
             },
           ]}
         >
-          <ReminderContent  onCloseIconPress={handleCloseIconTwoPress} pills={false} type="Jour d'ovulation" onRegisterButtonPress={handleRegisterButtonPress} />
+          <ReminderContent onCloseIconPress={handleCloseIconTwoPress} pills={false} type="Jour d'ovulation" onRegisterButtonPress={handleRegisterButtonPress} />
         </View>
         <View
-          style={[ 
+          style={[
             styles.reminderContainer,
             {
               transform: [
@@ -225,7 +223,7 @@ const CalendarScreen = () => {
             },
           ]}
         >
-          <ReminderContent  onCloseIconPress={handleCloseIconThreePress} pills={true} type="Prise de pillule" onRegisterButtonPress={handleRegisterButtonPress} />
+          <ReminderContent onCloseIconPress={handleCloseIconThreePress} pills={true} type="Prise de pillule" onRegisterButtonPress={handleRegisterButtonPress} />
         </View>
         <Text style={styles.title}>{t("calendrier")}</Text>
         <View style={styles.calendar}>
@@ -253,7 +251,7 @@ const CalendarScreen = () => {
               console.log(day.dateString);
             }}
             enableSwipeMonths={true}
-          
+
           />
         </View>
         <View style={styles.indications}>
@@ -268,7 +266,7 @@ const CalendarScreen = () => {
               gap: 10,
             }}
           >
-            <ReminderItem as="Début des règles" onPress={handleReminderBtnOnePress}  time={time1} howmanytimeReminder={howmanytimeReminder1} />
+            <ReminderItem as="Début des règles" onPress={handleReminderBtnOnePress} time={time1} howmanytimeReminder={howmanytimeReminder1} />
             <ReminderItem as="Jour d'ovulation" onPress={handleReminderBtnTwoPress} time={time2} howmanytimeReminder={howmanytimeReminder2} />
             <ReminderItem as="Prise de pillule" onPress={handleReminderBtnThreePress} time={time3} howmanytimeReminder={howmanytimeReminder3} />
           </View>
@@ -304,7 +302,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: "Bold",
-    fontSize: RFValue(SIZES.xLarge) ,
+    fontSize: RFValue(SIZES.xLarge),
     textAlign: "center",
     marginTop: 60,
   },

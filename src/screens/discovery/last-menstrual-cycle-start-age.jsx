@@ -58,21 +58,14 @@ const LastMenstrualCycleStartAge = ({ navigation, route }) => {
   const handleBtnPress = useCallback(() => {
     navigation.navigate("QuestionsSeries", {
       user: {
-        selected,
+        selected: selected,
         nomDutilisateur: user.nomDutilisateur,
         motDePasse: user.motDePasse,
         profession: user.profession,
       },
     });
-  }, [navigation]);
-
-  const handleDayPressed = useCallback(
-    (date) => {
-      setSelected(date);
-    },
-    []
-  );
-
+  }, [navigation, selected]);
+  
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{t("questionDateVosDernieresRegles")}</Text>
@@ -98,7 +91,8 @@ const LastMenstrualCycleStartAge = ({ navigation, route }) => {
             textDayHeaderFontSize: SIZES.medium,
           }}
           onDayPress={(day) => {
-            handleDayPressed(day.dateString);
+            setSelected(day.dateString);
+          //  console.log(selected);
           }}
           markedDates={{
             [selected]: {

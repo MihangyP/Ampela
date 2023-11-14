@@ -2,26 +2,21 @@ import { async } from "@firebase/util";
 import * as SQLite from "expo-sqlite";
 
 
-const createTable = (db) => {
+const createTable = async(db) => {
   db.transaction((tx) => {
     tx.executeSql(
       `CREATE TABLE IF NOT EXISTS user (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        username VARCHAR  NOT NULL,
+        username VARCHAR  NOT NULL UNIQUE,
         password VARCHAR NOT NULL,
         profession VARCHAR NULL,
         lastMenstruationDate DATE NULL,
         durationMenstruation INT NULL,
         cycleDuration INT NULL,
         email VARCHAR NULL
-      );`,
-      [],
-      () => {
-        console.log('Table des utilisateurs créée avec succès.');
-      },
-      (error) => {
-        console.error('Erreur lors de la création de la table des utilisateurs :', error.message);
-      }
+      );`, [],
+      () => console.log('Table des utilisateurs créée avec succès.'),
+      (_, error) => console.error('Erreur lors de la création de la table des utilisateurs :', error.message)
     );
   });
 };
@@ -50,25 +45,26 @@ async function authenticateUser(email, password) {
   }
 }
 
-const insertUser = (db, username, password, profession, lastMenstruationDate, durationMenstruation, cycleDuration) => {
+function insertUser(db, username, password, profession, lastMenstruationDate, durationMenstruation, cycleDuration) {
   console.log(username, password, profession, lastMenstruationDate, durationMenstruation, cycleDuration);
+ 
   db.transaction((tx) => {
-    tx.executeSql(
-      `INSERT INTO user (username, password, profession, lastMenstruationDate, durationMenstruation, cycleDuration) VALUES (?, ?, ?, ?, ?, ?);`,
-      [username, password, profession, lastMenstruationDate, durationMenstruation, cycleDuration],
-      (_, results) => {
-        if (results.rowsAffected > 0) {
-          console.log('Utilisateur ajouté avec succès.');
-        } else {
-          console.error('Erreur lors de l\'ajout d\'utilisateur : Aucune ligne n\'a été affectée.');
-        }
-      },
-      (error) => {
-        console.error('Erreur lors de l\'ajout d\'utilisateur :', error.message);
-      }
-    );
+     tx.executeSql(
+       `INSERT INTO user (username, password, profession, lastMenstruationDate, durationMenstruation, cycleDuration) VALUES (?, ?, ?, ?, ?, ?);`,
+       [username, password, profession, lastMenstruationDate, durationMenstruation, cycleDuration],
+       (_, results) => {
+         if (results.rowsAffected > 0) {
+           console.log('Utilisateur ajouté avec succès.');
+         } else {
+           console.error('Erreur lors de l\'ajout d\'utilisateur : Aucune ligne n\'a été affectée.');
+         }
+       },
+       (error) => {
+         console.error('Erreur lors de l\'ajout d\'utilisateur :', error.message);
+       }
+     );
   });
-};
+ };
 
 
 const selectUsers = (db) => {
@@ -78,6 +74,10 @@ const selectUsers = (db) => {
       [],
       (tx, result) => {
         const rows = result.rows;
+        if(result.rows.length<0){
+          console.log("no result");
+          return null;
+        }
         for (let i = 0; i < rows.length; i++) {
           const user = rows.item(i);
           console.log('Utilisateur récupéré :', user);
@@ -94,35 +94,33 @@ const selectUsers = (db) => {
 function getMenstruationData(db, username) {
   db.transaction((tx) => {
     tx.executeSql(
-      'SELECT lastMenstruationDate, durationMenstruation, cycleMenstruation FROM user WHERE username=?;',
+      'SELECT lastMenstruationDate, durationMenstruation, cycleDuration FROM user WHERE username=?;',
       [username],
       (tx, result) => {
-        let data = [];
-        const row = result.rows[0];
-        console.log("row: ", row);
+        const row = result.rows._array[0];
+        console.log("row :", row);
+        // return {
+        //   cycleDuration: row[0].cycleDuration,
+        //   durationMenstruation: row[0].durationMenstruation,
+        //   lastMenstruationDate: row[0].lastMenstruationDate
+        // }
       },
       (error) => {
-        console.log(error);
+        console.log(error.message);
       }
     )
   })
 }
 
-
 // Delete all records from user table
 function deleteAllUsers(db) {
-  db.transaction((tx) => {
-    tx.executeSql(
-      'DELETE FROM user;',
+  db.transaction(tx => {
+    tx.executeSql('DELETE FROM user',
       [],
-      (tx, result) => {
-        console.log('result rows');
-      },
-      (error) => {
-        console.log(error);
-      }
-    )
-  })
+      (_, { rowsAffected }) => {
+        console.log(`Deleted ${rowsAffected} rows from users table.`);
+      });
+  });
 }
 
 // Retourne l'ID du dernier utilisateur inséré

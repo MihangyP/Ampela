@@ -7,7 +7,7 @@ import { COLORS, SIZES } from "../../../constants";
 import { RFValue } from 'react-native-responsive-fontsize';
 import * as SQLite from 'expo-sqlite';
 import { createTable, deleteAllUsers, insertUser, selectUsers } from "../../../config/databaseLocalConfig";
-import db from '../../../config/databaseInstance';
+// import db from '../../../config/databaseInstance';
 import NetInfo from '@react-native-community/netinfo';
 import firebase from "firebase/app";
 // import { connectDB, addDataSignup } from "../../../config/databaseLocalConfig"
@@ -47,8 +47,14 @@ const QuestionsSeries = ({ navigation, route }) => {
     }
   }
 
+  /**
+ * Extracts the first number from a string.
+ * 
+ * @param {string} strs - The input string.
+ * @returns {number} - The extracted number.
+ */
   function getNumberFromString(strs) {
-    if(strs === dontRememberText) {
+    if (strs === dontRememberText) {
       return 28;
     } else {
       const arrs = strs.split(' ');
@@ -56,18 +62,22 @@ const QuestionsSeries = ({ navigation, route }) => {
     }
   }
 
-  
-  const handleNextBtnPress = async () => {
+
+  const handleNextBtnPress =  () => {
     if (response0 && response1) {
-
-      // const localDb = SQLite.openDatabase("ampela.db");
-      
-      
+      const db = SQLite.openDatabase("ampela.db");
       createTable(db);
-      insertUser(db, nomDutilisateur, motDePasse, profession, selected, getNumberFromString(response0), getNumberFromString(response1));
-      selectUsers(db);
-
-
+      // insertUser(
+      //   db,
+      //   nomDutilisateur,
+      //   motDePasse,
+      //   profession,
+      //   selected,
+      //   getNumberFromString(response0),
+      //   getNumberFromString(response1)
+      // );
+      // selectUsers(db);
+      deleteAllUsers(db);
       // const netInfo = await NetInfo.fetch();
 
       // if (netInfo.isConnected) {

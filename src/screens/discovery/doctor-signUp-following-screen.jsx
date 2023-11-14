@@ -21,7 +21,7 @@ const DoctorSignUpFollowingScreen = ({ route, navigation }) => {
     const [popupEmail, setPopupEmail] = useState('');
     const [isPopupVisible, setIsPopupVisible] = useState(false);
     const [popupMessage, setPopupMessage] = useState('');
-    const {fullname,job,tel,adress}=route.params;
+    const { fullname, job, tel, adress } = route.params;
 
     const handleLogInTextPress = () => {
         navigation.navigate("DoctorLogInScreen")
@@ -128,10 +128,10 @@ const DoctorSignUpFollowingScreen = ({ route, navigation }) => {
         //     Alert.alert("Veuillez remplir tous les champs :)");
         // }
     }
-    
-  const handlePopupClose = () => {
-    setIsPopupVisible(false);
-  };
+
+    const handlePopupClose = () => {
+        setIsPopupVisible(false);
+    };
 
 
     return (
