@@ -89,7 +89,8 @@ const data = [
             {
                 title: "tissuVsServiette",
                 category: "Hygiène menstruelle",
-                content: ["Tableau (en cours ...)"],
+                content: ["  "],
+                imgInsideArr: [img.images.imgVs1, img.images.imgVs2],
                 urlImg: img.images.tissuVsServiette
             },
 
@@ -176,7 +177,7 @@ const data = [
             },
 
         ]
-    }, {
+    }, { 
         content: [
             {
                 title: "definitionEtAvantages",
@@ -206,25 +207,30 @@ const data = [
                 title: "methodeMecanique",
                 category: "Planning Familiale",
                 content: ["methodeMecaniqueContent"],
+                list: ["le DIU au cuivre : fait de plastique avec un fil de cuivre enroulé, autour de sa tige ou de son bras, agissant comme spermicide. Efficace jusqu'à 10 ans, il convient aux femmes qui préfèrent éviter les changements hormonaux ;", "le DIU hormonal : libérant des hormones pour épaissir la glaire cervicale et bloquer l'ovulation. Pouvant rester en place pendant 3 à 5 ans, il réduit également les règles abondantes et douloureuses pour certaines femmes."],
+                content2: ["L'insertion est effectuée par un professionnel de santé et peut causer un certain inconfort temporaire. Les DIU offrent une contraception sans y penser quotidiennement et peuvent être retirés à tout moment. Avec une efficacité de plus de 99%, il est essentiel de consulter un professionnel de santé pour déterminer sa compatibilité à votre corps."],
                 urlImg: img.images.methodeMecanique
             },
 
             {
                 title: "methodeBarriere",
                 category: "Planning Familiale",
-                content: "methodeBarriereContent",
+                content: ["methodeBarriereContent"],
+                list: ["Préservatif masculin : Aussi connu sous le nom de condom, il est placé sur le pénis en érection avant le rapport sexuel pour empêcher le sperme d'entrer en contact avec le vagin. Il s'agit d'une barrière physique qui prévient la grossesse et réduit le risque de transmission des infections sexuellement transmissibles (IST) tel que le SIDA.", "Préservatif féminin : Similaire au préservatif masculin, le préservatif féminin est inséré dans le vagin avant les rapports sexuels. Il agit également comme une barrière physique contre le sperme et les IST."],
                 urlImg: img.images.methodeBarriere
             }, {
                 title: "methodeNaturelle",
                 category: "Planning Familiale",
-                content: "methodeNaturelleContent",
+                content: ["methodeNaturelleContent"],
+                list: ["Méthode du calendrier : qui consiste à suivre régulièrement la durée de vos cycles menstruels et à éviter les rapports sexuels pendant les jours présumés fertiles, généralement au milieu du cycle.", "Méthode de la température basale : Elle implique de mesurer votre température corporelle basale (repos) chaque matin avant de vous lever. Une légère augmentation de la température indique que l'ovulation a eu lieu.", "Méthode de la glaire cervicale : En surveillant les changements dans la texture et la quantité de la glaire cervicale, vous pouvez déterminer les périodes de fertilité et d'infertilité.", "Méthode sympto-thermique : Cette méthode combine les observations de la température basale et de la glaire cervicale, ainsi que d'autres signes comme la position du col de l'utérus, pour affiner la prédiction des périodes fertiles.", "Méthode de l’Allaitement Maternel et de l’Aménorrhée (MAMA) : Elle repose sur le fait que l'allaitement maternel exclusif peut temporairement empêcher l'ovulation."],
                 urlImg: img.images.methodeNaturelle
             }
             ,
             {
                 title: "methodeChirurgicale",
                 category: "Planning Familiale",
-                content: "methodeChirurgicaleContent",
+                content: ["methodeChirurgicaleContent"],
+                list: ["la ligature des trompes (ou ligature tubaire) : une procédure chirurgicale dans laquelle les trompes de Fallope, qui sont les voies par lesquelles les ovules voyagent des ovaires à l'utérus, sont coupées, liées ou bloquées. Cela empêche les spermatozoïdes de rencontrer les ovules, rendant la fécondation impossible ;", "la vasectomie : une intervention chirurgicale réalisée sur les hommes consistant à couper ou à bloquer les canaux déférents, par lesquels les spermatozoïdes voyagent des testicules vers l'urètre. Cela empêche les spermatozoïdes d'être éjaculés avec le sperme lors des rapports sexuels."],
                 urlImg: img.images.methodeChirurgicale
             },
         ]
@@ -233,31 +239,37 @@ const data = [
             {
                 title: "lesBonnesPratiquesDurantLaMenstruation",
                 category: "Astuces",
-                content: "lesBonnesPratiquesDurantLaMenstruationContent",
+                content: ["lesBonnesPratiquesDurantLaMenstruationContent"],
+                list: ["bien manger et s’hydrater ;", "avoir suffisamment de sommeil ;", "rester active ;", "adapter une bonne hygiène intime", "toujours demander conseil à un gynécologue si jamais une douleur inquiétante apparait"],
                 urlImg: img.images.lesBonnesPratiqueDurantLaMenstruation
             }
             , {
                 title: "alimentationPendantLesRegles",
                 category: "Astuces",
-                content: "alimentationPendantLesReglesContent",
+                content: ["alimentationPendantLesReglesContent"],
+                list: ["les fruits (comme la banane pour le potassium et les oranges pour les vitamines) et les légumes verts (les petits pois, les épinards, les cressons) ;", "les légumineuses (les haricots, pois du cap, lentilles…) ;", "les aliments riche en oméga-3 (les avocats, les poissons, l’huile de colza, les œufs) ;", "les oléagineux (cacahuètes, pistaches, amandes, noix…)", "le gingembre, un aliment à favoriser pendant les douleurs abdominales", "le riz, la viande rouge et le chocolat noir afin d’éviter une carence en fer due à l’écoulement de sang"],
+                content2: ["Il est également essentiel de boire beaucoup d’eau car ça permet de diminuer les ballonnements et la rétention d’eau. Cela compense aussi les pertes de liquide et limite les contractions de l’utérus et par la suite les crampes abdominales. ", "Certaines nourritures sont également à éviter car elles contribuent à l’apparition de certains symptômes tels que les acnés, les crampes ou les ballonnements. Il faut ainsi diminuer ou éviter la consommation de : "],
+                list2: ["de sel et de sucre car ils causent les ballonnements et la rétention d’eau ; ", "du café, du thé et des boissons gazeuses ;", "des produits laitiers favorisent la contractions de l’utérus ;", "de l’alcool et de tabac ;", "des aliments gras comme les frites car ils favorisent la prise de poids l’apparition d’acnés."],
                 urlImg: img.images.alimentationPendantLesRegles
             }
             , {
                 title: "etreActiveDurantLesRegles",
                 category: "Astuces",
-                content: "etreActiveDurantLesReglesContent",
+                content: ["etreActiveDurantLesReglesContent"],
                 urlImg: img.images.etreActiveDurantLesRegles
             }
             , {
                 title: "uneBonneHygieneIntime",
                 category: "Astuces",
-                content: "uneBonneHygieneIntimeContent",
+                content: ["uneBonneHygieneIntimeContent", "Seule la vulve doit être lavée, le vagin se nettoie naturellement et y introduire son doigt durant les toilettes intimes peut détruire la flore vaginale. Les savons parfumés sont à éviter, le mieux est d’utiliser des produits à PH neutre et se laver uniquement avec les mains.  Il est préférable de limiter le nombre de toilettes intimes à deux fois par jour. Après chaque nettoyage, il faut s’essuyer d’avant en arrière (comme aux toilettes) avec un linge doux et s’assurer d’être bien sec car l’humidité est favorable au développement des bactéries. "],
                 urlImg: img.images.bonneHygienneIntime
             }
             , {
                 title: "soulagerLesDouleursMenstruelles",
                 category: "Astuces",
-                content: "soulagerLesDouleursMenstruellesContent",
+                content: ["soulagerLesDouleursMenstruellesContent"],
+                list: ["une bouillote chaude ou un coussin chaud à placer sur le bas ventre ou le dos", "masser délicatement la zone douloureuse", "boire des tisanes mais faire attention au surdosage", "appliquer de l’huile essentielle sur le ventre"],
+                content2: ["Avant d’appliquer les remèdes tels que la tisane ou l’huile essentielle, il est nécessaire d’avoir un avis médical. Il en est de même si les douleurs persistent malgré les remèdes car il se peut qu’il s’agisse d’une maladie plutôt qu’une pathologie."],
                 urlImg: img.images.soulagerLesDouleursMenstruels  
             }
         ]    

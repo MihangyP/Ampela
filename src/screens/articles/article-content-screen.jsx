@@ -5,11 +5,12 @@ import HeaderWithGoBack from '../../components/header-with-go-back';
 import { ThemeContext } from '../../components/theme-context';
 import { useTranslation } from 'react-i18next';
 import { RFValue } from 'react-native-responsive-fontsize';
+import {images} from '../../../constants';
 
 
 const ArticleContentScreen = ({route, navigation}) => {
     const {theme} = useContext(ThemeContext);
-    const {title, content, list, imgInside, content2, list2, img} = route.params;
+    const {title, content, list, imgInside, imgInsideArr, content2, list2, img} = route.params;
     const {t} = useTranslation();
     return (
         <ScrollView style={styles.container} showsVerticalScrollIndicator={false} >
@@ -32,11 +33,19 @@ const ArticleContentScreen = ({route, navigation}) => {
             {/* <Text style={styles.content}>
                 {t(content)}
             </Text> */}
-            <View>
+            <View style={{gap: 6}}>
                  {
                 list ? (
                     list.map((c) => <Text key={c} style={styles.content}>- {c}</Text>)
                 ) : null
+                }
+            </View>
+            <View style={{alignItems: "center", gap: 20}}>
+            {
+                imgInsideArr ? (
+                    imgInsideArr.map((img) => <Image key={img} source={img} resizeMode='contain' style={{width: img === images.imgVs1 ? 450 : 500, height: img === images.imgVs1 ? 420 : 500}} />)
+                )
+                : null
             }
             </View>
             <View style={{alignItems: "center"}}>
@@ -48,7 +57,7 @@ const ArticleContentScreen = ({route, navigation}) => {
             {
                 content2 ? (content2.map((c) => <Text key={c} style={styles.content}>{c}</Text>)) : null
             }
-             <View>
+             <View style={{gap: 6}}>
                  {
                 list2 ? (
                     list2.map((c) => <Text key={c} style={styles.content}>- {c}</Text>)

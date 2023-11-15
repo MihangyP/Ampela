@@ -61,8 +61,13 @@ import protectionEnTissu from "../assets/images/articles/protection_en_tissu.png
 import etreActiveDurantLesRegles from "../assets/images/articles/etre_active_durant_les_regles.png";
 import lesBonnesPratiqueDurantLaMenstruation from "../assets/images/articles/les_bonnes_pratiques_durant_la_menstruation.png";
 import ceQueSontLesMenstruations from "../assets/images/articles/ce-que-sont-les-menstruations.png";
+import imgVs1 from "../assets/images/articles/imgVs1.png";
+import imgVs2 from "../assets/images/articles/imgVs2.png";
+
 
 export default {
+  imgVs1,
+  imgVs2,
   ceQueSontLesMenstruations,
   etreActiveDurantLesRegles,
   lesBonnesPratiqueDurantLaMenstruation,
