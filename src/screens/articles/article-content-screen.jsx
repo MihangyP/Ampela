@@ -36,7 +36,7 @@ const ArticleContentScreen = ({route, navigation}) => {
             <View style={{gap: 6}}>
                  {
                 list ? (
-                    list.map((c) => <Text key={c} style={styles.content}>- {c}</Text>)
+                    list.map((c) => <Text key={c} style={styles.content}>- {t(c)}</Text>)
                 ) : null
                 }
             </View>
@@ -55,12 +55,12 @@ const ArticleContentScreen = ({route, navigation}) => {
            
             </View>
             {
-                content2 ? (content2.map((c) => <Text key={c} style={styles.content}>{c}</Text>)) : null
+                content2 ? (content2.map((c) => <Text key={c} style={styles.content}>{t(c)}</Text>)) : null
             }
              <View style={{gap: 6}}>
                  {
                 list2 ? (
-                    list2.map((c) => <Text key={c} style={styles.content}>- {c}</Text>)
+                    list2.map((c) => <Text key={c} style={styles.content}>- {t(c)}</Text>)
                 ) : null
             }
             </View>

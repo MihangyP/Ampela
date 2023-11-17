@@ -99,6 +99,8 @@ function getMenstruationData(db, username) {
       (tx, result) => {
         const row = result.rows._array[0];
         console.log("row :", row);
+        // On convertis le JSON en objet puis on le retourne
+        return JSON.parse(JSON.stringify(row));
         // return {
         //   cycleDuration: row[0].cycleDuration,
         //   durationMenstruation: row[0].durationMenstruation,

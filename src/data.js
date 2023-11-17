@@ -6,40 +6,40 @@ const data = [
             {
                 title: "ceQueSontLesMenstruations",
                 category: "Menstruations",
-                content: ["ceQueSontLesMenstruationsContent"],
-                list: ["Le nom scientifique des règles, un écoulement périodique de sang faisant partie du cycle menstruel ;", "Un processus naturel et sain chez les filles et les femmes en âge de procréer ; ", "Un signe qu’une fille a atteint l’âge de la puberté ;", "La preuve qu’une femme n'est pas enceinte ;", "Elles proviennent de la destruction de la couche interne de l’utérus, composée de sang et de muqueuse utérine ou endomètre, dû à la chute du taux d’hormones ovariennes s’il n’y a pas eu de fécondation."],
-                content2: ["Les premières règles d’une fille sont appelées ménarche et leurs apparitions varient d’une fille à une autre.  Comme c’est un processus naturel ayant un lien avec la dignité humaine, il faut arrêter les tabous autour de cela (moqueries, exclusion, la honte). On a le droit d’en parler librement surtout en cas de problèmes."],
+                content: ["ceQueSontLesMenstruationsContent0"],
+                list: ["ceQueSontLesMenstruationsContent1", "ceQueSontLesMenstruationsContent2", "ceQueSontLesMenstruationsContent3", "ceQueSontLesMenstruationsContent4", "ceQueSontLesMenstruationsContent5"],
+                content2: ["ceQueSontLesMenstruationsContent6"],
                 urlImg: img.images.ceQueSontLesMenstruations,
             },
             {
                 title: "leCycleMenstruel",
                 category: "Menstruations",
-                content: ["leCycleMenstruelContent", "Un cycle menstruel se compte à partir du premier jour des règles et se termine la veille des prochaines règles. En général, il dure entre 21 à 45 jours et la moyenne est de 28 jours. Pour chaque femme, la durée du cycle varie selon :"],
-                list: ["son âge (le cycle est irrégulier pendant les premières règles et la période avant la ménopause)", "sa condition physique (poids, santé, fatigue)", "le stress et le choc émotionnel", "les contraceptifs hormonaux (pilule, injection) "],
-                content2: ["Pour le calculer, il faut noter la date du premier jour des règles sur plusieurs mois. Si les règles arrivent le 18 août et les prochaines le 15 septembre c’est que le cycle dure 28 jours. Pour trouver l’ovulation il faut soustraire 14 à 28 (la durée du cycle), ainsi, l’ovulation est le 31 août.", "Ce calcul est valable pour tous les cycles, pour un cycle de 21 jours (21-14= 7), l’ovulation a lieu le 7e jour. Pour un cycle de 45 jours (45-14=31) l’ovulation aura lieu le 31e jour du cycle."],
+                content: ["leCycleMenstruelContent0", "leCycleMenstruelContent1"],
+                list: ["leCycleMenstruelContent2", "leCycleMenstruelContent3", "leCycleMenstruelContent4", "leCycleMenstruelContent5"],
+                content2: ["leCycleMenstruelContent6", "leCycleMenstruelContent7"],
                 urlImg: img.images.cycleMenstruel,
             },
             {
                 title: "lesPhasesDuCycleMenstruel",
                 category: "Menstruations",
-                content: ["lesPhasesDuCycleMenstruelContent"],
+                content: ["lesPhasesDuCycleMenstruelContent0"],
                 imgInside: true,
-                content2: ["La phase de fécondité est la période pendant laquelle une femme peut tomber enceinte si elle a eu un rapport sexuel non protégé. Elle dépend de la durée du cycle. Pour un cycle régulier, elle commence quatre jours avant l’ovulation et se termine deux jours après cela.", "L’ovulation est le moment où l’ovule est expulsé par l’un des ovaires dans la trompe de Fallope pour attendre la fécondation. Comme pour les règles, le jour de l'ovulation peut varier d'un cycle à l'autre. L’ovule peut vivre jusqu’à 24h dans les trompes de Fallope. Pendant cette période, s’il ne rencontre pas de spermatozoïde, il meurt. Elle est marquée par des pertes vaginales, une libido renforcée, une augmentation de la température corporelle, une sensibilité des seins, un changement de position du col de l’utérus lors de l’ovulation et quelques fois des douleurs et crampes abdominales ou dans le bas du dos.", "En effet certaines femmes ressentent des douleurs ovulatoires, plus légères que celles des règles, on les appelle mittelschmerz. Ces douleurs, dues à l’augmentation rapide d'hormone, sont ressenties au milieu du bassin ou dans le bas-ventre, du même côté que l'ovaire qui a expulsé un ovule. Elles s’accompagnent parfois de pertes de sang légères et de l’apparition d’un ganglion au niveau de l’aine. ", "Il n'existe pas de traitement officiel recommandé pour les douleurs ovulatoires. Néanmoins, la douleur peut être gérée de la même manière que les crampes menstruelles : par la chaleur, des massages ou des médicaments antidouleur en vente libre."],
+                content2: ["lesPhasesDuCycleMenstruelContent1", "lesPhasesDuCycleMenstruelContent2", "lesPhasesDuCycleMenstruelContent3", "lesPhasesDuCycleMenstruelContent4"],
                 urlImg: img.images.phasesDuCycleMenstruel
             },
             {
                 title: "syndromeMenstruel",
                 category: "Menstruations",
-                content: ["syndromeMenstruelContent", "Des changements physiques tels que : "],
-                list: ["crampes abdominales,", "ballonnements,", "prise de poids,", "fringales,", "poussée d’acnés,", "seins douloureux,", "maux de tête ou étourdissements."],
-                content2: ["Des changements émotionnels :"],
-                list2: ["sautes d’humeur (colère, euphorie, irritabilité, tristesse)", "agressivité,", "manque de concentration, confusion,", "fatigue,", "état dépressif (anxiété ou panique, nervosité)."],
+                content: ["syndromeMenstruelContent0", "syndromeMenstruelContent1"],
+                list: ["syndromeMenstruelContent2", "syndromeMenstruelContent3", "syndromeMenstruelContent4", "syndromeMenstruelContent5", "syndromeMenstruelContent6", "syndromeMenstruelContent7", "syndromeMenstruelContent8"],
+                content2: ["syndromeMenstruelContent9"],
+                list2: ["syndromeMenstruelContent10", "syndromeMenstruelContent11", "syndromeMenstruelContent12", "syndromeMenstruelContent13", "syndromeMenstruelContent14"],
                 urlImg: img.images.syndromePremenstruel
             },
             {
                 title: "lesPertesVaginales",
                 category: "Menstruations",
-                content: ["lesPertesVaginalesContent", "Si vous avez des pertes habituellement avec une légère odeur, il n’y a rien à craindre, elles sont normales. Comme leur rôle est de protéger la flore vaginale et de nettoyer le vagin, il ne faut surtout pas les enlever lors de la douche."],
+                content: ["lesPertesVaginalesContent0", "lesPertesVaginalesContent1"],
                 urlImg: img.images.perteVaginal
             }, {
                 title: "leSpotting",
@@ -49,13 +49,13 @@ const data = [
             }, {
                 title: "pertesAnormales",
                 category: "Menstruations",
-                content: ["pertesAnormalesContent", "Quand la glaire est abondante et qu’elle ressemble à du yaourt ou du lait caillé tout en s’accompagnant de démangeaisons, il peut s’agir d’une mycose vaginale. Elle ne dégage pas d’odeur particulière.", "Quand elle est verdâtre accompagnée d’une mauvaise odeur, cela peut signifier une IST appelée la « trichomonas ». Les pertes sont mousseuses et causent des irritations au moment d’uriner ou lors des rapports sexuels.", "Une glaire grise ayant une forte odeur de poisson pourri signifie une maladie appelée vaginose.", "Les pertes vaginales roses ou brunes qui apparaissent au milieu du cycle sans cause apparente peuvent être dues à une IST."],
+                content: ["pertesAnormalesContent0", "pertesAnormalesContent1", "pertesAnormalesContent2", "pertesAnormalesContent3", "pertesAnormalesContent4"],
                 urlImg: img.images.pertesAnormales
             }, {
                 title: "laMenopause",
                 category: "Menstruations",
-                content: ["laMenopauseContent", "La transition vers la ménopause peut se faire petit à petit, souvent en commençant par des changements dans le cycle menstruel. On parle de « périménopause » à partir du moment où ces signes sont observés pour la première fois et cela se termine à l’arrêt permanent des menstruations.", "Les signes annonçant la ménopause sont :"],
-                list: ["L’irrégularité des règles", "Les bouffées de chaleur", "Des sueurs nocturnes", "Une perturbation du sommeil", "Des troubles de l'humeur", "Une baisse de libido", "La sécheresse vaginale", "Un vieillissement de la peau, des cheveux plus fins", "Une légère prise de poids"],
+                content: ["laMenopauseContent0", "laMenopauseContent1", "laMenopauseContent2"],
+                list: ["laMenopauseContent3", "laMenopauseContent4", "laMenopauseContent5", "laMenopauseContent6", "laMenopauseContent7", "laMenopauseContent8", "laMenopauseContent9", "laMenopauseContent10", "laMenopauseContent11"],
                 urlImg: img.images.menopause
             }
         ]
@@ -71,19 +71,19 @@ const data = [
             {
                 title: "lesDifferentsTypesDeProtegeHygienique",
                 category: "Hygiène menstruelle",
-                content: ["lesDifferentsTypesDeProtegeHygieniqueContent"],
-                list: ["la serviette hygiénique, meilleure surtout pour les premières règles ;", "le linge en coton ;", "le protège-slip ;", "la culotte menstruelle ;", "le tampon"],
+                content: ["lesDifferentsTypesDeProtegeHygieniqueContent0"],
+                list: ["lesDifferentsTypesDeProtegeHygieniqueContent1", "leDifferentsTypesDeProtegeHygieniqueContent2", "lesDifferentsTypesDeProtegeHygieniqueContent3", "lesDifferentsTypesDeProtegeHygieniqueContent4", "lesDifferentsTypesDeProtegeHygieniqueContent5"],
                 urlImg: img.images.differentsTypesProtegeHygienique
             }, {
                 title: "laServietteHygieniqueJetable",
                 category: "Hygiène menstruelle",
-                content: ["laServietteHygieniqueJetableContent", " On peut trouver des serviettes hygiéniques de jour et de nuit, ces dernières sont plus épaisses pour assurer une meilleure protection et éviter les débordements. Les serviettes de jour doivent être changées toutes les 3 heures, même si elles ne sont pas pleines, pour éviter la prolifération des bactéries et ne pas causer de mycose. Ce délai est plus long pour les serviettes de nuit. En cas de règles hémorragique il est nécessaire de les changer même durant la nuit. Si on ne connait pas encore son flux menstruel, il est préférable de choisir la serviette la plus grande et changer par la suite."],
+                content: ["laServietteHygieniqueJetableContent0", "laServietteHygieniqueJetableContent1"],
                 urlImg: img.images.servitteHygieniqueJetable
             }, {
                 title: "laProtectionEnTissu",
                 category: "Hygiène menstruelle",
-                content: ["laProtectionEnTissuContent", "Attention : "],
-                list: ["Il faut toujours choisir un linge en coton pour éviter les bactéries et les irritations.", "Elle doit être changée toutes les heures.", "Il est interdit de l’introduire dans le vagin.", "Il faut la laver avec du savon, l’eau seule ne suffit pas", "Après le lavage, il faut l’étendre au soleil et en hauteur pour éviter la poussière ou que les animaux ne les touchent. Si l’endroit dans lequel elle a été étendue n’est pas ensoleillé, il est nécessaire de repasser le tissu."],
+                content: ["laProtectionEnTissuContent0", "laProtectionEnTissuContent1"],
+                list: ["laProtectionEnTissuContent2", "laProtectionEnTissuContent3", "leProtectionEnTissuContent4", "laProtectionEnTissuContent5", "laProtectionEnTissuContent6"],
                 urlImg: img.images.protectionEnTissu
             },
             {
@@ -117,14 +117,14 @@ const data = [
             {
                 title: "leTampon",
                 category: "Hygiène menstruelle",
-                content: ["leTamponContent", "Toutefois, le port du tampon pendant plus de 6 heures ou pendant la nuit peut entraîner une stagnation du sang dans le vagin, créant un environnement propice à la croissance de bactéries. Pour minimiser le risque de problèmes tels que les infections vaginales, il est crucial de suivre attentivement les instructions d'utilisation du tampon :"],
-                list: ["Avant et après son insertion, il est important de bien se laver les mains ;", "Il est recommandé de le changer régulièrement, au moins toutes les 6 heures ;", "Opter pour une protection adaptée à son flux est essentiel ;", "Pour des nuits prolongées, optez plutôt pour des serviettes hygiéniques ;", "En dehors des règles, il ne faut pas l'utiliser, par exemple, pour absorber les pertes vaginales ;", "Après avoir nagé, il est recommandé de changer de tampon ;", "Si l’emballage présente des déchirures, il doit être jeté, car il risque d’avoir été sali."],
+                content: ["leTamponContent0", "leTamponContent1"],
+                list: ["leTamponContent2", "leTamponContent3", "leTamponContent4", "leTamponContent5", "leTamponContent6", "leTamponContent7", "leTamponContent8"],
                 urlImg: img.images.tampon
             },
             {
                 title: "La « cup » ou coupe menstruelle ",
                 category: "Hygiène menstruelle",
-                content: ["cupContent", "Réutilisable, elle doit être retirée puis vidée au cours de la journée et lavée à l’eau chaude et au savon doux à chaque fois. Comme le tampon, sa mauvaise utilisation (tel l’usage trop prolongé) peut entraîner un syndrome de choc toxique, car le sang qui stagne favorise la prolifération de bactéries."],
+                content: ["cupContent0", "cupContent1"],
                 urlImg: img.images.cup
             },
 
@@ -134,25 +134,25 @@ const data = [
             {
                 title: "dysmenorrhees",
                 category: "Troubles et maladies",
-                content: ["dysmenorrheesContent", "La dysménorrhée est due à une hormone qui est responsable de la contraction du muscle utérin et d’autres changements physiques avant l’arrivée des règles. Elle est primaire si elle est pathologique c’est-à-dire qu’elle n’est causée par aucune maladie, par contre elle est secondaire si elle découle d’une maladie telle que l’endométriose ou encore l’adénomyose."],
+                content: ["dysmenorrheesContent0", "dysmenorrheesContent1"],
                 urlImg: img.images.douleurMenstruelle
             }, {
                 title: "amenorrhee",
                 category: "Troubles et maladies",
-                content: ["amenorrheeContent", "L’aménorrhée est primaire si une jeune fille de 16 ans ou plus n’a pas encore eu ses premières règles. On parle d’aménorrhée secondaire quand il y a une interruption des règles pendant un ou plusieurs cycles."],
+                content: ["amenorrheeContent0", "amenorrheeContent1"],
                 urlImg: img.images.abscenceDeRegles
             }, {
                 title: "saignementEnDehorsDesRegles",
                 category: "Troubles et maladies",
-                content: ["saignementEnDehorsDesReglesContent"],
-                list: ["liés à une lésion de l’appareil génital (infections, endométriose ou adénomyose, cancer du col de l’utérus et du vagin, fibromes utérins -très fréquents...),", "dus à un déséquilibre hormonal (sécrétion insuffisante d’hormones ou hémorragies utérines dues au stress et effets secondaires des médicaments ou de certaines herbes) ;", "des métrorragies qui ont une cause générales (anomalies congénitales ou des pathologies acquises causant la coagulation du sang)"],
+                content: ["saignementEnDehorsDesReglesContent0"],
+                list: ["saignementEnDehorsDesReglesContent1", "saignementEnDehorsDesReglesContent2", "saignementEnDehorsDesReglesContent3"],
                 urlImg: img.images.saignementDehorsRegles
             }, {
                 title: "mycoseVaginale",
                 category: "Troubles et maladies",
-                content: ["mycoseVaginaleContent", "Ce déséquilibre est dû à l’affaiblissement du système immunitaire, à la prise trop élevée d’antibiotiques, à la prise de pilule contraceptive, à la grossesse, au diabète, à la pratique abusive de douches vaginales, au port de vêtements et de sous-vêtements synthétiques. Il se produit également lorsque les rapports sexuels non protégés altèrent l'acidité du vagin à cause des spermatozoïdes, et les frottements pendant les rapports peuvent déplacer des bactéries vers le vagin.", "Toutefois, une mycose vaginale n’est pas considérée comme une infection sexuellement transmissible. Les symptômes les plus courants d’une mycose vaginale sont :"],
-                list: ["les démangeaisons et/ou les brûlures autour de la vulve (organes externes génitaux de la femme) et de l'ouverture vaginale ;", "les pertes vaginales blanches ou jaunes pouvant être épaisses mais n’ont pas nécessairement d’odeur ;", "les douleurs lors des rapports sexuels ;", "•	la douleur,  la rougeur et le gonflement de la vulve;", "les douleurs en urinant."],
-                content2: ["La mycose est traitée avec des médicaments antifongiques prescrits par les gynécologues."],
+                content: ["mycoseVaginaleContent0", "mycoseVaginaleContent1", "mycoseVaginaleContent2"],
+                list: ["mycoseVaginaleContent3", "mycoseVaginaleContent4", "mycoseVaginaleContent5", "mycoseVaginaleContent6", "mycoseVaginaleContent7"],
+                content2: ["mycoseVaginaleContent8"],
                 urlImg: img.images.mycoseVaginal
             },
 
@@ -160,19 +160,19 @@ const data = [
             {
                 title: "endometriose",
                 category: "Troubles et maladies",
-                content: ["endometrioseContent", "Elle entraîne des douleurs aiguës pendant les règles, les rapports sexuels et aux toilettes. D’autre part, elle cause des douleurs pelviennes chroniques, des ballonnements, des nausées et de la fatigue, et parfois une dépression, de l’angoisse et une infertilité. Néanmoins, certaines personnes ne présentent aucun symptôme, dans ce cas, elles ne sont pas au courant de la maladie. Ces symptômes peuvent s’atténuer après la ménopause, mais pas toujours.", "Il n’existe actuellement pas de remède contre l’endométriose, on peut seulement atténuer les symptômes par des médicaments, voire une intervention chirurgicale."],
+                content: ["endometrioseContent0", "endometrioseContent1", "endometrioseContent2"],
                 urlImg: img.images.endometriose
             }, {
                 title: "kysteOvarien",
                 category: "Troubles et maladies",
-                content: ["kysteOvarienContent", "La plupart ne présentent aucun symptôme mais dans certains cas, ils peuvent être accompagnés de règles irrégulières, de douleurs pelviennes dans un côté du corps, douleurs pendant les rapports sexuels ou de troubles intestinaux et urinaires irrégulières.", "On distingue deux types de kystes ovariens :"],
-                list: ["Les kystes fonctionnels de l’ovaire qui surviennent avant la ménopause. Ils sont les plus fréquents et découlent d’un dysfonctionnement de l’ovaire. Ce type de grosseur est susceptible de disparaître spontanément en seulement quelques cycles. Ils peuvent changer de volume, disparaitre avec les règles et réapparaitre au cycle suivant. Dans certains cas, ils sont dus à un traitement stimulant l’ovulation ou de produits contraceptifs comme la pose d’un stérilet.", "Les kystes organiques de l’ovaire dont la cause est inconnue et sont permanents. Contrairement aux kystes fonctionnels, leur volume ne change pas quel que soit le moment du cycle menstruel. On distingue les kystes organiques ovariens séreux (remplis de liquide) ; les kystes mucoïdes ou mucineux (remplis de mucus) ; les kystes dermoïdes qui ressemblent à la peau et peuvent contenir des cheveux ou des dents ; et les kystes endométriosiques liés à une endométriose."],
+                content: ["kysteOvarienContent0", "kysteOvarienContent1", "kysteOvarienContent2"],
+                list: ["kysteOvarienContent3", "kysteOvarienContent4"],
                 urlImg: img.images.kysteOvarien
             }, {
                 title: "fibromes",
                 category: "Troubles et maladies",
-                content: ["fibromesContent", "Leurs causes ne sont pas encore connues. Les facteurs de risque possibles sont des antécédents familiaux de fibrome, l'obésité ou une puberté précoce. Il semble aussi qu’une élévation des taux d’hormones féminines stimule leur croissance. Ils peuvent se développer pendant la grossesse (lorsque les taux de ces hormones augmentent), et ils tendent à disparaître à la ménopause (lorsque ces taux baissent de façon drastique). Certains cas ne présentent pas de symptômes mais un examen est nécessaire tous les 6 à 12 mois afin d’observer leur évolution.", " Les fibromes peuvent provoquer douleurs, métrorragie, constipation, fausses couches à répétition et besoin fréquent d’uriner. Les traitements comprennent la prise de médicaments (afin de soulager les symptômes ou de limiter leur développement) ou l'ablation des fibromes ou de l’utérus par une intervention chirurgicale.", "Les fibromes peuvent se situer à divers endroits de l’utérus :"],
-                list: ["sous la surface externe de l’utérus ;", "à l’intérieur de la paroi utérine ;", "sous la couche interne  de l’utérus."],
+                content: ["fibromesContent0", "fibromesContent1", "fibromesContent2", "fibromesContent3"],
+                list: ["fibromesContent4", "fibromesContent5", "fibromesContent6"],
                 urlImg: img.images.fibromes
             },
 
@@ -182,55 +182,55 @@ const data = [
             {
                 title: "definitionEtAvantages",
                 category: "Planning Familiale",
-                content: ["definitionEtAvantagesContent"],
-                list: ["éviter les grossesses non désirées,", "décider du nombre d’enfants désiré,", "assurer un espacement convenable entre les naissances,", "programmer les naissances au meilleur moment quant à l’âge de la mère."],
-                content2: ["Au point de vue santé : "],
-                list2: ["contribue à la réduction de la mortalité et morbidité maternelle et infantile entre autres la fistule obstétricale.", "améliore le bien-être des mères et de la famille.", "contribue au développement socio-économique de la famille et du pays.", "peut aider à ralentir les taux de croissance démographique et à modérer l’impact sur l’environnement (épuisement des ressources naturelles, demande croissante d’eau, pollution...)."],
+                content: ["definitionEtAvantagesContent0"],
+                list: ["definitionEtAvantagesContent1", "definitionEtAvantagesContent2", "definitionEtAvantagesContent3", "definitionEtAvantagesContent4"],
+                content2: ["definitionEtAvantagesContent5"],
+                list2: ["definitionEtAvantagesContent6", "definitiontEtAvantagesContent7", "definitionEtAvantagesContent8", "definitionEtAvantagesContent9"],
                 urlImg: img.images.definitionsEtAvantages
             },
 
             {
                 title: "typesDePlanningFamilial",
                 category: "Planning Familiale",
-                content: ["typesDePlanningFamilialContent"],
-                list: ["Méthode hormonale", "Méthode mécanique", "Méthode barrière", "Méthode naturelle", "Méthode chirurgicale (méthode définitive)"],
+                content: ["typesDePlanningFamilialContent0"],
+                list: ["typesDePlanningFamilialContent1", "typesDePlanningFamilialContent2", "typesDePlanningFamilialContent3", "typesDePlanningFamilialContent4", "typesDePlanningFamilialContent5"],
                 urlImg: img.images.typesDePlanningFamilial
             },
 
             {
                 title: "methodeHormonale",
                 category: "Planning Familiale",
-                content: ["methodeHormonaleContent"],
-                list: ["la contraception d'urgence, également appelée « pilule du lendemain », utilise des hormones pour éviter une grossesse après un rapport sexuel non protégé, efficace dans les 72 heures suivant le rapport. En revanche, elle ne doit pas être utilisée régulièrement, son efficacité est supérieure à 58% ;", "le contraceptif oral combiné, souvent appelé « pilule », contenant des hormones pour empêcher la production d'ovules, est efficace à 91% lorsqu'il est pris à heure fixe ;", "le contraceptif microdosé, également appelé « micropilule », adapté aux femmes allaitantes car il contient peu d'hormone, avec une efficacité de 90% à 97% ;", "le contraceptif injectable, administré mensuellement ou trimestriellement, bloque l'ovulation avec une efficacité de l'ordre de 97%, mais nécessite une régularité dans les injections ;", "l'implant contraceptif, inséré sous la peau, bloque la production d'ovules avec une efficacité dépassant 99%, nécessitant un renouvellement tous les 3 à 5 ans par un professionnel de santé."],
+                content: ["methodeHormonaleContent0"],
+                list: ["methodedHormonaleContent1", "methodeHormonaleContent2", "methodeHormonaleContent3", "methodeHormonaleContent4", "methodeHormonaleContent5"],
                 urlImg: img.images.methodeHormonale
             }, {
                 title: "methodeMecanique",
                 category: "Planning Familiale",
-                content: ["methodeMecaniqueContent"],
-                list: ["le DIU au cuivre : fait de plastique avec un fil de cuivre enroulé, autour de sa tige ou de son bras, agissant comme spermicide. Efficace jusqu'à 10 ans, il convient aux femmes qui préfèrent éviter les changements hormonaux ;", "le DIU hormonal : libérant des hormones pour épaissir la glaire cervicale et bloquer l'ovulation. Pouvant rester en place pendant 3 à 5 ans, il réduit également les règles abondantes et douloureuses pour certaines femmes."],
-                content2: ["L'insertion est effectuée par un professionnel de santé et peut causer un certain inconfort temporaire. Les DIU offrent une contraception sans y penser quotidiennement et peuvent être retirés à tout moment. Avec une efficacité de plus de 99%, il est essentiel de consulter un professionnel de santé pour déterminer sa compatibilité à votre corps."],
+                content: ["methodeMecaniqueContent0"],
+                list: ["methodeMecaniqueContent1", "methodeMecaniqueContent2"],
+                content2: ["methodeMecaniqueContent3"],
                 urlImg: img.images.methodeMecanique
             },
 
             {
                 title: "methodeBarriere",
                 category: "Planning Familiale",
-                content: ["methodeBarriereContent"],
-                list: ["Préservatif masculin : Aussi connu sous le nom de condom, il est placé sur le pénis en érection avant le rapport sexuel pour empêcher le sperme d'entrer en contact avec le vagin. Il s'agit d'une barrière physique qui prévient la grossesse et réduit le risque de transmission des infections sexuellement transmissibles (IST) tel que le SIDA.", "Préservatif féminin : Similaire au préservatif masculin, le préservatif féminin est inséré dans le vagin avant les rapports sexuels. Il agit également comme une barrière physique contre le sperme et les IST."],
+                content: ["methodeBarriereContent0"],
+                list: ["methodeBarriereContent1", "methodeBarriereContent2"],
                 urlImg: img.images.methodeBarriere
             }, {
                 title: "methodeNaturelle",
                 category: "Planning Familiale",
-                content: ["methodeNaturelleContent"],
-                list: ["Méthode du calendrier : qui consiste à suivre régulièrement la durée de vos cycles menstruels et à éviter les rapports sexuels pendant les jours présumés fertiles, généralement au milieu du cycle.", "Méthode de la température basale : Elle implique de mesurer votre température corporelle basale (repos) chaque matin avant de vous lever. Une légère augmentation de la température indique que l'ovulation a eu lieu.", "Méthode de la glaire cervicale : En surveillant les changements dans la texture et la quantité de la glaire cervicale, vous pouvez déterminer les périodes de fertilité et d'infertilité.", "Méthode sympto-thermique : Cette méthode combine les observations de la température basale et de la glaire cervicale, ainsi que d'autres signes comme la position du col de l'utérus, pour affiner la prédiction des périodes fertiles.", "Méthode de l’Allaitement Maternel et de l’Aménorrhée (MAMA) : Elle repose sur le fait que l'allaitement maternel exclusif peut temporairement empêcher l'ovulation."],
+                content: ["methodeNaturelleContent0"],
+                list: ["methodeNaturelleContent1", "methodeNaturelleContent2", "methodeNaturelleContent3", "methodeNaturelleContent4", "methodeNaturelleContent5"],
                 urlImg: img.images.methodeNaturelle
             }
             ,
             {
                 title: "methodeChirurgicale",
                 category: "Planning Familiale",
-                content: ["methodeChirurgicaleContent"],
-                list: ["la ligature des trompes (ou ligature tubaire) : une procédure chirurgicale dans laquelle les trompes de Fallope, qui sont les voies par lesquelles les ovules voyagent des ovaires à l'utérus, sont coupées, liées ou bloquées. Cela empêche les spermatozoïdes de rencontrer les ovules, rendant la fécondation impossible ;", "la vasectomie : une intervention chirurgicale réalisée sur les hommes consistant à couper ou à bloquer les canaux déférents, par lesquels les spermatozoïdes voyagent des testicules vers l'urètre. Cela empêche les spermatozoïdes d'être éjaculés avec le sperme lors des rapports sexuels."],
+                content: ["methodeChirurgicaleContent0"],
+                list: ["methodeChirurgicaleContent1", "methodeChirurgicaleContent2"],
                 urlImg: img.images.methodeChirurgicale
             },
         ]
@@ -239,17 +239,17 @@ const data = [
             {
                 title: "lesBonnesPratiquesDurantLaMenstruation",
                 category: "Astuces",
-                content: ["lesBonnesPratiquesDurantLaMenstruationContent"],
-                list: ["bien manger et s’hydrater ;", "avoir suffisamment de sommeil ;", "rester active ;", "adapter une bonne hygiène intime", "toujours demander conseil à un gynécologue si jamais une douleur inquiétante apparait"],
+                content: ["lesBonnesPratiquesDurantLaMenstruationContent0"],
+                list: ["lesBonnesPratiquesDurantLaMenstruationContent1", "lesBonnesPratiquesDurantLaMenstruationContent2", "lesBonnesPratiquesDurantLaMenstruationContent3", "lesBonnesPratiquesDurantLaMenstruationContent4", "lesBonnesPratiquesDurantLaMentruationContent5"],
                 urlImg: img.images.lesBonnesPratiqueDurantLaMenstruation
             }
             , {
                 title: "alimentationPendantLesRegles",
                 category: "Astuces",
-                content: ["alimentationPendantLesReglesContent"],
-                list: ["les fruits (comme la banane pour le potassium et les oranges pour les vitamines) et les légumes verts (les petits pois, les épinards, les cressons) ;", "les légumineuses (les haricots, pois du cap, lentilles…) ;", "les aliments riche en oméga-3 (les avocats, les poissons, l’huile de colza, les œufs) ;", "les oléagineux (cacahuètes, pistaches, amandes, noix…)", "le gingembre, un aliment à favoriser pendant les douleurs abdominales", "le riz, la viande rouge et le chocolat noir afin d’éviter une carence en fer due à l’écoulement de sang"],
-                content2: ["Il est également essentiel de boire beaucoup d’eau car ça permet de diminuer les ballonnements et la rétention d’eau. Cela compense aussi les pertes de liquide et limite les contractions de l’utérus et par la suite les crampes abdominales. ", "Certaines nourritures sont également à éviter car elles contribuent à l’apparition de certains symptômes tels que les acnés, les crampes ou les ballonnements. Il faut ainsi diminuer ou éviter la consommation de : "],
-                list2: ["de sel et de sucre car ils causent les ballonnements et la rétention d’eau ; ", "du café, du thé et des boissons gazeuses ;", "des produits laitiers favorisent la contractions de l’utérus ;", "de l’alcool et de tabac ;", "des aliments gras comme les frites car ils favorisent la prise de poids l’apparition d’acnés."],
+                content: ["alimentationPendantLesReglesContent0"],
+                list: ["alimentationPendantLesReglesContent1", "alimentationPendantLesReglesContent2", "alimentationPendantLesReglesContent3", "alimentationPendantLesReglesContent4", "alimentationPendantLesReglesContent5", "alimentationPendantLesReglesContent6"],
+                content2: ["alimentationPendantLesReglesContent7", "alimentationPendantLesReglesContent8"],
+                list2: ["alimentationPendantLesReglesContent9", "alimentationPendantLesReglesContent10", "alimentationPendantLesReglesContent11", "alimentationPendantLesReglesContent12", "alimentationPendantLesReglesContent13"],
                 urlImg: img.images.alimentationPendantLesRegles
             }
             , {
@@ -261,15 +261,15 @@ const data = [
             , {
                 title: "uneBonneHygieneIntime",
                 category: "Astuces",
-                content: ["uneBonneHygieneIntimeContent", "Seule la vulve doit être lavée, le vagin se nettoie naturellement et y introduire son doigt durant les toilettes intimes peut détruire la flore vaginale. Les savons parfumés sont à éviter, le mieux est d’utiliser des produits à PH neutre et se laver uniquement avec les mains.  Il est préférable de limiter le nombre de toilettes intimes à deux fois par jour. Après chaque nettoyage, il faut s’essuyer d’avant en arrière (comme aux toilettes) avec un linge doux et s’assurer d’être bien sec car l’humidité est favorable au développement des bactéries. "],
+                content: ["uneBonneHygieneIntimeContent0", "uneBonneHygieneIntimeContent1"],
                 urlImg: img.images.bonneHygienneIntime
             }
             , {
                 title: "soulagerLesDouleursMenstruelles",
                 category: "Astuces",
-                content: ["soulagerLesDouleursMenstruellesContent"],
-                list: ["une bouillote chaude ou un coussin chaud à placer sur le bas ventre ou le dos", "masser délicatement la zone douloureuse", "boire des tisanes mais faire attention au surdosage", "appliquer de l’huile essentielle sur le ventre"],
-                content2: ["Avant d’appliquer les remèdes tels que la tisane ou l’huile essentielle, il est nécessaire d’avoir un avis médical. Il en est de même si les douleurs persistent malgré les remèdes car il se peut qu’il s’agisse d’une maladie plutôt qu’une pathologie."],
+                content: ["soulagerLesDouleursMenstruellesContent0"],
+                list: ["soulagerLesDouleursMenstruellesContent1", "soulagerLesDouleursMenstruellesContent2", "soulagerLesDouleursMenstruellesContent3", "soulagerLesDouleursMenstruellesContent4"],
+                content2: ["soulagerLesDouleursMenstruellesContent5"],
                 urlImg: img.images.soulagerLesDouleursMenstruels  
             }
         ]    

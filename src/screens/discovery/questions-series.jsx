@@ -76,7 +76,7 @@ const QuestionsSeries = ({ navigation, route }) => {
       //   getNumberFromString(response0),
       //   getNumberFromString(response1)
       // );
-      // selectUsers(db);
+      //selectUsers(db);
       deleteAllUsers(db);
       // const netInfo = await NetInfo.fetch();
 
