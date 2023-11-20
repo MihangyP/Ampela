@@ -85,7 +85,7 @@ const ContainerNavigation = ({ onLayout }) => {
             headerShown: false,
           }}
 
-          initialRouteName="Discovery"
+          initialRouteName="CalendarScreen"
         >
 
          <Stack.Screen name="Discovery" component={DiscoveryScreen} />

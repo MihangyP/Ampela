@@ -20,7 +20,7 @@ const CustomPopup = ({ message, email, error, visible, onClose }) => {
             <Text className=" text-2xl">X</Text>
           </TouchableOpacity>
           <Text style={{ fontFamily: "Regular" }} className="text-center">{message}</Text>
-          {email.includes('@') && email != "" ? (
+          {email && email.includes('@') && email != "" ? (
             <Text
               style={styles.link}
               onPress={() => {

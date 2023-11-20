@@ -10,6 +10,7 @@ import {
 import { COLORS, SIZES, icons } from "../../constants";
 import { ThemeContext } from "./theme-context";
 import { RFValue } from "react-native-responsive-fontsize";
+import CustomScrollPicker from "./CustomScrollPicker";
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -58,48 +59,27 @@ const ReminderContent = ({ onCloseIconPress, pills, type, onRegisterButtonPress 
     onRegisterButtonPress(type, number1, number2, active);
   }
   return (
-    <View style={styles.container}>
+    <View style={styles.container} className="fixed -top-[250px]">
       <View style={styles.header}>
         <Text style={[styles.textRegular, { textAlign: "center" }]}>
           Début des règles
         </Text>
       </View>
       <View style={styles.body}>
+
+        {/* Heure scrollable */}
         <View style={styles.gap}>
-          <Pressable onPress={handleBtnTopOnePress}>
-             <Image source={icons.top} />
-          </Pressable>
-         
-          <Text style={styles.number}>{number1.toString().padStart(2, '0')}</Text>
-          <Pressable  onPress={handleBtnBottomOnePress}>
-            <Image
-            
-            style={{
-              transform: [{ rotate: "180deg" }],
-            }}
-            source={icons.bottom}
-           
-          />
-          </Pressable>
-          
+         <CustomScrollPicker/>
         </View>
+
         <View>
           <Text style={styles.number}>:</Text>
         </View>
+
+        {/* Minute scrollable */}
         <View style={styles.gap}>
-            <Pressable onPress={handleBtnTopTwoPress}>
-                  <Image source={icons.top} />
-            </Pressable>
-        
-          <Text style={styles.number}>{number2.toString().padStart(2, '0')}</Text>
-          <Pressable onPress={handleBtnBottomTwoPress}>
-                <Image
-                    style={{
-                    transform: [{ rotate: "180deg" }],
-                    }}
-                    source={icons.bottom}
-               />
-          </Pressable>
+        <CustomScrollPicker/>
+       
         </View>
       </View>
       <View style={styles.footer}>
@@ -226,6 +206,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.neutral100,
     width: screenWidth - 40,
     borderRadius: 15,
+
   },
   textRegular: {
     fontFamily: "Regular",

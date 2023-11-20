@@ -181,98 +181,103 @@ const CalendarScreen = () => {
   getMenstruationData(db, "Mihangy");
 
   return (
-    <ScrollView scrollEnabled={scrollDisabled} style={styles.container} showsVerticalScrollIndicator={false}>
-      <View style={styles.authwithgoogleContainer}>
-        <AuthWithGoogle />
-      </View>
-      <BackgroundContainer>
-        <View
-          style={[
-            styles.reminderContainer,
-            {
-              transform: [
-                // to fix
-                { translateY: translateYOne },
-              ],
-            },
-          ]}
-        >
-          <ReminderContent onCloseIconPress={handleCloseIconOnePress} pills={false} type="Début des règles" onRegisterButtonPress={handleRegisterButtonPress} />
+    <>
+      <ScrollView scrollEnabled={scrollDisabled} style={styles.container} showsVerticalScrollIndicator={false}>
+        <View style={styles.authwithgoogleContainer}>
+          <AuthWithGoogle />
         </View>
-        <View
-          style={[
-            styles.reminderContainer,
-            {
-              transform: [
-                // to fix
-                { translateY: translateYTwo },
-              ],
-            },
-          ]}
-        >
-          <ReminderContent onCloseIconPress={handleCloseIconTwoPress} pills={false} type="Jour d'ovulation" onRegisterButtonPress={handleRegisterButtonPress} />
-        </View>
-        <View
-          style={[
-            styles.reminderContainer,
-            {
-              transform: [
-                // to fix
-                { translateY: translateYThree },
-              ],
-            },
-          ]}
-        >
-          <ReminderContent onCloseIconPress={handleCloseIconThreePress} pills={true} type="Prise de pillule" onRegisterButtonPress={handleRegisterButtonPress} />
-        </View>
-        <Text style={styles.title}>{t("calendrier")}</Text>
-        <View style={styles.calendar}>
-          <Calendar
-            style={{
-              height: 380,
-              borderRadius: 8,
-              backgroundColor: "rgba(255, 255, 255, .5)",
-            }}
-            theme={{
-              textSectio0nTitleColor: COLORS.neutral400,
-              todayTextColor: COLORS.primary,
-              dayTextColor: "#2d4150",
-              textDisabledColor: COLORS.neutral400,
-              arrowColor: COLORS.primary,
-              monthTextColor: COLORS.primary,
-              textDayFontFamily: "Regular",
-              textMonthFontFamily: "SBold",
-              textDayHeaderFontFamily: "Regular",
-              textDayFontSize: SIZES.medium,
-              textMonthFontSize: SIZES.large,
-              textDayHeaderFontSize: SIZES.medium,
-            }}
-            onDayPress={(day) => {
-              console.log(day.dateString);
-            }}
-            enableSwipeMonths={true}
+        <BackgroundContainer>
 
-          />
-        </View>
-        <View style={styles.indications}>
-          <IndicationCalendar title="Jours des règles" />
-          <IndicationCalendar title="Ovulation" />
-          <IndicationCalendar title="Période de fécondité" />
-        </View>
-        <View style={[styles.reminder, { backgroundColor: theme === 'pink' ? "rgba(255, 255, 255, .5)" : "rgba(238, 220, 174, .5)" }]}>
-          <Text style={styles.reminderTitle}>{t('rappels')}</Text>
-          <View
-            style={{
-              gap: 10,
-            }}
-          >
-            <ReminderItem as="Début des règles" onPress={handleReminderBtnOnePress} time={time1} howmanytimeReminder={howmanytimeReminder1} />
-            <ReminderItem as="Jour d'ovulation" onPress={handleReminderBtnTwoPress} time={time2} howmanytimeReminder={howmanytimeReminder2} />
-            <ReminderItem as="Prise de pillule" onPress={handleReminderBtnThreePress} time={time3} howmanytimeReminder={howmanytimeReminder3} />
+          <Text style={styles.title}>{t("calendrier")}</Text>
+          <View style={styles.calendar}>
+            <Calendar
+              style={{
+                height: 380,
+                borderRadius: 8,
+                backgroundColor: "rgba(255, 255, 255, .5)",
+              }}
+              theme={{
+                textSectio0nTitleColor: COLORS.neutral400,
+                todayTextColor: COLORS.primary,
+                dayTextColor: "#2d4150",
+                textDisabledColor: COLORS.neutral400,
+                arrowColor: COLORS.primary,
+                monthTextColor: COLORS.primary,
+                textDayFontFamily: "Regular",
+                textMonthFontFamily: "SBold",
+                textDayHeaderFontFamily: "Regular",
+                textDayFontSize: SIZES.medium,
+                textMonthFontSize: SIZES.large,
+                textDayHeaderFontSize: SIZES.medium,
+              }}
+              onDayPress={(day) => {
+                console.log(day.dateString);
+              }}
+              enableSwipeMonths={true}
+
+            />
           </View>
-        </View>
-      </BackgroundContainer>
-    </ScrollView>
+          <View style={styles.indications}>
+            <IndicationCalendar title="Jours des règles" />
+            <IndicationCalendar title="Ovulation" />
+            <IndicationCalendar title="Période de fécondité" />
+          </View>
+          <View style={[styles.reminder, { backgroundColor: theme === 'pink' ? "rgba(255, 255, 255, .5)" : "rgba(238, 220, 174, .5)" }]}>
+            <Text style={styles.reminderTitle}>{t('rappels')}</Text>
+            <View
+              style={{
+                gap: 10,
+              }}
+            >
+              <ReminderItem as="Début des règles" onPress={handleReminderBtnOnePress} time={time1} howmanytimeReminder={howmanytimeReminder1} />
+              <ReminderItem as="Jour d'ovulation" onPress={handleReminderBtnTwoPress} time={time2} howmanytimeReminder={howmanytimeReminder2} />
+              <ReminderItem as="Prise de pillule" onPress={handleReminderBtnThreePress} time={time3} howmanytimeReminder={howmanytimeReminder3} />
+            </View>
+          </View>
+        </BackgroundContainer>
+      </ScrollView>
+      <View
+        style={[
+          styles.reminderContainer,
+          {
+            transform: [
+              // to fix
+              { translateY: translateYOne },
+            ],
+          },
+        ]}
+
+      
+      >
+        <ReminderContent onCloseIconPress={handleCloseIconOnePress} pills={false} type="Début des règles" onRegisterButtonPress={handleRegisterButtonPress} />
+      </View>
+      <View
+        style={[
+          styles.reminderContainer,
+          {
+            transform: [
+              // to fix
+              { translateY: translateYTwo },
+            ],
+          },
+        ]}
+      >
+        <ReminderContent onCloseIconPress={handleCloseIconTwoPress} pills={false} type="Jour d'ovulation" onRegisterButtonPress={handleRegisterButtonPress} />
+      </View>
+      <View
+        style={[
+          styles.reminderContainer,
+          {
+            transform: [
+              // to fix
+              { translateY: translateYThree },
+            ],
+          },
+        ]}
+      >
+        <ReminderContent onCloseIconPress={handleCloseIconThreePress} pills={true} type="Prise de pillule" onRegisterButtonPress={handleRegisterButtonPress} />
+      </View>
+    </>
   );
 };
 
