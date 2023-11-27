@@ -208,26 +208,13 @@ const CalendarScreen = () => {
     }
   };
 
-  for (let i = 0; i < parseInt(nextMenstruationEndDate.split("-")[2], 10) - parseInt(nextMenstruationDate.split("-")[2], 10) + 1; i++) {
-    console.log("i :", i, "next mentruation", moment(nextMenstruationDate).add(i, "days").format("YYYY-MM-DD"));
-    newMarkedDates[moment(nextMenstruationDate).add(i, "days").format("YYYY-MM-DD")] = {
-      customStyles: {
-        container: {
-          backgroundColor: "#FFADAD"
-        },
-        text: {
-          color: "#fff"
-        }
-      }
-    };
-  }
-
-  for (let i = parseInt(startPeriode.split("-")[2], 10); i < parseInt(endPeriode.split("-")[2], 10); i++) {
-    if (i !== parseInt(ovulationDate.split('-')[2], 10)) {
-      newMarkedDates[moment(startPeriode).add(parseInt(startPeriode.split("-")[2], 10), "days").format("YYYY-MM-DD")] = {
+  const handleMenstruationPeriod = useCallback(() => {
+    for (let i = 0; i < parseInt(nextMenstruationEndDate.split("-")[2], 10) - parseInt(nextMenstruationDate.split("-")[2], 10) + 1; i++) {
+      console.log("i :", i, "next mentruation", moment(nextMenstruationDate).add(i, "days").format("YYYY-MM-DD"));
+      newMarkedDates[moment(nextMenstruationDate).add(i, "days").format("YYYY-MM-DD")] = {
         customStyles: {
           container: {
-            backgroundColor: "#E2445C"
+            backgroundColor: "#FFADAD"
           },
           text: {
             color: "#fff"
@@ -235,7 +222,34 @@ const CalendarScreen = () => {
         }
       };
     }
-  }
+  }, [
+    nextMenstruationDate, 
+    nextMenstruationEndDate, 
+    newMarkedDates, 
+    moment
+  ]);
+
+  const handleFecondityPeriod = useCallback(() => {
+    for (let i = parseInt(startPeriode.split("-")[2], 10); i < parseInt(endPeriode.split("-")[2], 10); i++) {
+      if (i !== parseInt(ovulationDate.split('-')[2], 10)) {
+        newMarkedDates[moment(startPeriode).add(parseInt(startPeriode.split("-")[2], 10), "days").format("YYYY-MM-DD")] = {
+          customStyles: {
+            container: {
+              backgroundColor: "#E2445C"
+            },
+            text: {
+              color: "#fff"
+            }
+          }
+        };
+      }
+    }
+  }, [
+    startPeriode, 
+    endPeriode, 
+    newMarkedDates, 
+    moment
+  ]);
 
   return (
     <>
