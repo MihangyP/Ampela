@@ -20,20 +20,18 @@ export function getFecundityPeriod(lastMenstruationDate, cycleDurations) {
   const j2 = cycleDurations - 11;
 
   // Find start and end of fecundity period
-  const startPeriode = moment(lastMenstruationDate).add(j1, 'days').format('YYYY-MM-DD');
-  const endPeriode = moment(lastMenstruationDate).add(j2, 'days').format('YYYY-MM-DD');
+  const startFecondityDate = moment(lastMenstruationDate).add(j1, 'days').format('YYYY-MM-DD');
+  const endFecondityDate = moment(lastMenstruationDate).add(j2, 'days').format('YYYY-MM-DD');
 
   // Return calculated period
-  return { "startPeriode": startPeriode, "endPeriode": endPeriode }
+  return { 
+    "startFecondityDate": startFecondityDate, 
+    "endFecondityDate": endFecondityDate 
+  }
 }
 
 
 export function getMenstruationPeriod(lastMenstruationDate, cycleDuration, menstruationDuration) {
-  // Calculate ovulation date
-  const ovulationDate = moment(lastMenstruationDate)
-    .add(cycleDuration, "days")
-    .subtract(menstruationDuration, "days")
-    .subtract(14, "days");
   // Calculate next menstruation date
   const nextMenstruationDate = moment(lastMenstruationDate).add(
     cycleDuration,

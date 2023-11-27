@@ -190,25 +190,13 @@ const CalendarScreen = () => {
   const [markedDates, setMarkedDates] = useState({});
 
   const { ovulationDate } = getOvulationDate(lastMenstruationDate, cycleDurations, menstruationDurations);
-  const { startPeriode, endPeriode } = getFecundityPeriod(lastMenstruationDate, cycleDurations);
+  const { startFecondityDate, endFecondityDate } = getFecundityPeriod(lastMenstruationDate, cycleDurations);
   const { nextMenstruationDate, nextMenstruationEndDate } = getMenstruationPeriod(lastMenstruationDate, cycleDurations, menstruationDurations);
 
   // Add the variable date to the markedDates object
   const newMarkedDates = { ...markedDates };
-  newMarkedDates[ovulationDate] = {
-    customStyles: {
-      container: {
-        borderStyle: "solid",
-        borderColor: "#E2445C",
-        borderWidth: 2,
-      },
-      text: {
-        color: "#000"
-      }
-    }
-  };
 
-  const handleMenstruationPeriod = useCallback(() => {
+  const handleMenstruationPeriod = () => {
     for (let i = 0; i < parseInt(nextMenstruationEndDate.split("-")[2], 10) - parseInt(nextMenstruationDate.split("-")[2], 10) + 1; i++) {
       console.log("i :", i, "next mentruation", moment(nextMenstruationDate).add(i, "days").format("YYYY-MM-DD"));
       newMarkedDates[moment(nextMenstruationDate).add(i, "days").format("YYYY-MM-DD")] = {
@@ -222,17 +210,22 @@ const CalendarScreen = () => {
         }
       };
     }
-  }, [
-    nextMenstruationDate, 
-    nextMenstruationEndDate, 
-    newMarkedDates, 
-    moment
-  ]);
+  };
 
-  const handleFecondityPeriod = useCallback(() => {
-    for (let i = parseInt(startPeriode.split("-")[2], 10); i < parseInt(endPeriode.split("-")[2], 10); i++) {
-      if (i !== parseInt(ovulationDate.split('-')[2], 10)) {
-        newMarkedDates[moment(startPeriode).add(parseInt(startPeriode.split("-")[2], 10), "days").format("YYYY-MM-DD")] = {
+  // Handler has been fixed
+  const handleFecondityPeriod = () => {
+    const startFecondityDay = parseInt(startFecondityDate.split("-")[2], 10);
+    const endFecondityDay = parseInt(endFecondityDate.split("-")[2], 10);
+    const ovulationDay = parseInt(ovulationDate.split('-')[2], 10);
+    const startFecondityMoment = moment(startFecondityDate);
+  
+    let i = startFecondityDay;
+    let j = 0;
+
+    while (j < 7) {
+      if (i !== ovulationDay) {
+        console.log("i=", i," - ovd=", ovulationDay);
+        newMarkedDates[startFecondityMoment.format("YYYY-MM-DD")] = {
           customStyles: {
             container: {
               backgroundColor: "#E2445C"
@@ -243,13 +236,29 @@ const CalendarScreen = () => {
           }
         };
       }
+
+      if (j === 5) {
+          newMarkedDates[ovulationDate] = {
+            customStyles: {
+              container: {
+                borderStyle: "solid",
+                borderColor: "#E2445C",
+                borderWidth: 2,
+              },
+              text: {
+                color: "#000"
+              }
+            }
+          };
+      }
+      startFecondityMoment.add(1, "days");
+      i++;
+      j++;
     }
-  }, [
-    startPeriode, 
-    endPeriode, 
-    newMarkedDates, 
-    moment
-  ]);
+  };
+  
+  handleMenstruationPeriod();
+  handleFecondityPeriod();
 
   return (
     <>
