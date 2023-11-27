@@ -11,14 +11,25 @@ import { COLORS, SIZES, icons } from "../../constants";
 import { ThemeContext } from "./theme-context";
 import { RFValue } from "react-native-responsive-fontsize";
 import CustomScrollPicker from "./CustomScrollPicker";
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 const screenWidth = Dimensions.get("window").width;
 
 const ReminderContent = ({ onCloseIconPress, pills, type, onRegisterButtonPress }) => {
-  const {theme} = useContext(ThemeContext);
+  const { theme } = useContext(ThemeContext);
   const [number1, setNumber1] = useState(0);
   const [number2, setNumber2] = useState(0);
   const [active, setActive] = useState("");
+  const [date, setDate] = useState(new Date());
+  const [show, setShow] = useState(false);
+
+  const onChange = (event, selectedDate) => {
+      const currentDate = selectedDate;
+      setShow(false);
+      setDate(currentDate);
+  };
+
+
   const handleItemPress = (item) => {
     if (active === item) {
       setActive("");
@@ -27,31 +38,31 @@ const ReminderContent = ({ onCloseIconPress, pills, type, onRegisterButtonPress 
     };
   };
   const handleBtnTopOnePress = () => {
-    if(number1 > 22) {
-        setNumber1(0);
+    if (number1 > 22) {
+      setNumber1(0);
     } else {
-        setNumber1(n => n + 1);
+      setNumber1(n => n + 1);
     }
   }
   const handleBtnBottomOnePress = () => {
-    if(number1 < 1) {
-       setNumber1(23) 
+    if (number1 < 1) {
+      setNumber1(23)
     } else {
-        setNumber1(n => n - 1);
+      setNumber1(n => n - 1);
     }
   }
   const handleBtnTopTwoPress = () => {
-    if(number2 > 58) {
-        setNumber2(0);
+    if (number2 > 58) {
+      setNumber2(0);
     } else {
-        setNumber2(n => n + 1);
+      setNumber2(n => n + 1);
     }
   }
   const handleBtnBottomTwoPress = () => {
-    if(number2 < 1) {
-       setNumber2(59) 
+    if (number2 < 1) {
+      setNumber2(59)
     } else {
-        setNumber2(n => n - 1);
+      setNumber2(n => n - 1);
     }
   }
 
@@ -69,7 +80,17 @@ const ReminderContent = ({ onCloseIconPress, pills, type, onRegisterButtonPress 
 
         {/* Heure scrollable */}
         <View style={styles.gap}>
-         <CustomScrollPicker/>
+          <>
+            {/* <DateTimePicker
+              value={date}
+              mode={"time"}
+              is24Hour={true}
+              onChange={onChange}
+              modal={false}
+              androidVariant='nativeAndroid'
+              display='spinner'
+            /> */}
+            <Text style={styles.number}>:</Text></>
         </View>
 
         <View>
@@ -78,8 +99,8 @@ const ReminderContent = ({ onCloseIconPress, pills, type, onRegisterButtonPress 
 
         {/* Minute scrollable */}
         <View style={styles.gap}>
-        <CustomScrollPicker/>
-       
+          {/* <CustomScrollPicker /> */}
+
         </View>
       </View>
       <View style={styles.footer}>
@@ -186,12 +207,12 @@ const ReminderContent = ({ onCloseIconPress, pills, type, onRegisterButtonPress 
             </>
           )}
         </View>
-        <View style={{flexDirection: "row", justifyContent: "space-evenly", marginTop: 15 }}>
-          <Pressable onPress={handleRegisterBtnPress} style={{alignItems: "center", justifyContent: "center", borderRadius: 30 ,backgroundColor: theme === 'pink' ? COLORS.accent600 : COLORS.accent800, paddingVertical: 8, width: 120}}>
-             <Text style={{fontFamily: "Medium", color: COLORS.neutral100}}>Enregistrer</Text>
+        <View style={{ flexDirection: "row", justifyContent: "space-evenly", marginTop: 15 }}>
+          <Pressable onPress={handleRegisterBtnPress} style={{ alignItems: "center", justifyContent: "center", borderRadius: 30, backgroundColor: theme === 'pink' ? COLORS.accent600 : COLORS.accent800, paddingVertical: 8, width: 120 }}>
+            <Text style={{ fontFamily: "Medium", color: COLORS.neutral100 }}>Enregistrer</Text>
           </Pressable>
-          <Pressable onPress={onCloseIconPress} style={{alignItems: "center", justifyContent: "center", borderRadius: 30, backgroundColor: COLORS.neutral400 , flexDirection: "row", paddingVertical: 8, width: 120}}>
-             <Text style={{fontFamily: "Medium", color: COLORS.neutral100}}>Annuler</Text>
+          <Pressable onPress={onCloseIconPress} style={{ alignItems: "center", justifyContent: "center", borderRadius: 30, backgroundColor: COLORS.neutral400, flexDirection: "row", paddingVertical: 8, width: 120 }}>
+            <Text style={{ fontFamily: "Medium", color: COLORS.neutral100 }}>Annuler</Text>
           </Pressable>
         </View>
       </View>

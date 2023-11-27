@@ -13,6 +13,7 @@
     "@expo/prebuild-config": "^6.2.6",
     "@expo/webpack-config": "^19.0.0",
     "@react-native-async-storage/async-storage": "1.18.2",
+    "@react-native-community/datetimepicker": "7.2.0",
     "@react-native-community/netinfo": "9.3.10",
     "@react-navigation/bottom-tabs": "^6.5.7",
     "@react-navigation/drawer": "^6.6.2",
@@ -28,6 +29,7 @@
     "i18next": "^23.2.8",
     "intl": "^1.2.5",
     "intl-pluralrules": "^2.0.1",
+    "moment": "^2.29.4",
     "nativewind": "^2.0.11",
     "parse": "^4.2.0",
     "react": "18.2.0",
@@ -50,8 +52,7 @@
     "react-native-uuid": "^2.0.1",
     "react-native-web": "~0.19.6",
     "react-navigation": "^4.4.4",
-    "yarn": "^1.22.19",
-    "@react-native-community/datetimepicker": "7.2.0"
+    "yarn": "^1.22.19"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

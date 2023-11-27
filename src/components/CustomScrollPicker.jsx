@@ -1,8 +1,9 @@
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { useState } from 'react';
+import { Button, Text } from 'react-native';
 
 const CustomScrollPicker = () => {
-    const [date, setDate] = useState(new Date(1598051730000));
-    const [mode, setMode] = useState('date');
+    const [date, setDate] = useState(new Date());
     const [show, setShow] = useState(false);
 
     const onChange = (event, selectedDate) => {
@@ -11,36 +12,13 @@ const CustomScrollPicker = () => {
         setDate(currentDate);
     };
 
-    const showMode = (currentMode) => {
-        setShow(true);
-        setMode(currentMode);
-    };
-
-    const showDatepicker = () => {
-        showMode('date');
-    };
-
-    const showTimepicker = () => {
-        showMode('time');
-    };
-
     return (
-        <>
-            <Button onPress={showDatepicker} title="Show date picker!" />
-            <Button onPress={showTimepicker} title="Show time picker!" />
-            <Text>selected: {date.toLocaleString()}</Text>
-            {
-                show && (
-                    <DateTimePicker
-                        testID="dateTimePicker"
-                        value={date}
-                        mode={mode}
-                        is24Hour={true}
-                        onChange={onChange}
-                    />
-                )
-            }
-        </>
+          <DateTimePicker
+            value={date}
+            mode={"time"}
+            onChange={onChange}
+            display='spinner'
+        />
     );
 }
 

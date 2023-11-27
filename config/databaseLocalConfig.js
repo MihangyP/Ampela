@@ -2,7 +2,7 @@ import { async } from "@firebase/util";
 import * as SQLite from "expo-sqlite";
 
 
-const createTable = async(db) => {
+const createTable = async (db) => {
   db.transaction((tx) => {
     tx.executeSql(
       `CREATE TABLE IF NOT EXISTS user (
@@ -47,24 +47,24 @@ async function authenticateUser(email, password) {
 
 function insertUser(db, username, password, profession, lastMenstruationDate, durationMenstruation, cycleDuration) {
   console.log(username, password, profession, lastMenstruationDate, durationMenstruation, cycleDuration);
- 
+
   db.transaction((tx) => {
-     tx.executeSql(
-       `INSERT INTO user (username, password, profession, lastMenstruationDate, durationMenstruation, cycleDuration) VALUES (?, ?, ?, ?, ?, ?);`,
-       [username, password, profession, lastMenstruationDate, durationMenstruation, cycleDuration],
-       (_, results) => {
-         if (results.rowsAffected > 0) {
-           console.log('Utilisateur ajouté avec succès.');
-         } else {
-           console.error('Erreur lors de l\'ajout d\'utilisateur : Aucune ligne n\'a été affectée.');
-         }
-       },
-       (error) => {
-         console.error('Erreur lors de l\'ajout d\'utilisateur :', error.message);
-       }
-     );
+    tx.executeSql(
+      `INSERT INTO user (username, password, profession, lastMenstruationDate, durationMenstruation, cycleDuration) VALUES (?, ?, ?, ?, ?, ?);`,
+      [username, password, profession, lastMenstruationDate, durationMenstruation, cycleDuration],
+      (_, results) => {
+        if (results.rowsAffected > 0) {
+          console.log('Utilisateur ajouté avec succès.');
+        } else {
+          console.error('Erreur lors de l\'ajout d\'utilisateur : Aucune ligne n\'a été affectée.');
+        }
+      },
+      (error) => {
+        console.error('Erreur lors de l\'ajout d\'utilisateur :', error.message);
+      }
+    );
   });
- };
+};
 
 
 const selectUsers = (db) => {
@@ -74,7 +74,7 @@ const selectUsers = (db) => {
       [],
       (tx, result) => {
         const rows = result.rows;
-        if(result.rows.length<0){
+        if (result.rows.length < 0) {
           console.log("no result");
           return null;
         }
@@ -92,27 +92,26 @@ const selectUsers = (db) => {
 
 // Select user data from DB
 function getMenstruationData(db, username) {
-  db.transaction((tx) => {
-    tx.executeSql(
-      'SELECT lastMenstruationDate, durationMenstruation, cycleDuration FROM user WHERE username=?;',
-      [username],
-      (tx, result) => {
-        const row = result.rows._array[0];
-        console.log("row :", row);
-        // On convertis le JSON en objet puis on le retourne
-        return JSON.parse(JSON.stringify(row));
-        // return {
-        //   cycleDuration: row[0].cycleDuration,
-        //   durationMenstruation: row[0].durationMenstruation,
-        //   lastMenstruationDate: row[0].lastMenstruationDate
-        // }
-      },
-      (error) => {
-        console.log(error.message);
-      }
-    )
+  return new Promise((resolve, reject) => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        'SELECT lastMenstruationDate, durationMenstruation, cycleDuration FROM user WHERE username=?;',
+        [username],
+        (_, result) => {
+          const row = result.rows._array[0];
+          console.log("row :", row);
+          // On convertis le JSON en objet puis on le retourne
+          resolve(row)
+        },
+        (error) => {
+          console.log(error.message);
+          reject(error)
+        }
+      )
+    })
   })
 }
+
 
 // Delete all records from user table
 function deleteAllUsers(db) {

@@ -17,6 +17,8 @@ import { RFValue } from "react-native-responsive-fontsize";
 import AuthWithGoogle from "../../components/authWithGoogle/authWithGoogle";
 import { getMenstruationData } from "../../../config/databaseLocalConfig";
 import db from "../../../config/databaseInstance";
+import { getMenstruationPeriod, getFecundityPeriod, getOvulationDate } from "../../components/utils/menstruationUtils";
+import moment from "moment";
 
 LocaleConfig.locales["fr"] = {
   monthNames: [
@@ -112,6 +114,7 @@ const CalendarScreen = () => {
   const [howmanytimeReminder2, setHowmanytimeReminder2] = useState("?");
   const [howmanytimeReminder3, setHowmanytimeReminder3] = useState("?");
   const [scrollDisabled, setScrollDisabled] = useState(true);
+
   const [time1, setTime1] = useState({
     hour: 0,
     minutes: 0
@@ -178,7 +181,61 @@ const CalendarScreen = () => {
   }, []);
 
   // To fix
-  getMenstruationData(db, "Mihangy");
+  // await getMenstruationData(db, "Mihangy");
+
+  // test
+  const lastMenstruationDate = "2023-11-21";
+  const cycleDurations = 28;
+  const menstruationDurations = 5;
+  const [markedDates, setMarkedDates] = useState({});
+
+  const { ovulationDate } = getOvulationDate(lastMenstruationDate, cycleDurations, menstruationDurations);
+  const { startPeriode, endPeriode } = getFecundityPeriod(lastMenstruationDate, cycleDurations);
+  const { nextMenstruationDate, nextMenstruationEndDate } = getMenstruationPeriod(lastMenstruationDate, cycleDurations, menstruationDurations);
+
+  // Add the variable date to the markedDates object
+  const newMarkedDates = { ...markedDates };
+  newMarkedDates[ovulationDate] = {
+    customStyles: {
+      container: {
+        borderStyle: "solid",
+        borderColor: "#E2445C",
+        borderWidth: 2,
+      },
+      text: {
+        color: "#000"
+      }
+    }
+  };
+
+  for (let i = 0; i < parseInt(nextMenstruationEndDate.split("-")[2], 10) - parseInt(nextMenstruationDate.split("-")[2], 10) + 1; i++) {
+    console.log("i :", i, "next mentruation", moment(nextMenstruationDate).add(i, "days").format("YYYY-MM-DD"));
+    newMarkedDates[moment(nextMenstruationDate).add(i, "days").format("YYYY-MM-DD")] = {
+      customStyles: {
+        container: {
+          backgroundColor: "#FFADAD"
+        },
+        text: {
+          color: "#fff"
+        }
+      }
+    };
+  }
+
+  for (let i = parseInt(startPeriode.split("-")[2], 10); i < parseInt(endPeriode.split("-")[2], 10); i++) {
+    if (i !== parseInt(ovulationDate.split('-')[2], 10)) {
+      newMarkedDates[moment(startPeriode).add(parseInt(startPeriode.split("-")[2], 10), "days").format("YYYY-MM-DD")] = {
+        customStyles: {
+          container: {
+            backgroundColor: "#E2445C"
+          },
+          text: {
+            color: "#fff"
+          }
+        }
+      };
+    }
+  }
 
   return (
     <>
@@ -191,6 +248,7 @@ const CalendarScreen = () => {
           <Text style={styles.title}>{t("calendrier")}</Text>
           <View style={styles.calendar}>
             <Calendar
+
               style={{
                 height: 380,
                 borderRadius: 8,
@@ -215,6 +273,8 @@ const CalendarScreen = () => {
               }}
               enableSwipeMonths={true}
 
+              markingType="custom"
+              markedDates={newMarkedDates}
             />
           </View>
           <View style={styles.indications}>
@@ -247,7 +307,7 @@ const CalendarScreen = () => {
           },
         ]}
 
-      
+
       >
         <ReminderContent onCloseIconPress={handleCloseIconOnePress} pills={false} type="Début des règles" onRegisterButtonPress={handleRegisterButtonPress} />
       </View>
