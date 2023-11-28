@@ -2,7 +2,7 @@ import moment from 'moment';
 
 export function getOvulationDate(lastMenstruationDate, cycleDurations) {
   // Add 14 days to LMP, then subtract 28 days.
-  const ovulationDate = moment(lastMenstruationDate).add(14 + cycleDurations - 28, 'days');
+  const ovulationDate = moment(lastMenstruationDate).add(cycleDurations - 14, 'days');
 
   // If leap year, add 1 day.
   if (ovulationDate.isLeapYear()) {

@@ -130,19 +130,6 @@ const CalendarScreen = () => {
   const { t } = useTranslation();
   const { theme } = useContext(ThemeContext);
 
-  //to fix
-  const handleReminderBtnOnePress = useCallback(() => {
-    setScrollDisabled(false);
-    setTranslateYOne(0);
-  }, []);
-  const handleReminderBtnTwoPress = useCallback(() => {
-    setScrollDisabled(false);
-    setTranslateYTwo(0);
-  }, []);
-  const handleReminderBtnThreePress = useCallback(() => {
-    setScrollDisabled(false);
-    setTranslateYThree(0);
-  }, []);
 
   const handleCloseIconOnePress = useCallback(() => {
     setScrollDisabled(true);
@@ -156,6 +143,24 @@ const CalendarScreen = () => {
     setScrollDisabled(true);
     setTranslateYThree(1500);
   });
+
+  const handleReminderBtnOnePress = useCallback(() => {
+    setScrollDisabled(false);
+    setTranslateYOne(0);
+    updateCalendarDates();
+  }, []);
+
+  const handleReminderBtnTwoPress = useCallback(() => {
+    setScrollDisabled(false);
+    setTranslateYTwo(0);
+    updateCalendarDates();
+  }, []);
+
+  const handleReminderBtnThreePress = useCallback(() => {
+    setScrollDisabled(false);
+    setTranslateYThree(0);
+    updateCalendarDates();
+  }, []);
 
   const handleRegisterButtonPress = useCallback((type, hour, minutes, active) => {
     setScrollDisabled(true);
@@ -180,55 +185,30 @@ const CalendarScreen = () => {
     }
   }, []);
 
-  // To fix
-  // await getMenstruationData(db, "Mihangy");
 
-  // test
-  const lastMenstruationDate = "2023-11-21";
+  const lastMenstruationDate = "2023-1-21";
   const cycleDurations = 28;
   const menstruationDurations = 5;
   const [markedDates, setMarkedDates] = useState({});
-
+  const [lastMentruationToNext, setLastMentruationToNext] = useState();
   const { ovulationDate } = getOvulationDate(lastMenstruationDate, cycleDurations, menstruationDurations);
   const { startFecondityDate, endFecondityDate } = getFecundityPeriod(lastMenstruationDate, cycleDurations);
   const { nextMenstruationDate, nextMenstruationEndDate } = getMenstruationPeriod(lastMenstruationDate, cycleDurations, menstruationDurations);
 
-  // Add the variable date to the markedDates object
   const newMarkedDates = { ...markedDates };
 
-  const handleMenstruationPeriod = () => {
-    for (let i = 0; i < parseInt(nextMenstruationEndDate.split("-")[2], 10) - parseInt(nextMenstruationDate.split("-")[2], 10) + 1; i++) {
-      console.log("i :", i, "next mentruation", moment(nextMenstruationDate).add(i, "days").format("YYYY-MM-DD"));
-      newMarkedDates[moment(nextMenstruationDate).add(i, "days").format("YYYY-MM-DD")] = {
-        customStyles: {
-          container: {
-            backgroundColor: "#FFADAD"
-          },
-          text: {
-            color: "#fff"
-          }
-        }
-      };
-    }
-  };
+  const updateCalendarDates = () => {
+    const { ovulationDate } = getOvulationDate(lastMenstruationDate, cycleDurations, menstruationDurations);
+    const { startFecondityDate, endFecondityDate } = getFecundityPeriod(lastMenstruationDate, cycleDurations);
+    const { nextMenstruationDate, nextMenstruationEndDate } = getMenstruationPeriod(lastMenstruationDate, cycleDurations, menstruationDurations);
+    const newMarkedDatesCopy = {};
 
-  // Handler has been fixed
-  const handleFecondityPeriod = () => {
-    const startFecondityDay = parseInt(startFecondityDate.split("-")[2], 10);
-    const endFecondityDay = parseInt(endFecondityDate.split("-")[2], 10);
-    const ovulationDay = parseInt(ovulationDate.split('-')[2], 10);
-    const startFecondityMoment = moment(startFecondityDate);
-  
-    let i = startFecondityDay;
-    let j = 0;
-
-    while (j < 7) {
-      if (i !== ovulationDay) {
-        console.log("i=", i," - ovd=", ovulationDay);
-        newMarkedDates[startFecondityMoment.format("YYYY-MM-DD")] = {
+    const handleMenstruationPeriod = () => {
+      for (let i = 0; i < parseInt(nextMenstruationEndDate.split("-")[2], 10) - parseInt(nextMenstruationDate.split("-")[2], 10) + 1; i++) {
+        newMarkedDatesCopy[moment(nextMenstruationDate).add(i, "days").format("YYYY-MM-DD")] = {
           customStyles: {
             container: {
-              backgroundColor: "#E2445C"
+              backgroundColor: "#FFADAD"
             },
             text: {
               color: "#fff"
@@ -236,8 +216,98 @@ const CalendarScreen = () => {
           }
         };
       }
+    };
 
-      if (j === 5) {
+    const handleFecondityPeriod = () => {
+      const startFecondityDay = parseInt(startFecondityDate.split("-")[2], 10);
+      const ovulationDay = parseInt(ovulationDate.split('-')[2], 10);
+      const startFecondityMoment = moment(startFecondityDate);
+
+      let i = startFecondityDay;
+      let j = 0;
+
+      while (j < 7) {
+        if (i !== ovulationDay) {
+          newMarkedDatesCopy[startFecondityMoment.format("YYYY-MM-DD")] = {
+            customStyles: {
+              container: {
+                backgroundColor: "#E2445C"
+              },
+              text: {
+                color: "#fff"
+              }
+            }
+          };
+        }
+
+        if (j === 5) {
+          newMarkedDatesCopy[ovulationDate] = {
+            customStyles: {
+              container: {
+                borderStyle: "solid",
+                borderColor: "#E2445C",
+                borderWidth: 2,
+              },
+              text: {
+                color: "#000"
+              }
+            }
+          };
+        }
+        startFecondityMoment.add(1, "days");
+        i++;
+        j++;
+      }
+    };
+
+    handleMenstruationPeriod();
+    handleFecondityPeriod();
+
+    setMarkedDates(newMarkedDatesCopy);
+  };
+
+
+  useEffect(() => {
+    const handleMenstruationPeriod = () => {
+
+      for (let i = 0; i < parseInt(nextMenstruationEndDate.split("-")[2], 10) - parseInt(nextMenstruationDate.split("-")[2], 10) + 1; i++) {
+        newMarkedDates[moment(nextMenstruationDate).add(i, "days").format("YYYY-MM-DD")] = {
+          customStyles: {
+            container: {
+              backgroundColor: "#FFADAD"
+            },
+            text: {
+              color: "#fff"
+            }
+          }
+        };
+      }
+    };
+
+    const handleFecondityPeriod = () => {
+
+      const startFecondityDay = parseInt(startFecondityDate.split("-")[2], 10);
+      const ovulationDay = parseInt(ovulationDate.split('-')[2], 10);
+      const startFecondityMoment = moment(startFecondityDate);
+
+      let i = startFecondityDay;
+      let j = 0;
+
+      while (j < 7) {
+        if (i !== ovulationDay) {
+          newMarkedDates[startFecondityMoment.format("YYYY-MM-DD")] = {
+            customStyles: {
+              container: {
+                backgroundColor: "#E2445C"
+              },
+              text: {
+                color: "#fff"
+              }
+            }
+          };
+        }
+
+        if (j === 5) {
           newMarkedDates[ovulationDate] = {
             customStyles: {
               container: {
@@ -250,16 +320,32 @@ const CalendarScreen = () => {
               }
             }
           };
+        }
+        startFecondityMoment.add(1, "days");
+        i++;
+        j++;
       }
-      startFecondityMoment.add(1, "days");
-      i++;
-      j++;
-    }
-  };
-  
-  handleMenstruationPeriod();
-  handleFecondityPeriod();
+    };
 
+    handleMenstruationPeriod();
+    handleFecondityPeriod();
+    setMarkedDates(newMarkedDates);
+  }, [nextMenstruationDate, nextMenstruationEndDate, startFecondityDate, ovulationDate]);
+
+  const handleMonthChange = (month) => {
+
+    const firstDayOfMonth = `${month.year}-${month.month}-01`;
+
+    const {
+      ovulationDate,
+      startFecondityDate,
+      endFecondityDate,
+      nextMenstruationDate,
+      nextMenstruationEndDate,
+    } = getOvulationAndMenstruationDates(firstDayOfMonth, cycleDurations, menstruationDurations);
+    const newMarkedDatesCopy = {};
+    setMarkedDates(newMarkedDatesCopy);
+  };
   return (
     <>
       <ScrollView scrollEnabled={scrollDisabled} style={styles.container} showsVerticalScrollIndicator={false}>
@@ -292,10 +378,10 @@ const CalendarScreen = () => {
                 textDayHeaderFontSize: SIZES.medium,
               }}
               onDayPress={(day) => {
-                console.log(day.dateString);
+                // console.log(day.dateString);
               }}
               enableSwipeMonths={true}
-
+              onMonthChange={ }
               markingType="custom"
               markedDates={newMarkedDates}
             />
