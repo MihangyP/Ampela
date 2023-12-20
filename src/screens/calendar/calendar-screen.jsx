@@ -130,6 +130,19 @@ const CalendarScreen = () => {
   const { t } = useTranslation();
   const { theme } = useContext(ThemeContext);
 
+  //to fix
+  const handleReminderBtnOnePress = useCallback(() => {
+    setScrollDisabled(false);
+    setTranslateYOne(0);
+  }, []);
+  const handleReminderBtnTwoPress = useCallback(() => {
+    setScrollDisabled(false);
+    setTranslateYTwo(0);
+  }, []);
+  const handleReminderBtnThreePress = useCallback(() => {
+    setScrollDisabled(false);
+    setTranslateYThree(0);
+  }, []);
 
   const handleCloseIconOnePress = useCallback(() => {
     setScrollDisabled(true);
@@ -143,24 +156,6 @@ const CalendarScreen = () => {
     setScrollDisabled(true);
     setTranslateYThree(1500);
   });
-
-  const handleReminderBtnOnePress = useCallback(() => {
-    setScrollDisabled(false);
-    setTranslateYOne(0);
-    updateCalendarDates();
-  }, []);
-
-  const handleReminderBtnTwoPress = useCallback(() => {
-    setScrollDisabled(false);
-    setTranslateYTwo(0);
-    updateCalendarDates();
-  }, []);
-
-  const handleReminderBtnThreePress = useCallback(() => {
-    setScrollDisabled(false);
-    setTranslateYThree(0);
-    updateCalendarDates();
-  }, []);
 
   const handleRegisterButtonPress = useCallback((type, hour, minutes, active) => {
     setScrollDisabled(true);
@@ -186,92 +181,49 @@ const CalendarScreen = () => {
   }, []);
 
 
-  const lastMenstruationDate = "2023-1-21";
+  const lastMenstruationDate = "2023-11-21";
   const cycleDurations = 28;
   const menstruationDurations = 5;
   const [markedDates, setMarkedDates] = useState({});
-  const [lastMentruationToNext, setLastMentruationToNext] = useState();
-  const { ovulationDate } = getOvulationDate(lastMenstruationDate, cycleDurations, menstruationDurations);
-  const { startFecondityDate, endFecondityDate } = getFecundityPeriod(lastMenstruationDate, cycleDurations);
-  const { nextMenstruationDate, nextMenstruationEndDate } = getMenstruationPeriod(lastMenstruationDate, cycleDurations, menstruationDurations);
 
-  const newMarkedDates = { ...markedDates };
+  const [currentOvulationDate, setCurrentOvulationDate] = useState('');
+  const [currentStartFecondityDate, setCurrentStartFecondityDate] = useState('');
+  const [currentEndFecondityDate, setCurrentEndFecondityDate] = useState('');
+  const [currentNextMenstruationDate, setCurrentNextMenstruationDate] = useState('');
+  const [currentNextMenstruationEndDate, setCurrentNextMenstruationEndDate] = useState('');
 
-  const updateCalendarDates = () => {
+  useEffect(() => {
     const { ovulationDate } = getOvulationDate(lastMenstruationDate, cycleDurations, menstruationDurations);
     const { startFecondityDate, endFecondityDate } = getFecundityPeriod(lastMenstruationDate, cycleDurations);
     const { nextMenstruationDate, nextMenstruationEndDate } = getMenstruationPeriod(lastMenstruationDate, cycleDurations, menstruationDurations);
-    const newMarkedDatesCopy = {};
 
-    const handleMenstruationPeriod = () => {
-      for (let i = 0; i < parseInt(nextMenstruationEndDate.split("-")[2], 10) - parseInt(nextMenstruationDate.split("-")[2], 10) + 1; i++) {
-        newMarkedDatesCopy[moment(nextMenstruationDate).add(i, "days").format("YYYY-MM-DD")] = {
-          customStyles: {
-            container: {
-              backgroundColor: "#FFADAD"
-            },
-            text: {
-              color: "#fff"
-            }
-          }
-        };
-      }
-    };
+    setCurrentOvulationDate(ovulationDate);
+    setCurrentStartFecondityDate(startFecondityDate);
+    setCurrentEndFecondityDate(endFecondityDate);
+    setCurrentNextMenstruationDate(nextMenstruationDate);
+    setCurrentNextMenstruationEndDate(nextMenstruationEndDate);
+  }, [lastMenstruationDate, cycleDurations, menstruationDurations]);
 
-    const handleFecondityPeriod = () => {
-      const startFecondityDay = parseInt(startFecondityDate.split("-")[2], 10);
-      const ovulationDay = parseInt(ovulationDate.split('-')[2], 10);
-      const startFecondityMoment = moment(startFecondityDate);
-
-      let i = startFecondityDay;
-      let j = 0;
-
-      while (j < 7) {
-        if (i !== ovulationDay) {
-          newMarkedDatesCopy[startFecondityMoment.format("YYYY-MM-DD")] = {
-            customStyles: {
-              container: {
-                backgroundColor: "#E2445C"
-              },
-              text: {
-                color: "#fff"
-              }
-            }
-          };
-        }
-
-        if (j === 5) {
-          newMarkedDatesCopy[ovulationDate] = {
-            customStyles: {
-              container: {
-                borderStyle: "solid",
-                borderColor: "#E2445C",
-                borderWidth: 2,
-              },
-              text: {
-                color: "#000"
-              }
-            }
-          };
-        }
-        startFecondityMoment.add(1, "days");
-        i++;
-        j++;
-      }
-    };
-
-    handleMenstruationPeriod();
-    handleFecondityPeriod();
-
-    setMarkedDates(newMarkedDatesCopy);
-  };
-
-
+  const newMarkedDates = { ...markedDates };
   useEffect(() => {
     const handleMenstruationPeriod = () => {
+      for (let i = 0; i < menstruationDurations; i++) {
 
-      for (let i = 0; i < parseInt(nextMenstruationEndDate.split("-")[2], 10) - parseInt(nextMenstruationDate.split("-")[2], 10) + 1; i++) {
-        newMarkedDates[moment(nextMenstruationDate).add(i, "days").format("YYYY-MM-DD")] = {
+        newMarkedDates[moment(lastMenstruationDate).add(i, "days").format("YYYY-MM-DD")] = {
+          customStyles: {
+            container: {
+              backgroundColor: "#FFADAD"
+            },
+            text: {
+              color: "#fff"
+            }
+          }
+        };
+      }
+
+      for (let i = 0; i < menstruationDurations; i++) {
+        //.log("MENSTRUATION : ", moment(nextMenstruationDate).add(i, "days").format("YYYY-MM-DD"));
+        newMarkedDates[moment(currentNextMenstruationDate).add(i, "days").format("YYYY-MM-DD")] = {
           customStyles: {
             container: {
               backgroundColor: "#FFADAD"
@@ -284,16 +236,17 @@ const CalendarScreen = () => {
       }
     };
 
+    //.log("YES YES yES");
     const handleFecondityPeriod = () => {
 
-      const startFecondityDay = parseInt(startFecondityDate.split("-")[2], 10);
-      const ovulationDay = parseInt(ovulationDate.split('-')[2], 10);
-      const startFecondityMoment = moment(startFecondityDate);
+      const startFecondityDay = parseInt(currentStartFecondityDate.split("-")[2], 10);
+      const ovulationDay = parseInt(currentOvulationDate.split('-')[2], 10);
+      const startFecondityMoment = moment(currentStartFecondityDate);
 
       let i = startFecondityDay;
       let j = 0;
 
-      while (j < 7) {
+      while (j <= 7) {
         if (i !== ovulationDay) {
           newMarkedDates[startFecondityMoment.format("YYYY-MM-DD")] = {
             customStyles: {
@@ -308,7 +261,7 @@ const CalendarScreen = () => {
         }
 
         if (j === 5) {
-          newMarkedDates[ovulationDate] = {
+          newMarkedDates[currentOvulationDate] = {
             customStyles: {
               container: {
                 borderStyle: "solid",
@@ -329,23 +282,94 @@ const CalendarScreen = () => {
 
     handleMenstruationPeriod();
     handleFecondityPeriod();
+
+
     setMarkedDates(newMarkedDates);
-  }, [nextMenstruationDate, nextMenstruationEndDate, startFecondityDate, ovulationDate]);
+
+  }, [currentNextMenstruationDate, currentNextMenstruationEndDate, currentStartFecondityDate, currentOvulationDate]);
 
   const handleMonthChange = (month) => {
+    const currentDate = moment(month.dateString);
+    const isGoingForward = currentDate.isAfter(moment(currentNextMenstruationDate));
 
-    const firstDayOfMonth = `${month.year}-${month.month}-01`;
+    const { ovulationDate } = getOvulationDate(currentDate.format('YYYY-MM-DD'), cycleDurations, menstruationDurations);
+    const { startFecondityDate, endFecondityDate } = getFecundityPeriod(currentDate.format('YYYY-MM-DD'), cycleDurations);
+    const { nextMenstruationDate, nextMenstruationEndDate } = getMenstruationPeriod(currentDate.format('YYYY-MM-DD'), cycleDurations, menstruationDurations);
 
-    const {
-      ovulationDate,
-      startFecondityDate,
-      endFecondityDate,
+    console.log("DATE D'OVULATION DU CYCLE SUIVANTE :", ovulationDate);
+
+    setCurrentOvulationDate(ovulationDate);
+    setCurrentStartFecondityDate(startFecondityDate);
+    setCurrentEndFecondityDate(endFecondityDate);
+    setCurrentNextMenstruationDate(nextMenstruationDate);
+    setCurrentNextMenstruationEndDate(nextMenstruationEndDate);
+
+    const newMarkedDatesCopy = calculateMarkedDates(
       nextMenstruationDate,
       nextMenstruationEndDate,
-    } = getOvulationAndMenstruationDates(firstDayOfMonth, cycleDurations, menstruationDurations);
-    const newMarkedDatesCopy = {};
-    setMarkedDates(newMarkedDatesCopy);
+      ovulationDate,
+      startFecondityDate
+    );
+
+    // setMarkedDates(newMarkedDatesCopy);
   };
+
+  const calculateMarkedDates = (
+    nextMenstruationDate,
+    nextMenstruationEndDate,
+    ovulationDate,
+    startFecondityDate
+  ) => {
+    const newMarkedDatesCopy = {};
+
+    for (let i = 0; i <= moment(nextMenstruationEndDate).diff(nextMenstruationDate, 'days'); i++) {
+      const currentDate = moment(nextMenstruationDate).add(i, 'days').format('YYYY-MM-DD');
+      newMarkedDatesCopy[currentDate] = {
+        customStyles: {
+          container: {
+            backgroundColor: '#FFADAD',
+          },
+          text: {
+            color: '#fff',
+          },
+        },
+      };
+    }
+
+    const startFecondityMoment = moment(startFecondityDate);
+    for (let j = 0; j < 7; j++) {
+      if (j !== 4) {
+        const currentDate = startFecondityMoment.format('YYYY-MM-DD');
+        newMarkedDatesCopy[currentDate] = {
+          customStyles: {
+            container: {
+              backgroundColor: '#E2445C',
+            },
+            text: {
+              color: '#fff',
+            },
+          },
+        };
+      }
+      startFecondityMoment.add(1, 'days');
+    }
+
+    newMarkedDatesCopy[ovulationDate] = {
+      customStyles: {
+        container: {
+          borderStyle: 'solid',
+          borderColor: '#E2445C',
+          borderWidth: 2,
+        },
+        text: {
+          color: '#000',
+        },
+      },
+    };
+
+    return newMarkedDatesCopy;
+  };
+
   return (
     <>
       <ScrollView scrollEnabled={scrollDisabled} style={styles.container} showsVerticalScrollIndicator={false}>
@@ -378,10 +402,10 @@ const CalendarScreen = () => {
                 textDayHeaderFontSize: SIZES.medium,
               }}
               onDayPress={(day) => {
-                // console.log(day.dateString);
+                // //.log(day.dateString);
               }}
               enableSwipeMonths={true}
-              onMonthChange={ }
+              onMonthChange={(month) => handleMonthChange(month)}
               markingType="custom"
               markedDates={newMarkedDates}
             />
