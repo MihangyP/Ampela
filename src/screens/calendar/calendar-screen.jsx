@@ -181,7 +181,7 @@ const CalendarScreen = () => {
   }, []);
 
 
-  const lastMenstruationDate = "2023-11-21";
+  const lastMentrualPeriodStartDate = "2023-11-21";
   const cycleDurations = 28;
   const menstruationDurations = 5;
   const [markedDates, setMarkedDates] = useState({});
@@ -193,23 +193,23 @@ const CalendarScreen = () => {
   const [currentNextMenstruationEndDate, setCurrentNextMenstruationEndDate] = useState('');
 
   useEffect(() => {
-    const { ovulationDate } = getOvulationDate(lastMenstruationDate, cycleDurations, menstruationDurations);
-    const { startFecondityDate, endFecondityDate } = getFecundityPeriod(lastMenstruationDate, cycleDurations);
-    const { nextMenstruationDate, nextMenstruationEndDate } = getMenstruationPeriod(lastMenstruationDate, cycleDurations, menstruationDurations);
+    const { ovulationDate } = getOvulationDate(lastMentrualPeriodStartDate, cycleDurations, menstruationDurations);
+    const { startFecondityDate, endFecondityDate } = getFecundityPeriod(lastMentrualPeriodStartDate, cycleDurations);
+    const { nextMenstruationDate, nextMenstruationEndDate } = getMenstruationPeriod(lastMentrualPeriodStartDate, cycleDurations, menstruationDurations);
 
     setCurrentOvulationDate(ovulationDate);
     setCurrentStartFecondityDate(startFecondityDate);
     setCurrentEndFecondityDate(endFecondityDate);
     setCurrentNextMenstruationDate(nextMenstruationDate);
     setCurrentNextMenstruationEndDate(nextMenstruationEndDate);
-  }, [lastMenstruationDate, cycleDurations, menstruationDurations]);
+  }, [lastMentrualPeriodStartDate, cycleDurations, menstruationDurations]);
 
   const newMarkedDates = { ...markedDates };
   useEffect(() => {
     const handleMenstruationPeriod = () => {
       for (let i = 0; i < menstruationDurations; i++) {
 
-        newMarkedDates[moment(lastMenstruationDate).add(i, "days").format("YYYY-MM-DD")] = {
+        newMarkedDates[moment(lastMentrualPeriodStartDate).add(i, "days").format("YYYY-MM-DD")] = {
           customStyles: {
             container: {
               backgroundColor: "#FFADAD"
@@ -288,21 +288,28 @@ const CalendarScreen = () => {
 
   }, [currentNextMenstruationDate, currentNextMenstruationEndDate, currentStartFecondityDate, currentOvulationDate]);
 
-  const handleMonthChange = (month) => {
-    const currentDate = moment(month.dateString);
-    const isGoingForward = currentDate.isAfter(moment(currentNextMenstruationDate));
 
-    const { ovulationDate } = getOvulationDate(currentDate.format('YYYY-MM-DD'), cycleDurations, menstruationDurations);
-    const { startFecondityDate, endFecondityDate } = getFecundityPeriod(currentDate.format('YYYY-MM-DD'), cycleDurations);
-    const { nextMenstruationDate, nextMenstruationEndDate } = getMenstruationPeriod(currentDate.format('YYYY-MM-DD'), cycleDurations, menstruationDurations);
+  // Event de bascule entre ls mois du calendar
+  const handleMonthChange = (month) => {
+    // month.dateString
+    const lastMentruation = moment(currentOvulationDate).add(14, "days").format('YYYY-MM-DD');
+    // const isGoingForward = currentDate.isAfter(moment(currentNextMenstruationDate));
+
+
+    const { ovulationDate } = getOvulationDate(lastMentruation, cycleDurations, menstruationDurations);
+    const { startFecondityDate, endFecondityDate } = getFecundityPeriod(lastMentruation, cycleDurations);
+    const { nextMenstruationDate, nextMenstruationEndDate } = getMenstruationPeriod(lastMentruation, cycleDurations, menstruationDurations);
 
     console.log("DATE D'OVULATION DU CYCLE SUIVANTE :", ovulationDate);
+    console.log("DATE ACTUEL DU CURRENT MOIS : ", lastMentruation);
 
     setCurrentOvulationDate(ovulationDate);
     setCurrentStartFecondityDate(startFecondityDate);
     setCurrentEndFecondityDate(endFecondityDate);
     setCurrentNextMenstruationDate(nextMenstruationDate);
     setCurrentNextMenstruationEndDate(nextMenstruationEndDate);
+
+    console.log(curr)
 
     const newMarkedDatesCopy = calculateMarkedDates(
       nextMenstruationDate,
@@ -311,7 +318,7 @@ const CalendarScreen = () => {
       startFecondityDate
     );
 
-    // setMarkedDates(newMarkedDatesCopy);
+    setMarkedDates(newMarkedDatesCopy);
   };
 
   const calculateMarkedDates = (
