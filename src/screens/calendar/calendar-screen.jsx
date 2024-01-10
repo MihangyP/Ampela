@@ -192,6 +192,7 @@ const CalendarScreen = () => {
   const [currentNextMenstruationDate, setCurrentNextMenstruationDate] = useState('');
   const [currentNextMenstruationEndDate, setCurrentNextMenstruationEndDate] = useState('');
 
+  // Launch core features such as getting all date usefull to indicate user in the calendar
   useEffect(() => {
     const { ovulationDate } = getOvulationDate(lastMentrualPeriodStartDate, cycleDurations, menstruationDurations);
     const { startFecondityDate, endFecondityDate } = getFecundityPeriod(lastMentrualPeriodStartDate, cycleDurations);
@@ -205,10 +206,10 @@ const CalendarScreen = () => {
   }, [lastMentrualPeriodStartDate, cycleDurations, menstruationDurations]);
 
   const newMarkedDates = { ...markedDates };
+
   useEffect(() => {
     const handleMenstruationPeriod = () => {
       for (let i = 0; i < menstruationDurations; i++) {
-
         newMarkedDates[moment(lastMentrualPeriodStartDate).add(i, "days").format("YYYY-MM-DD")] = {
           customStyles: {
             container: {
@@ -236,9 +237,7 @@ const CalendarScreen = () => {
       }
     };
 
-    //.log("YES YES yES");
     const handleFecondityPeriod = () => {
-
       const startFecondityDay = parseInt(currentStartFecondityDate.split("-")[2], 10);
       const ovulationDay = parseInt(currentOvulationDate.split('-')[2], 10);
       const startFecondityMoment = moment(currentStartFecondityDate);
@@ -283,18 +282,19 @@ const CalendarScreen = () => {
     handleMenstruationPeriod();
     handleFecondityPeriod();
 
-
     setMarkedDates(newMarkedDates);
-
-  }, [currentNextMenstruationDate, currentNextMenstruationEndDate, currentStartFecondityDate, currentOvulationDate]);
-
+  }, [
+    currentNextMenstruationDate, 
+    currentNextMenstruationEndDate, 
+    currentStartFecondityDate, 
+    currentOvulationDate
+  ]);
 
   // Event de bascule entre ls mois du calendar
   const handleMonthChange = (month) => {
     // month.dateString
     const lastMentruation = moment(currentOvulationDate).add(14, "days").format('YYYY-MM-DD');
     // const isGoingForward = currentDate.isAfter(moment(currentNextMenstruationDate));
-
 
     const { ovulationDate } = getOvulationDate(lastMentruation, cycleDurations, menstruationDurations);
     const { startFecondityDate, endFecondityDate } = getFecundityPeriod(lastMentruation, cycleDurations);
