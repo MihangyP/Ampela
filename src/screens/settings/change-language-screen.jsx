@@ -1,20 +1,18 @@
-import { useState, useContext } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { useContext, useCallback } from "react";
+import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { ThemeContext } from "../../components/theme-context";
-import BouncyCheckbox from "react-native-bouncy-checkbox";
-import { SIZES, COLORS } from "../../../constants";
+import { SIZES, COLORS, images } from "../../../constants";
 import i18n from "../../i18n";
 import HeaderWithGoBack from "../../components/header-with-go-back";
 
 const ChangeLanguageScreen = ({ navigation }) => {
   const language = i18n.language;
   const { theme } = useContext(ThemeContext);
-  const [checkboxState, setCheckboxState] = useState(true);
-  const changeLanguage = (language) => {
+  const changeLanguage = useCallback((language) => {
     i18n.changeLanguage(language);
-  };
+  }, []);
  
-  return (
+  return ( 
     <View
       style={[
         styles.container,
@@ -25,39 +23,16 @@ const ChangeLanguageScreen = ({ navigation }) => {
       ]}
     >
       <HeaderWithGoBack title="Langues" navigation={navigation} />
-      <TouchableOpacity style={{backgroundColor: COLORS.accent600, borderRadius: 5, alignItems: "center", justifyContent: "center" , marginBottom: 20, marginTop: 100, padding: 10}} onPress={() => changeLanguage("mg")}>
-        <Text style={{color: COLORS.neutral100, fontFamily: "SBold"}}>Malagasy</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={{backgroundColor: COLORS.accent600, borderRadius: 5 , alignItems: "center", justifyContent: "center", padding: 10}}  onPress={() => changeLanguage("fr")}>
-        <Text style={{color: COLORS.neutral100, fontFamily: "SBold"}}>Français</Text>
-      </TouchableOpacity>  
-      
-            {/* <View style={styles.content}>
-                <View style={styles.flex}>
-                    <Text style={styles.medium}>Français</Text>
-                    <View>
-                        <BouncyCheckbox 
-                             size={25}
-                             fillColor={theme === 'pink' ? COLORS.accent600 : COLORS.accent800}
-                             disableText
-                             innerIconStyle={{ borderWidth: 2 }}
-                             isChecked={checkboxState}
-                             onPress={handleCheckBoxChange}
-                        />
-                    </View>
-                </View>
-                 <View style={styles.flex}>
-                <Text style={styles.medium}>Malagasy</Text>
-                    <View>
-                        <BouncyCheckbox 
-                            size={25}
-                            fillColor={theme === 'pink' ? COLORS.accent600 : COLORS.accent800}
-                            disableText
-                            innerIconStyle={{ borderWidth: 2 }}
-                        />
-                    </View>
-                </View> 
-            </View> */}
+      <View style={{flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 20, marginTop: 20}}>
+            <TouchableOpacity style={{backgroundColor: language === "mg" ? "rgba(226,68,92, .8)" : "rgba(226,68,92, .4)", borderRadius: 5, flexDirection: "row", alignItems: "center", padding: 10}} onPress={() => changeLanguage("mg")}>      
+              <Text style={{color: COLORS.neutral100, fontFamily: "SBold"}}>Malagasy</Text>
+              <Image source={images.madaImg} style={{width: 50, height: 50}} />
+            </TouchableOpacity>
+            <TouchableOpacity style={{backgroundColor: language === "fr" ? "rgba(226,68,92, .8)" : "rgba(226,68,92, .4)", borderRadius: 5 , flexDirection: "row", alignItems: "center", padding: 10}}  onPress={() => changeLanguage("fr")}>
+              <Text style={{color: COLORS.neutral100, fontFamily: "SBold"}}>Français</Text>
+              <Image source={images.franceImg} style={{width: 50, height: 50}} />
+            </TouchableOpacity>
+      </View>
     </View>
   );
 };

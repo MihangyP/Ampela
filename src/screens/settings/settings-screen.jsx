@@ -8,6 +8,8 @@ import {
   TouchableOpacity,
   Animated,
   Dimensions,
+  Pressable,
+  Linking
 } from "react-native";
 import { useTranslation } from "react-i18next";
 import { ThemeContext } from "../../components/theme-context";
@@ -17,6 +19,19 @@ import BackgroundContainer from "../../components/background-container";
 import { RFValue } from "react-native-responsive-fontsize";
 import { signOut } from "firebase/auth";
 import { auth } from "../../../config/firebaseConfig";
+
+const EmailButton = ({text, urlIcon}) => {
+  const openEmailApp = () => {
+    Linking.openURL(`mailto:ampela.mg.dev@gmail.com?subject=${text}`);
+  };
+
+  return (
+    <Pressable onPress={openEmailApp} style={{flexDirection: "row", alignItems: "center", gap: 10 }}>
+      <Image source={urlIcon}  style={{width: 20, height: 20}} />
+      <Text style={{fontFamily: 'Regular', fontSize: SIZES.medium}}>{text}</Text>
+    </Pressable>
+  );
+};
 
 const SettingsScreen = ({ navigation }) => {
   const { t } = useTranslation();
@@ -120,6 +135,7 @@ const SettingsScreen = ({ navigation }) => {
         console.error("Erreur lors de la déconnexion : ", error);
       });
   };
+
   return (
     <ScrollView scrollEnabled={scrollEnabled} style={styles.container} showsVerticalScrollIndicator={false}>
       <BackgroundContainer>
@@ -218,21 +234,9 @@ const SettingsScreen = ({ navigation }) => {
           </View>
           <View>
             <Text style={styles.subtitle}>{t('feedback')}</Text>
-            <View style={{ marginLeft: 15, marginTop: 10, gap: 15, paddingBottom: 90 }}>
-              <SettingItem
-                title={t('rapportDeBug')}
-                urlIcon={icons.user}
-                chevronRight={true}
-                navigation={navigation}
-                routeToNavigate="ChangeLanguageScreen"
-              />
-              <SettingItem
-                title={t('envoyerFeedback')}
-                urlIcon={icons.send}
-                chevronRight={true}
-                navigation={navigation}
-                routeToNavigate="ChangeLanguageScreen"
-              />
+            <View style={{ marginLeft: 15, marginTop: 10, gap: 15, paddingBottom: 90 }}>       
+              <EmailButton text="Rapport de bug" urlIcon={icons.question}/>
+              <EmailButton text="Envoyer des feedbacks" urlIcon={icons.send}/>
             </View>
           </View>
         </View>

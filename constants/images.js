@@ -64,8 +64,12 @@ import ceQueSontLesMenstruations from "../assets/images/articles/ce-que-sont-les
 import imgVs1 from "../assets/images/articles/imgVs1.png";
 import imgVs2 from "../assets/images/articles/imgVs2.png";
 
+import madaImg from "../assets/images/Mg.png"
+import franceImg from "../assets/images/Fr.png"
 
 export default {
+  madaImg,
+  franceImg,
   imgVs1,
   imgVs2,
   ceQueSontLesMenstruations,
