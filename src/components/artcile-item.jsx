@@ -6,7 +6,7 @@ import { images } from '../../constants';
 import { ThemeContext } from './theme-context';
 import { RFValue } from 'react-native-responsive-fontsize';
 
-const ArticleItem = ({ navigation, title, category, content, list, imgInside, imgInsideArr, content2, list2, onPress, img }) => {
+const ArticleItem = ({ navigation, title, category, content, list, imgInside, imgInsideArr, imgInsideArrMg, content2, list2, onPress, img }) => {
     const { t } = useTranslation();
     let categoryText = null;
 
@@ -37,13 +37,14 @@ const ArticleItem = ({ navigation, title, category, content, list, imgInside, im
             list,
             imgInside,
             imgInsideArr,
+            imgInsideArrMg,
             content2,
             list2,
             img,
         });
     }
     const handleContainerPress = () => {
-        onPress(title, content, list, imgInside, imgInsideArr, content2, list2, img);
+        onPress(title, content, list, imgInside, imgInsideArr, imgInsideArrMg,  content2, list2, img);
     }
     return (
         <Pressable style={styles.container} onPress={handleContainerPress}>

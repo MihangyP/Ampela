@@ -66,10 +66,18 @@ import imgVs2 from "../assets/images/articles/imgVs2.png";
 
 import madaImg from "../assets/images/Mg.png"
 import franceImg from "../assets/images/Fr.png"
+import pinkTheme from "../assets/images/pink-theme.png"
+import orangeTheme from "../assets/images/orange-theme.png"
+import imgVs1Mg from "../assets/images/articles/imgVs1_mg.png";
+import imgVs2Mg from "../assets/images/articles/imgVs2_mg.png";
 
 export default {
+  pinkTheme,
+  orangeTheme,
   madaImg,
   franceImg,
+  imgVs1Mg,
+  imgVs2Mg,
   imgVs1,
   imgVs2,
   ceQueSontLesMenstruations,

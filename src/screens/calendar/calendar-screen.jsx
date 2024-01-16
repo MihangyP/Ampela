@@ -181,7 +181,7 @@ const CalendarScreen = () => {
   }, []);
 
 
-  const lastMentrualPeriodStartDate = "2023-11-21";
+  const lastMentrualPeriodStartDate = "2023-12-21";
   const cycleDurations = 28;
   const menstruationDurations = 5;
   const [markedDates, setMarkedDates] = useState({});
@@ -309,7 +309,7 @@ const CalendarScreen = () => {
     setCurrentNextMenstruationDate(nextMenstruationDate);
     setCurrentNextMenstruationEndDate(nextMenstruationEndDate);
 
-    console.log(curr)
+    // console.log(curr)
 
     const newMarkedDatesCopy = calculateMarkedDates(
       nextMenstruationDate,

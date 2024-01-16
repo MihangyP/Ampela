@@ -5,8 +5,9 @@ export const ThemeContext = createContext();
 export const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState('pink');
 
-  const toggleTheme = () => {
-    setTheme(prevTheme => (prevTheme === 'pink' ? 'orange' : 'pink'));
+  const toggleTheme = (theme) => {
+    //setTheme(prevTheme => (prevTheme === 'pink' ? 'orange' : 'pink'));
+    setTheme(theme);
   };
 
   return (

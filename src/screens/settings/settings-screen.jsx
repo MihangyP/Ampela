@@ -144,18 +144,7 @@ const SettingsScreen = ({ navigation }) => {
 
         <View style={styles.profilContainer}>
           <Image source={images.user06} resizeMode="contain" />
-          <Text style={{ fontFamily: "Medium" }}>Charline Bukowskis</Text>
-          <TouchableOpacity
-            style={[
-              styles.mainBtn,
-              {
-                backgroundColor:
-                  theme === "pink" ? COLORS.accent600 : COLORS.accent800,
-              },
-            ]}
-          >
-            <Text style={styles.textBtn}>{t("ajouterUnCompte")}</Text>
-          </TouchableOpacity>
+          <Text style={{ fontFamily: "Medium" }}>Charline Bukowski</Text>
         </View>
         <View style={styles.settingsContent}>
           <View>

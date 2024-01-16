@@ -1,17 +1,16 @@
-import {useContext} from 'react';
 import {View, ScrollView, Text, StyleSheet, Image} from 'react-native';
 import {COLORS, SIZES} from '../../../constants';
 import HeaderWithGoBack from '../../components/header-with-go-back';
-import { ThemeContext } from '../../components/theme-context';
 import { useTranslation } from 'react-i18next';
 import { RFValue } from 'react-native-responsive-fontsize';
 import {images} from '../../../constants';
+import i18next from 'i18next';
 
 
 const ArticleContentScreen = ({route, navigation}) => {
-    const {theme} = useContext(ThemeContext);
-    const {title, content, list, imgInside, imgInsideArr, content2, list2, img} = route.params;
+    const {title, content, list, imgInside, imgInsideArr, imgInsideArrMg, content2, list2, img} = route.params;
     const {t} = useTranslation();
+    const language = i18next.language;
     return (
         <ScrollView style={styles.container} showsVerticalScrollIndicator={false} >
             <View style={styles.cover}>
@@ -30,9 +29,6 @@ const ArticleContentScreen = ({route, navigation}) => {
             {
                 content.map((c) => <Text key={c} style={styles.content}>{t(c)}</Text>)
             }
-            {/* <Text style={styles.content}>
-                {t(content)}
-            </Text> */}
             <View style={{gap: 6}}>
                  {
                 list ? (
@@ -42,10 +38,16 @@ const ArticleContentScreen = ({route, navigation}) => {
             </View>
             <View style={{alignItems: "center", gap: 20}}>
             {
-                imgInsideArr ? (
+                language === 'fr' ?
+                (imgInsideArr ? (
                     imgInsideArr.map((img) => <Image key={img} source={img} resizeMode='contain' style={{width: img === images.imgVs1 ? 450 : 500, height: img === images.imgVs1 ? 420 : 500}} />)
                 )
-                : null
+                : null)
+                :
+                (imgInsideArrMg ? (
+                    imgInsideArrMg.map((img) => <Image key={img} source={img} resizeMode='contain' style={{width: img === images.imgVs1 ? 450 : 500, height: img === images.imgVs1 ? 420 : 450}} />) 
+                )
+                : null)
             }
             </View>
             <View style={{alignItems: "center"}}>

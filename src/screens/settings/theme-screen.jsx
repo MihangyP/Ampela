@@ -1,67 +1,39 @@
 import {useState, useContext} from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, Image, StyleSheet, Pressable } from 'react-native';
 import HeaderWithGoBack from '../../components/header-with-go-back';
 import { ThemeContext } from '../../components/theme-context';
 import { useTranslation } from 'react-i18next';
-import BouncyCheckbox from 'react-native-bouncy-checkbox';
 
-import { SIZES, COLORS } from '../../../constants';
+import { SIZES, COLORS, images } from '../../../constants';
 
 const ThemeScreen = ({navigation}) => {
     const {t} = useTranslation();
     const {theme, toggleTheme} = useContext(ThemeContext);
-    const [checkboxState, setCheckboxState] = useState(true);
-    const [toggleCheckBox, setToggleCheckBox] = useState(false);
-
-    const handleCheckboxChange =   () => {
-        setCheckboxState();
-        toggleTheme();
+   
+    const handleThemeChange = (theme) => {
+        toggleTheme(theme);
     };
     return (
         <View style={[styles.container, {backgroundColor: theme === 'pink' ? COLORS.neutral200 : COLORS.neutral100}]}>
             <HeaderWithGoBack title={t('theme')} navigation={navigation} onIconLeftPress={() => navigation.goBack()} />
             <View style={styles.content}>
-                <View style={styles.flex}>
-                    <Text style={styles.medium}>Anna's Rose</Text>
-                    <View>
-                  
-                        <BouncyCheckbox 
-                             size={25}
-                             fillColor={theme === 'pink' ? COLORS.accent600 : COLORS.accent800}
-                             disableText
-                             innerIconStyle={{ borderWidth: 2 }}
-                             isChecked={checkboxState}
-                             onPress={handleCheckboxChange}
-                        />
-                    </View>
+                <View style={{flexDirection: "row", justifyContent: "space-between"}}>
+                    <Pressable style={{alignItems: "center", gap: 10}} onPress={() => handleThemeChange('pink')}>
+                        <Text style={{fontFamily: "Regular"}}>Anna's Rose</Text>
+                        <View style={{padding: 10, backgroundColor: theme == 'pink' ? COLORS.accent400 : COLORS.neutral250, borderRadius: 10}}>
+                           <Image source={images.pinkTheme} style={{width: 150, height: 320, borderRadius: 10}} resizeMode='contain'/>
+                        </View>
+                        <View style={{width: 10, height: 10, borderRadius: 50, borderWidth: 1, borderColor: theme === 'pink' ? COLORS.accent500 : COLORS.primary , backgroundColor: theme === 'pink' ? COLORS.accent500 : COLORS.neutral100}} />
+                    </Pressable>
+                    <Pressable style={{alignItems: "center", gap: 10}} onPress={() => handleThemeChange('orange')}>
+                        <Text style={{fontFamily: "Regular"}}>Linda Sunset</Text>
+                        <View style={{padding: 10, backgroundColor: theme === 'pink' ? COLORS.accent400 : COLORS.neutral250, borderRadius: 10}}>
+                             <Image source={images.orangeTheme} style={{width: 150, height: 320, borderRadius: 10}} resizeMode='contain'/>
+                        </View>
+                        <View style={{width: 10, height: 10, borderRadius: 50, borderWidth: 1, borderColor: theme === 'orange' ? COLORS.accent800 : COLORS.primary, backgroundColor: theme === 'orange' ? COLORS.accent800 : COLORS.neutral200}} />
+                    </Pressable>
                 </View>
-                {/* <View style={styles.flex}>
-                    <Text style={styles.medium}>Linda's Sunset</Text>
-                    <View>
-                        <BouncyCheckbox 
-                             size={25}
-                             fillColor={theme === 'pink' ? COLORS.accent600 : COLORS.accent800}
-                             disableText
-                             innerIconStyle={{ borderWidth: 2 }}
-                             isChecked={checkboxState}
-                             onPress={handleCheckboxChange}
-                        />
-                    </View>
-                </View> */}
-                {/* <View style={styles.flex}>
-                <Text style={styles.medium}>Linda's Sunset</Text>
-                    <View>
-                        <BouncyCheckbox 
-                            size={25}
-                            fillColor={theme === 'pink' ? COLORS.accent600 : COLORS.accent800}
-                            disableText
-                            innerIconStyle={{ borderWidth: 2 }}
-                            isChecked={checkboxState}
-                            onPress={handleCheckboxChange}
-                        />
-                    </View>
-                </View> */}
-            </View>
+             </View>
         </View>
     );
 }
@@ -82,7 +54,7 @@ const styles = StyleSheet.create({
         fontSize: SIZES.medium
     },
     content: {
-        marginTop: 100
+        marginTop: 30
     },
     flex: {
         flexDirection: "row",

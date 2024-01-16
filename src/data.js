@@ -91,6 +91,7 @@ const data = [
                 category: "Hygiène menstruelle",
                 content: ["  "],
                 imgInsideArr: [img.images.imgVs1, img.images.imgVs2],
+                imgInsideArrMg: [img.images.imgVs1Mg, img.images.imgVs2Mg],
                 urlImg: img.images.tissuVsServiette
             },
 
