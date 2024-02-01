@@ -150,7 +150,7 @@ const ForumScreen = ({ navigation }) => {
 
         <ScrollView showsVerticalScrollIndicator={false}>
           {posts.map((post) => (
-            <ForumItem key={post.createdAt.toMillis()} post={post} />
+            <ForumItem key={post.createdAt.toMillis()} post={post} navigation={navigation}/>
           ))}
         </ScrollView>
       </BackgroundContainer>

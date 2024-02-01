@@ -26,12 +26,6 @@
     },
     "packagerOpts": {
       "devPort": 8082
-    },
-    "extra": {
-      "eas": {
-        "projectId": "989b0c1b-4d92-4565-ba2c-ed3dd9a7d8a8"
-      }
-    },
-    "owner": "christomah0"
+    }
   }
 }

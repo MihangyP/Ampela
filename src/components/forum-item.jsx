@@ -9,7 +9,7 @@ import { getAuth } from 'firebase/auth';
 import { collection, onSnapshot, query, where, getDocs, doc, deleteDoc, getDoc, updateDoc } from "firebase/firestore";
 import { database } from '../../config/firebaseConfig';
 
-const ForumItem = ({ post, refToCommentItem }) => {
+const ForumItem = ({ post, refToCommentItem, navigation }) => {
     console.log(refToCommentItem);
     const { t } = useTranslation();
     const [isLikeIconPressed, setIsLikeIconPressed] = useState(false);
@@ -173,7 +173,11 @@ const ForumItem = ({ post, refToCommentItem }) => {
     };
 
     const handleCommentIconPress = () => {
-        setIsCommentIconPressed(v => !v);
+        // setIsCommentIconPressed(v => !v);
+        navigation.navigate("CommentScreen", {
+            post,
+            refToCommentItem
+        });
     }
 
     const handleCommentSent = async () => {
@@ -246,7 +250,7 @@ const ForumItem = ({ post, refToCommentItem }) => {
                 </Pressable>
             </View>
 
-            {isCommentIconPressed ? <CommentContent post={post} refToCommentItem={refToCommentItem} /> : null}
+            {/* {isCommentIconPressed ? <CommentContent post={post} refToCommentItem={refToCommentItem} /> : null} */}
 
             <View style={styles.commentBox}>
                 <TextInput

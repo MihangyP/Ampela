@@ -5,13 +5,12 @@ import * as SplashScreen from "expo-splash-screen";
 import ContainerNavigation from "./src/components/navigation-container";
 import "./src/i18n";
 
+
 import React from 'react';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const App = () => {
 
-  // useEffect(() => {
-  //   hideSplashScreen();
-  // }, [hideSplashScreen]);
 
   const [fontsLoaded] = useFonts({
     Regular: require("./assets/Fonts/WorkSans-Regular.ttf"),
@@ -20,22 +19,9 @@ const App = () => {
     Bold: require("./assets/Fonts/WorkSans-Bold.ttf"),
   });
 
-  // const hideSplashScreen = useCallback(async () => {
-  //   if (!fontsLoaded) {
-
-  //     return;
-  //   }
-
-  //   if (SplashScreen.preventAutoHideAsync) {
-  //     await SplashScreen.preventAutoHideAsync();
-  //   }
-
-  //   await SplashScreen.hideAsync();
-  // }, [fontsLoaded]);
-
 
   // useEffect(() => {
-  //   SplashScreen.preventAutoHideAsync();
+  //   AsyncStorage.removeItem("statue")
   // }, []);
 
   if (!fontsLoaded) {
@@ -50,11 +36,4 @@ const App = () => {
 };
 
 
-// process(styles)
-//   .then(() => {
-//     ReactDOM.render(<App />, document.getElementById('root'));
-//   })
-//   .catch((error) => {
-//     console.error(error);
-//   });
 export default App ;

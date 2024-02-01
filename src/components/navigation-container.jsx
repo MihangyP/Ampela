@@ -32,50 +32,69 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import MainDoctorScreen from "../screens/forum/doctor-forum-screen";
 import DoctorMessageScreen from "../screens/messages/message-screen-doctor";
+import CommentScreen from "../screens/forum/comment-screen";
+import { openDatabase } from "expo-sqlite";
 
-
+const db = openDatabase("your_database_name.db");
 
 const Stack = createNativeStackNavigator();
 
 
 const ContainerNavigation = ({ onLayout }) => {
-  const [isFirstTime, setIsFirstTime] = useState(true);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  // const [isFirstTime, setIsFirstTime] = useState('');
+
+  // const fetchData = async () => {
+  //   try {
+  //     // AsyncStorage.removeItem("statue")
+  //     const storedValue = await AsyncStorage.getItem('statue');
+  //     console.log("STORED VALUE 1 ", storedValue);
+  //     if (storedValue == null || storedValue == '') {
+  //       await AsyncStorage.setItem('statue', 'true');
+  //       setIsFirstTime(true);
+  //     } else {
+  //       console.log("STORED VALUE 2", storedValue);
+  //       setIsFirstTime(storedValue === 'true');
+  //     }
+  //   } catch (error) {
+  //     console.error('Error fetching data:', error);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   fetchData();
+  //   console.log("ISFIRTSIME ", isFirstTime);
+  //   console.log("ISFIRSTIME  EVALUATION: ", isFirstTime == false);
+  // }, []);
 
 
-  const checkFirstTime = async () => {
-    try {
-      const isFirstTimeValue = await AsyncStorage.getItem('statue');
-      console.log("Firstime", isFirstTimeValue);
-      if (isFirstTimeValue === null) {
-        await AsyncStorage.setItem('statue', 'true');
-      }
-      return isFirstTimeValue === null;
-    } catch (error) {
-      console.error('Error checking first time:', error);
-      return true;
-    }
-  };
-
-
-  checkFirstTime().then((i) => {
-    setIsFirstTime(i);
-    console.log("Is it the first time?", i);
-  });
-
-
+  const [isFirstTime, setIsFirstTime] = useState(null);
 
   useEffect(() => {
-    const auth = getAuth();
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setIsAuthenticated(true);
-      } else {
-        setIsAuthenticated(false);
-      }
+    db.transaction((tx) => {
+      tx.executeSql(
+        'DROP TABLE IF EXISTS settings;'
+      );
+      tx.executeSql(
+        "CREATE TABLE IF NOT EXISTS settings (id INTEGER PRIMARY KEY AUTOINCREMENT, statue BOOLEAN);"
+      );
+
+      tx.executeSql("SELECT * FROM settings", [], (_, result) => {
+        if (result.rows.length === 0) {
+          // Table vide, première exécution, initialisez avec 'true'
+          tx.executeSql("INSERT INTO settings (statue) VALUES (?)", [true]);
+          setIsFirstTime(true);
+        } else {
+          // La table n'est pas vide, utilisez la valeur existante
+          const storedValue = result.rows.item(0).statue;
+          setIsFirstTime(storedValue);
+        }
+      });
     });
   }, []);
 
+  console.log("ISFIRSTIME: ", isFirstTime);
+  console.log("ISFIRSTIME EVALUATION: ", isFirstTime==false);
 
   return (
     <ThemeProvider>
@@ -84,11 +103,10 @@ const ContainerNavigation = ({ onLayout }) => {
           screenOptions={{
             headerShown: false,
           }}
-
-          initialRouteName="CalendarScreen"
+          initialRouteName={isFirstTime === false ? 'CalendarScreen' : 'Discovery'}
         >
 
-         <Stack.Screen name="Discovery" component={DiscoveryScreen} />
+          <Stack.Screen name="Discovery" component={DiscoveryScreen} />
           <Stack.Screen name="PersonalHealthTestScreen" component={PersonalHealthTestScreen} />
           <Stack.Screen name="LastMenstrualCycleStartAge" component={LastMenstrualCycleStartAge} />
           <Stack.Screen name="QuestionsSeries" component={QuestionsSeries} />
@@ -96,8 +114,9 @@ const ContainerNavigation = ({ onLayout }) => {
             name="AuthentificationScreen"
             component={AuthentificationScreen}
           />
+
           <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
-          <Stack.Screen name="LogInScreen" component={LogInScreen} /> 
+          <Stack.Screen name="LogInScreen" component={LogInScreen} />
           <Stack.Screen name="CalendarScreen" component={Main} />
           <Stack.Screen
             name="NotificationScreen"
@@ -146,6 +165,10 @@ const ContainerNavigation = ({ onLayout }) => {
           <Stack.Screen
             name="DoctorLogInScreen"
             component={DoctorLogInScreen}
+          />
+          <Stack.Screen
+            name="CommentScreen"
+            component={CommentScreen}
           />
 
         </Stack.Navigator>

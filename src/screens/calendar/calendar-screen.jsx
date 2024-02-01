@@ -19,6 +19,7 @@ import { getMenstruationData } from "../../../config/databaseLocalConfig";
 import db from "../../../config/databaseInstance";
 import { getMenstruationPeriod, getFecundityPeriod, getOvulationDate } from "../../components/utils/menstruationUtils";
 import moment from "moment";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 LocaleConfig.locales["fr"] = {
   monthNames: [
@@ -107,6 +108,9 @@ LocaleConfig.locales["fr"] = {
 LocaleConfig.defaultLocale = "fr";
 
 const CalendarScreen = () => {
+
+
+  
   const [translateYOne, setTranslateYOne] = useState(1500);
   const [translateYTwo, setTranslateYTwo] = useState(1500);
   const [translateYThree, setTranslateYThree] = useState(1500);

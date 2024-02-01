@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { BackHandler, Image, Platform } from "react-native";
+import React, { useState, useContext, useEffect } from "react";
+import { BackHandler, Image } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { ThemeContext } from "../components/theme-context";
 import { COLORS, icons } from "../../constants";
@@ -8,38 +8,89 @@ import ForumScreen from "./forum/forum-screens";
 import SettingsScreen from './settings/settings-screen';
 import CalendarScreen from "./calendar/calendar-screen";
 import { useFocusEffect } from "@react-navigation/native";
+import { openDatabase } from 'expo-sqlite';
 
 const Tab = createBottomTabNavigator();
+const db = openDatabase('mydb.db');
 
 const Main = () => {
   const { theme } = useContext(ThemeContext);
-  // const shouldBlockBackNavigation = true;
- 
+  const shouldBlockBackNavigation = true;
 
-  // useFocusEffect(
-  //   React.useCallback(() => {
-  //     const onBackPress = () => {
-  //       if (shouldBlockBackNavigation) {
-  //         return true;
-  //       }
-  //       return false;
-  //     };
+  const checkFirstTime = async () => {
+    db.transaction(tx => {
+      tx.executeSql(
+        'CREATE TABLE IF NOT EXISTS settings (id INTEGER PRIMARY KEY AUTOINCREMENT, statue BOOLEAN);'
+      );
 
+      tx.executeSql(
+        'SELECT * FROM settings',
+        [],
+        (_, result) => {
+          if (result.rows.length === 0) {
+            // Si aucune ligne n'est trouvée, insérez une nouvelle ligne
+            tx.executeSql(
+              'INSERT INTO settings (statue) VALUES (?)',
+              [false],
+              (_, insertResult) => {
+                console.log('Inserted initial value into settings table');
+                setIsFirstTime(false);
+              },
+              (_, insertError) => {
+                console.error('Error inserting initial value into settings table:', insertError);
+              }
+            );
+          } else {
+            // Sinon, mettez à jour la valeur existante
+            const storedValue = result.rows.item(0).statue;
+            tx.executeSql(
+              'UPDATE settings SET statue = ?',
+              [false], // Mettez à jour la valeur à son inverse
+              (_, updateResult) => {
+                console.log('Updated value in settings table');
+                setIsFirstTime(!storedValue);
+              },
+              (_, updateError) => {
+                console.error('Error updating value in settings table:', updateError);
+              }
+            );
+          }
+        },
+        (_, error) => {
+          console.error('Error fetching data from settings table:', error);
+        }
+      );
+    });
+  };
 
-  //     const backHandler = BackHandler.addEventListener(
-  //       'hardwareBackPress',
-  //       onBackPress
-  //     );
+  const [isFirstTime, setIsFirstTime] = useState(null);
 
-  //     return () => {
+  useEffect(() => {
+    checkFirstTime();
+  }, []);
 
-  //       backHandler.remove();
-  //     };
-  //   }, [shouldBlockBackNavigation])
-  // );
-  
-  
-  
+  console.log("ISFIRSTIME DEPUIS MAIN", isFirstTime);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      const onBackPress = () => {
+        if (shouldBlockBackNavigation) {
+          return true;
+        }
+        return false;
+      };
+
+      const backHandler = BackHandler.addEventListener(
+        'hardwareBackPress',
+        onBackPress
+      );
+
+      return () => {
+        backHandler.remove();
+      };
+    }, [shouldBlockBackNavigation])
+  );
+
   return (
     <Tab.Navigator
       initialRouteName="Calendar"
@@ -72,7 +123,6 @@ const Main = () => {
           )
         }}
       />
-
       <Tab.Screen name="Forum" component={ForumScreen}
         options={{
           tabBarIcon: ({ focused }) => (
@@ -90,6 +140,5 @@ const Main = () => {
     </Tab.Navigator>
   );
 };
-
 
 export default Main;

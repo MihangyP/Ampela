@@ -164,7 +164,7 @@ const DoctorForumScreen = ({ navigation }) => {
 
         <ScrollView onScroll={handleParentScroll} showsVerticalScrollIndicator={false}>
           {posts.map((post) => (
-            <ForumItem key={post.createdAt.toMillis()} post={post} refToCommentItem={childScrollViewRef}/>
+            <ForumItem key={post.createdAt.toMillis()} post={post} refToCommentItem={childScrollViewRef} navigation={navigation} />
           ))}
         </ScrollView>
       </BackgroundContainer>
