@@ -103,7 +103,7 @@ const ContainerNavigation = ({ onLayout }) => {
           screenOptions={{
             headerShown: false,
           }}
-          initialRouteName={isFirstTime === false ? 'CalendarScreen' : 'Discovery'}
+          initialRouteName={isFirstTime == false ? 'CalendarScreen' : 'Discovery'}
         >
 
           <Stack.Screen name="Discovery" component={DiscoveryScreen} />
