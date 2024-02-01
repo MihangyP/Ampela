@@ -185,7 +185,8 @@ const CalendarScreen = () => {
   }, []);
 
 
-  const lastMentrualPeriodStartDate = "2023-12-21";
+  const [lastMentrualPeriodStartDate, setLastMentrualPeriodStartDate] = useState("2023-12-21");
+
   const cycleDurations = 28;
   const menstruationDurations = 5;
   const [markedDates, setMarkedDates] = useState({});
@@ -201,6 +202,20 @@ const CalendarScreen = () => {
     const { ovulationDate } = getOvulationDate(lastMentrualPeriodStartDate, cycleDurations, menstruationDurations);
     const { startFecondityDate, endFecondityDate } = getFecundityPeriod(lastMentrualPeriodStartDate, cycleDurations);
     const { nextMenstruationDate, nextMenstruationEndDate } = getMenstruationPeriod(lastMentrualPeriodStartDate, cycleDurations, menstruationDurations);
+
+    // useEffect(() => {
+    //   const fetchData = async () => {
+    //     try {
+    //       const menstruationData = await getMenstruationData(); 
+    //       const initialStartDate = menstruationData?.lastMentrualPeriodStartDate || "2023-12-21";
+    //       setLastMentrualPeriodStartDate(initialStartDate);
+    //     } catch (error) {
+    //       console.error("Error fetching data from SQLite:", error);
+    //     }
+    //   };
+  
+    //   fetchData();
+    // }, []);
 
     setCurrentOvulationDate(ovulationDate);
     setCurrentStartFecondityDate(startFecondityDate);

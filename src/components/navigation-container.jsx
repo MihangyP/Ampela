@@ -40,7 +40,7 @@ const db = openDatabase("your_database_name.db");
 const Stack = createNativeStackNavigator();
 
 
-const ContainerNavigation = ({ onLayout }) => {
+const ContainerNavigation = () => {
 
   // const [isFirstTime, setIsFirstTime] = useState('');
 
@@ -72,21 +72,25 @@ const ContainerNavigation = ({ onLayout }) => {
 
   useEffect(() => {
     db.transaction((tx) => {
-      tx.executeSql(
-        'DROP TABLE IF EXISTS settings;'
-      );
+      // tx.executeSql(
+      //   'DROP TABLE IF EXISTS settings;'
+      // );
       tx.executeSql(
         "CREATE TABLE IF NOT EXISTS settings (id INTEGER PRIMARY KEY AUTOINCREMENT, statue BOOLEAN);"
       );
 
       tx.executeSql("SELECT * FROM settings", [], (_, result) => {
-        if (result.rows.length === 0) {
+        console.log(" ISAKY PLAN REO ", result.rows.length);
+        if (result.rows.length <= 0) {
           // Table vide, première exécution, initialisez avec 'true'
+
+          console.log("ETOA AZHO");
           tx.executeSql("INSERT INTO settings (statue) VALUES (?)", [true]);
           setIsFirstTime(true);
         } else {
           // La table n'est pas vide, utilisez la valeur existante
           const storedValue = result.rows.item(0).statue;
+          console.log("STATUE VOLOHANY ", result.rows.item(0).statue);
           setIsFirstTime(storedValue);
         }
       });
@@ -94,7 +98,7 @@ const ContainerNavigation = ({ onLayout }) => {
   }, []);
 
   console.log("ISFIRSTIME: ", isFirstTime);
-  console.log("ISFIRSTIME EVALUATION: ", isFirstTime==false);
+  console.log("ISFIRSTIME EVALUATION NAVIAGTOR: ", isFirstTime == false);
 
   return (
     <ThemeProvider>

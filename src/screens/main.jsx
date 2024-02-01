@@ -17,6 +17,7 @@ const Main = () => {
   const { theme } = useContext(ThemeContext);
   const shouldBlockBackNavigation = true;
 
+  const [isFirstTime, setIsFirstTime] = useState(null);
   const checkFirstTime = async () => {
     db.transaction(tx => {
       tx.executeSql(
@@ -27,34 +28,25 @@ const Main = () => {
         'SELECT * FROM settings',
         [],
         (_, result) => {
-          if (result.rows.length === 0) {
-            // Si aucune ligne n'est trouvée, insérez une nouvelle ligne
-            tx.executeSql(
-              'INSERT INTO settings (statue) VALUES (?)',
-              [false],
-              (_, insertResult) => {
-                console.log('Inserted initial value into settings table');
-                setIsFirstTime(false);
-              },
-              (_, insertError) => {
-                console.error('Error inserting initial value into settings table:', insertError);
-              }
-            );
-          } else {
-            // Sinon, mettez à jour la valeur existante
-            const storedValue = result.rows.item(0).statue;
-            tx.executeSql(
-              'UPDATE settings SET statue = ?',
-              [false], // Mettez à jour la valeur à son inverse
-              (_, updateResult) => {
-                console.log('Updated value in settings table');
-                setIsFirstTime(!storedValue);
-              },
-              (_, updateError) => {
-                console.error('Error updating value in settings table:', updateError);
-              }
-            );
-          }
+
+          // Sinon, mettez à jour la valeur existante
+          // const storedValue = result.rows.item(0).statue;
+          tx.executeSql(
+            'UPDATE settings SET statue = ?',
+            [false], // Mettez à jour la valeur à son inverse
+            (_, updateResult) => {
+              console.log('Updated value in settings table');
+              tx.executeSql(
+                'SELECT * FROM settings',
+                [],
+                (_, result) => { setIsFirstTime(result.rows.item(0).statue); })
+
+            },
+            (_, updateError) => {
+              console.error('Error updating value in settings table:', updateError);
+            }
+          );
+
         },
         (_, error) => {
           console.error('Error fetching data from settings table:', error);
@@ -63,7 +55,6 @@ const Main = () => {
     });
   };
 
-  const [isFirstTime, setIsFirstTime] = useState(null);
 
   useEffect(() => {
     checkFirstTime();
