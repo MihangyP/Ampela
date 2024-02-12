@@ -1,34 +1,35 @@
 import { useState, useContext } from "react";
 import {
   View,
+  ScrollView,
   Text,
   StyleSheet,
   Pressable,
-  Image,
+  TouchableOpacity,
   Dimensions,
 } from "react-native";
-import { COLORS, SIZES, icons } from "../../constants";
+import { COLORS, SIZES } from "../../constants";
 import { ThemeContext } from "./theme-context";
 import { RFValue } from "react-native-responsive-fontsize";
-import CustomScrollPicker from "./CustomScrollPicker";
-import DateTimePicker from '@react-native-community/datetimepicker';
 
 const screenWidth = Dimensions.get("window").width;
 
 const ReminderContent = ({ onCloseIconPress, pills, type, onRegisterButtonPress }) => {
   const { theme } = useContext(ThemeContext);
-  const [number1, setNumber1] = useState(0);
-  const [number2, setNumber2] = useState(0);
   const [active, setActive] = useState("");
-  const [date, setDate] = useState(new Date());
-  const [show, setShow] = useState(false);
+  const [selectedHour, setSelectedHour] = useState(0);
+  const [selectedMinute, setSelectedMinute] = useState(0);
 
-  const onChange = (event, selectedDate) => {
-      const currentDate = selectedDate;
-      setShow(false);
-      setDate(currentDate);
-  };
+  const hours = Array.from({ length: 24 }, (_, index) => index);
+  const minutes = Array.from({ length: 60 } , (_, index) => index);
 
+  const handleHourSelect = (hour) => {
+    setSelectedHour(hour);
+  }
+
+  const handleMinuteSelect = (minute) => {
+    setSelectedMinute(minute);
+  }
 
   const handleItemPress = (item) => {
     if (active === item) {
@@ -37,38 +38,11 @@ const ReminderContent = ({ onCloseIconPress, pills, type, onRegisterButtonPress 
       setActive(item);
     };
   };
-  const handleBtnTopOnePress = () => {
-    if (number1 > 22) {
-      setNumber1(0);
-    } else {
-      setNumber1(n => n + 1);
-    }
-  }
-  const handleBtnBottomOnePress = () => {
-    if (number1 < 1) {
-      setNumber1(23)
-    } else {
-      setNumber1(n => n - 1);
-    }
-  }
-  const handleBtnTopTwoPress = () => {
-    if (number2 > 58) {
-      setNumber2(0);
-    } else {
-      setNumber2(n => n + 1);
-    }
-  }
-  const handleBtnBottomTwoPress = () => {
-    if (number2 < 1) {
-      setNumber2(59)
-    } else {
-      setNumber2(n => n - 1);
-    }
-  }
 
   const handleRegisterBtnPress = () => {
-    onRegisterButtonPress(type, number1, number2, active);
+    onRegisterButtonPress(type, selectedHour, selectedMinute, active);
   }
+
   return (
     <View style={styles.container} className="fixed -top-[250px]">
       <View style={styles.header}>
@@ -76,33 +50,45 @@ const ReminderContent = ({ onCloseIconPress, pills, type, onRegisterButtonPress 
           Début des règles
         </Text>
       </View>
+
       <View style={styles.body}>
-
-        {/* Heure scrollable */}
-        <View style={styles.gap}>
-          <>
-            {/* <DateTimePicker
-              value={date}
-              mode={"time"}
-              is24Hour={true}
-              onChange={onChange}
-              modal={false}
-              androidVariant='nativeAndroid'
-              display='spinner'
-            /> */}
-            <Text style={styles.number}>:</Text></>
+        {/* here */}
+        <View style={styles.timeContainer}>
+            <ScrollView style={{height: 50}}
+              showsVerticalScrollIndicator={false}
+            >
+              {
+                hours.map((hour) => (
+                  <TouchableOpacity
+                    key={hour}
+                    onPress={() => handleHourSelect(hour)}
+                    style={[styles.timeOption, selectedHour === hour && styles.selectedOption]}
+                  >
+                      <Text style={styles.timeText}>{hour < 10 ? `0${hour}` : hour}</Text>
+                  </TouchableOpacity>
+                ))
+              }
+            </ScrollView>
+            <Text style={styles.timeDivider}>:</Text>
+            <ScrollView style={{height: 50}}
+              showsVerticalScrollIndicator={false}
+            > 
+              {
+                minutes.map((minute) => (
+                  <TouchableOpacity
+                    key={minute}
+                    onPress={() => handleMinuteSelect(minute)}
+                    style={[styles.timeOption, selectedMinute === minute && styles.selectedOption]}
+                  >
+                      <Text style={styles.timeText}>{minute < 10 ? `0${minute}` : minute}</Text>
+                  </TouchableOpacity>
+                ))
+              }
+            </ScrollView>
         </View>
 
-        <View>
-          <Text style={styles.number}>:</Text>
-        </View>
-
-        {/* Minute scrollable */}
-        <View style={styles.gap}>
-          {/* <CustomScrollPicker /> */}
-
-        </View>
       </View>
+
       <View style={styles.footer}>
         <Text style={styles.textRegular}>Répéter : </Text>
         <View style={styles.pressableContainer}>
@@ -229,6 +215,31 @@ const styles = StyleSheet.create({
     borderRadius: 15,
 
   },
+  timeContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: 150
+  },
+  timeOption: {
+    paddingVertical: 10,
+  },
+  selectedOption: {
+    backgroundColor: COLORS.neutral200,
+    borderRadius: 5,
+  },
+  timeText: {
+    fontSize: RFValue(SIZES.large),
+    fontFamily: "Regular",
+    textAlign: "center"
+  },
+  timeDivider: {
+    fontSize: 20,
+    marginHorizontal: 10,
+  },
+  selectedTime: {
+    marginTop: 20,
+    fontSize: 18,
+  },
   textRegular: {
     fontFamily: "Regular",
   },
@@ -260,14 +271,7 @@ const styles = StyleSheet.create({
     fontFamily: "Regular",
     fontSize: RFValue(SIZES.small)
   },
-  gap: {
-    gap: 15,
-    alignItems: "center",
-  },
-  number: {
-    fontSize: RFValue(SIZES.large),
-    fontFamily: "Medium"
-  }
+
 });
 
 export default ReminderContent;

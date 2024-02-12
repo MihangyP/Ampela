@@ -107,7 +107,7 @@ LocaleConfig.locales["fr"] = {
 
 LocaleConfig.defaultLocale = "fr";
 
-const CalendarScreen = () => {
+const CalendarScreen = ({navigation}) => {
 
 
   
@@ -404,7 +404,7 @@ const CalendarScreen = () => {
         </View>
         <BackgroundContainer>
 
-          <Text style={styles.title}>{t("calendrier")}</Text>
+          <Text style={styles.title} onPress={() => navigation.navigate('Screen')}>{t("calendrier")}</Text>
           <View style={styles.calendar}>
             <Calendar
 

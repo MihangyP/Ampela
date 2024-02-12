@@ -34,6 +34,7 @@ import MainDoctorScreen from "../screens/forum/doctor-forum-screen";
 import DoctorMessageScreen from "../screens/messages/message-screen-doctor";
 import CommentScreen from "../screens/forum/comment-screen";
 import { openDatabase } from "expo-sqlite";
+import Screen from "../screens/testNotification";
 
 const db = openDatabase("your_database_name.db");
 
@@ -107,10 +108,12 @@ const ContainerNavigation = () => {
           screenOptions={{
             headerShown: false,
           }}
-          initialRouteName={isFirstTime == false ? 'CalendarScreen' : 'Discovery'}
+          // initialRouteName={isFirstTime == false ? 'CalendarScreen' : 'Discovery'}
+          initialRouteName="CalendarScreen"
         >
 
           <Stack.Screen name="Discovery" component={DiscoveryScreen} />
+          <Stack.Screen name="Screen" component={Screen} />
           <Stack.Screen name="PersonalHealthTestScreen" component={PersonalHealthTestScreen} />
           <Stack.Screen name="LastMenstrualCycleStartAge" component={LastMenstrualCycleStartAge} />
           <Stack.Screen name="QuestionsSeries" component={QuestionsSeries} />

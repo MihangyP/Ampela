@@ -45,7 +45,7 @@ const data = [
                 title: "leSpotting",
                 category: "Menstruations",
                 content: ["lesSpottingContent"],
-                urlImg: img.images.spotting
+                urlImg: img.images.spotting,   
             }, {
                 title: "pertesAnormales",
                 category: "Menstruations",
