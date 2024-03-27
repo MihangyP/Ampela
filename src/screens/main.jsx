@@ -9,55 +9,57 @@ import SettingsScreen from './settings/settings-screen';
 import CalendarScreen from "./calendar/calendar-screen";
 import { useFocusEffect } from "@react-navigation/native";
 import { openDatabase } from 'expo-sqlite';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Tab = createBottomTabNavigator();
-const db = openDatabase('mydb.db');
+
 
 const Main = () => {
+
   const { theme } = useContext(ThemeContext);
   const shouldBlockBackNavigation = true;
 
   const [isFirstTime, setIsFirstTime] = useState(null);
-  const checkFirstTime = async () => {
-    db.transaction(tx => {
-      tx.executeSql(
-        'CREATE TABLE IF NOT EXISTS settings (id INTEGER PRIMARY KEY AUTOINCREMENT, statue BOOLEAN);'
-      );
 
-      tx.executeSql(
-        'SELECT * FROM settings',
-        [],
-        (_, result) => {
 
-          // Sinon, mettez à jour la valeur existante
-          // const storedValue = result.rows.item(0).statue;
-          tx.executeSql(
-            'UPDATE settings SET statue = ?',
-            [false], // Mettez à jour la valeur à son inverse
-            (_, updateResult) => {
-              console.log('Updated value in settings table');
-              tx.executeSql(
-                'SELECT * FROM settings',
-                [],
-                (_, result) => { setIsFirstTime(result.rows.item(0).statue); })
-
-            },
-            (_, updateError) => {
-              console.error('Error updating value in settings table:', updateError);
-            }
-          );
-
-        },
-        (_, error) => {
-          console.error('Error fetching data from settings table:', error);
-        }
-      );
-    });
+  const getLocalStorageItem = async (key) => {
+    try {
+      const storedValue = await AsyncStorage.getItem(key);
+      return storedValue ? storedValue : null;
+    } catch (error) {
+      console.error("Error fetching data from AsyncStorage:", error);
+      return null;
+    }
   };
 
 
+  const setLocalStorageItem = async (key, value) => {
+    try {
+      await AsyncStorage.setItem(key, value);
+    } catch (error) {
+      console.error("Error setting data in AsyncStorage:", error);
+    }
+  };
+
+  const fetchData = async () => {
+    try {
+      const storedValue = await getLocalStorageItem("isFirstTime");
+      if (storedValue === null || storedValue == "true") {
+        await setLocalStorageItem("isFirstTime", "false");
+        setIsFirstTime("false");
+        console.log("IS FIRSTIME 1", isFirstTime);
+      } else {
+        setIsFirstTime(storedValue);
+        console.log("IS FIRSTIME ", storedValue);
+      }
+    } catch (error) {
+      console.error("Error fetching or setting data in AsyncStorage:", error);
+    }
+  };
+
+  
   useEffect(() => {
-    checkFirstTime();
+    fetchData();
   }, []);
 
   console.log("ISFIRSTIME DEPUIS MAIN", isFirstTime);

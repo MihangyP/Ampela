@@ -33,74 +33,111 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import MainDoctorScreen from "../screens/forum/doctor-forum-screen";
 import DoctorMessageScreen from "../screens/messages/message-screen-doctor";
 import CommentScreen from "../screens/forum/comment-screen";
-import { openDatabase } from "expo-sqlite";
-import Screen from "../screens/testNotification";
 
-const db = openDatabase("your_database_name.db");
+import Screen from "../screens/testNotification";
+import db from "../../config/databaseInstance";
+
+
 
 const Stack = createNativeStackNavigator();
 
 
 const ContainerNavigation = () => {
-
-  // const [isFirstTime, setIsFirstTime] = useState('');
+  // const [isFirstTime, setIsFirstTime] = useState(null);
 
   // const fetchData = async () => {
-  //   try {
-  //     // AsyncStorage.removeItem("statue")
-  //     const storedValue = await AsyncStorage.getItem('statue');
-  //     console.log("STORED VALUE 1 ", storedValue);
-  //     if (storedValue == null || storedValue == '') {
-  //       await AsyncStorage.setItem('statue', 'true');
-  //       setIsFirstTime(true);
-  //     } else {
-  //       console.log("STORED VALUE 2", storedValue);
-  //       setIsFirstTime(storedValue === 'true');
-  //     }
-  //   } catch (error) {
-  //     console.error('Error fetching data:', error);
-  //   }
+  //   console.log("Avant la transaction");
+
+  //   return new Promise((resolve, reject) => {
+  //     db.transaction((tx) => {
+  //       tx.executeSql(
+  //         "CREATE TABLE IF NOT EXISTS settings (id INTEGER PRIMARY KEY AUTOINCREMENT, statue BOOLEAN);"
+  //       );
+
+  //       console.log("Dans la transaction");
+
+  //       tx.executeSql("SELECT * FROM settings", [], (_, result) => {
+  //         console.log("Après la requête SELECT");
+  //         console.log("Nombre de lignes dans le résultat :", result.rows.length);
+
+  //         if (result.rows.length <= 0) {
+  //           console.log("Dans le bloc if");
+  //           tx.executeSql("INSERT INTO settings (statue) VALUES (?)", [true], (_, insertResult) => {
+  //             setIsFirstTime(true);
+  //             console.log("IS FIRSTIME ", true);
+  //             resolve();
+  //           }, (_, insertError) => {
+  //             console.error("Erreur lors de l'insertion :", insertError);
+  //             reject(insertError);
+  //           });
+  //         } else {
+  //           console.log("Dans le bloc else");
+  //           const storedValue = result.rows.item(0).statue;
+  //           console.log("Valeur stockée dans la base de données :", storedValue);
+
+  //           setIsFirstTime(storedValue);
+  //           console.log("IS FIRSTIME ", storedValue);
+  //           resolve();
+  //         }
+  //       });
+  //     });
+  //   });
   // };
 
-  // useEffect(() => {
-  //   fetchData();
-  //   console.log("ISFIRTSIME ", isFirstTime);
-  //   console.log("ISFIRSTIME  EVALUATION: ", isFirstTime == false);
-  // }, []);
+  // fetchData()
+  //   .then(() => {
+  //     console.log("Tout s'est bien passé, ici CA MARCHE");
+  //   })
+  //   .catch((error) => {
+  //     console.error("Une erreur s'est produite :", error);
+  //   });
 
 
   const [isFirstTime, setIsFirstTime] = useState(null);
 
+  const getLocalStorageItem = async (key) => {
+    try {
+      const storedValue = await AsyncStorage.getItem(key);
+      return storedValue ? storedValue : null;
+    } catch (error) {
+      console.error("Error fetching data from AsyncStorage:", error);
+      return null;
+    }
+  };
+
+  const setLocalStorageItem = async (key, value) => {
+    try {
+      await AsyncStorage.setItem(key, value);
+    } catch (error) {
+      console.error("Error setting data in AsyncStorage:", error);
+    }
+  };
+
+  const fetchData = async () => {
+    try {
+      const storedValue = await getLocalStorageItem("isFirstTime");
+      console.log("IS FIRSTIME 2", storedValue);
+      if (storedValue === null || storedValue !== "true") {
+        await setLocalStorageItem("isFirstTime", "true");
+        setIsFirstTime("true");
+        console.log("IS FIRSTIME 1", isFirstTime);
+      } else {
+        setIsFirstTime(storedValue);
+        console.log("IS FIRSTIME ", storedValue);
+      }
+    } catch (error) {
+      console.error("Error fetching or setting data in AsyncStorage:", error);
+    }
+  };
+
   useEffect(() => {
-    db.transaction((tx) => {
-      // tx.executeSql(
-      //   'DROP TABLE IF EXISTS settings;'
-      // );
-      tx.executeSql(
-        "CREATE TABLE IF NOT EXISTS settings (id INTEGER PRIMARY KEY AUTOINCREMENT, statue BOOLEAN);"
-      );
+    fetchData();
 
-      tx.executeSql("SELECT * FROM settings", [], (_, result) => {
-        console.log(" ISAKY PLAN REO ", result.rows.length);
-        if (result.rows.length <= 0) {
-          // Table vide, première exécution, initialisez avec 'true'
 
-          console.log("ETOA AZHO");
-          tx.executeSql("INSERT INTO settings (statue) VALUES (?)", [true]);
-          setIsFirstTime(true);
-        } else {
-          // La table n'est pas vide, utilisez la valeur existante
-          const storedValue = result.rows.item(0).statue;
-          console.log("STATUE VOLOHANY ", result.rows.item(0).statue);
-          setIsFirstTime(storedValue);
-        }
-      });
-    });
   }, []);
 
-  console.log("ISFIRSTIME: ", isFirstTime);
-  console.log("ISFIRSTIME EVALUATION NAVIAGTOR: ", isFirstTime == false);
 
+  console.log(isFirstTime !== null && isFirstTime === 'true');
   return (
     <ThemeProvider>
       <NavigationContainer>
@@ -108,8 +145,7 @@ const ContainerNavigation = () => {
           screenOptions={{
             headerShown: false,
           }}
-          // initialRouteName={isFirstTime == false ? 'CalendarScreen' : 'Discovery'}
-          initialRouteName="CalendarScreen"
+          initialRouteName={true ? 'CalendarScreen' : 'Discovery'}
         >
 
           <Stack.Screen name="Discovery" component={DiscoveryScreen} />

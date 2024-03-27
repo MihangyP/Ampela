@@ -107,10 +107,40 @@ LocaleConfig.locales["fr"] = {
 
 LocaleConfig.defaultLocale = "fr";
 
-const CalendarScreen = ({navigation}) => {
+const CalendarScreen = ({ navigation }) => {
+
+  const [lastMentrualPeriodStartDate, setLastMentrualPeriodStartDate] = useState(null);
+  const [cycleDurations, setCycleDurations] = useState(null);
+  const [menstruationDurations, setMenstruationDurations] = useState(null);
+  useEffect(() => {
+    db.transaction(tx => {
+      tx.executeSql(
+        'SELECT lastMenstruationDate FROM user WHERE id = ?',
+        [1],
+        (_, { rows }) => {
+          console.log(rows);
+          if (rows.length > 0) {
+            const lastPeriodStartDate = moment(rows.item(0).lastMenstruationDate, 'YYYY-MM-DD');
+            setLastMentrualPeriodStartDate(lastPeriodStartDate);
+            console.log(moment(rows.item(0).lastMenstruationDate, 'YYYY-MM-DD'));
+
+          
+            const cycleDurations = rows.item(0).cycleDuration;
+            const menstruationDurations = rows.item(0).durationMenstruation;
+            setCycleDurations(cycleDurations);
+            setMenstruationDurations(menstruationDurations);
+          } else {
+            console.log('User not found.');
+          }
+        },
+        (_, error) => {
+          console.error('Error executing SQL:', error);
+        }
+      );
+    });
+  }, []);
 
 
-  
   const [translateYOne, setTranslateYOne] = useState(1500);
   const [translateYTwo, setTranslateYTwo] = useState(1500);
   const [translateYThree, setTranslateYThree] = useState(1500);
@@ -185,10 +215,6 @@ const CalendarScreen = ({navigation}) => {
   }, []);
 
 
-  const [lastMentrualPeriodStartDate, setLastMentrualPeriodStartDate] = useState("2023-12-21");
-
-  const cycleDurations = 28;
-  const menstruationDurations = 5;
   const [markedDates, setMarkedDates] = useState({});
 
   const [currentOvulationDate, setCurrentOvulationDate] = useState('');
@@ -213,7 +239,7 @@ const CalendarScreen = ({navigation}) => {
     //       console.error("Error fetching data from SQLite:", error);
     //     }
     //   };
-  
+
     //   fetchData();
     // }, []);
 
@@ -303,9 +329,9 @@ const CalendarScreen = ({navigation}) => {
 
     setMarkedDates(newMarkedDates);
   }, [
-    currentNextMenstruationDate, 
-    currentNextMenstruationEndDate, 
-    currentStartFecondityDate, 
+    currentNextMenstruationDate,
+    currentNextMenstruationEndDate,
+    currentStartFecondityDate,
     currentOvulationDate
   ]);
 

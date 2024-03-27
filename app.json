@@ -30,12 +30,6 @@
     },
     "packagerOpts": {
       "devPort": 8082
-    },
-    "extra": {
-      "eas": {
-        "projectId": "3f77356e-dc44-4d5e-bfcd-dbe3c7b3c432"
-      }
-    },
-    "owner": "ampela.mg.dev"
+    }
   }
 }
