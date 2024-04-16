@@ -58,4 +58,4 @@ Veuillez vous référer à notre [guide de contribution](./CONTRIBUTING.md) pour
 
 ## Licence
 
-Ce projet est distribué sous la licence [Nom de la licence]. Pour plus d'informations, consultez le fichier [MIT](./LICENSE.txt).
+Ce projet est distribué sous la licence MIT. Pour plus d'informations, consultez le fichier [MIT](./LICENSE.txt).
