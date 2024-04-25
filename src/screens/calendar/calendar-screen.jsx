@@ -112,6 +112,7 @@ const CalendarScreen = ({ navigation }) => {
   const [lastMentrualPeriodStartDate, setLastMentrualPeriodStartDate] = useState(null);
   const [cycleDurations, setCycleDurations] = useState(null);
   const [menstruationDurations, setMenstruationDurations] = useState(null);
+
   useEffect(() => {
     db.transaction(tx => {
       tx.executeSql(
@@ -124,7 +125,7 @@ const CalendarScreen = ({ navigation }) => {
             setLastMentrualPeriodStartDate(lastPeriodStartDate);
             console.log(moment(rows.item(0).lastMenstruationDate, 'YYYY-MM-DD'));
 
-          
+
             const cycleDurations = rows.item(0).cycleDuration;
             const menstruationDurations = rows.item(0).durationMenstruation;
             setCycleDurations(cycleDurations);
@@ -139,7 +140,6 @@ const CalendarScreen = ({ navigation }) => {
       );
     });
   }, []);
-
 
   const [translateYOne, setTranslateYOne] = useState(1500);
   const [translateYTwo, setTranslateYTwo] = useState(1500);
@@ -223,7 +223,7 @@ const CalendarScreen = ({ navigation }) => {
   const [currentNextMenstruationDate, setCurrentNextMenstruationDate] = useState('');
   const [currentNextMenstruationEndDate, setCurrentNextMenstruationEndDate] = useState('');
 
-  // Launch core features such as getting all date usefull to indicate user in the calendar
+  // Launch core features such as getting all usefull dates to indicate user in the calendar
   useEffect(() => {
     const { ovulationDate } = getOvulationDate(lastMentrualPeriodStartDate, cycleDurations, menstruationDurations);
     const { startFecondityDate, endFecondityDate } = getFecundityPeriod(lastMentrualPeriodStartDate, cycleDurations);
@@ -354,29 +354,29 @@ const CalendarScreen = ({ navigation }) => {
     setCurrentNextMenstruationDate(nextMenstruationDate);
     setCurrentNextMenstruationEndDate(nextMenstruationEndDate);
 
-    // console.log(curr)
-
-    const newMarkedDatesCopy = calculateMarkedDates(
+    // Recalculate marked dates based on current data and new month
+    const newMarkedDatesOnChangeMonth = calculateMarkedDates(
       nextMenstruationDate,
       nextMenstruationEndDate,
       ovulationDate,
       startFecondityDate
     );
 
-    setMarkedDates(newMarkedDatesCopy);
+    setMarkedDates(newMarkedDatesOnChangeMonth);
   };
 
+  // Run process of getting all of marked dates depending on args
   const calculateMarkedDates = (
     nextMenstruationDate,
     nextMenstruationEndDate,
     ovulationDate,
     startFecondityDate
   ) => {
-    const newMarkedDatesCopy = {};
+    const markedDatesCalculated = {};
 
     for (let i = 0; i <= moment(nextMenstruationEndDate).diff(nextMenstruationDate, 'days'); i++) {
       const currentDate = moment(nextMenstruationDate).add(i, 'days').format('YYYY-MM-DD');
-      newMarkedDatesCopy[currentDate] = {
+      markedDatesCalculated[currentDate] = {
         customStyles: {
           container: {
             backgroundColor: '#FFADAD',
@@ -392,7 +392,7 @@ const CalendarScreen = ({ navigation }) => {
     for (let j = 0; j < 7; j++) {
       if (j !== 4) {
         const currentDate = startFecondityMoment.format('YYYY-MM-DD');
-        newMarkedDatesCopy[currentDate] = {
+        markedDatesCalculated[currentDate] = {
           customStyles: {
             container: {
               backgroundColor: '#E2445C',
@@ -406,7 +406,7 @@ const CalendarScreen = ({ navigation }) => {
       startFecondityMoment.add(1, 'days');
     }
 
-    newMarkedDatesCopy[ovulationDate] = {
+    markedDatesCalculated[ovulationDate] = {
       customStyles: {
         container: {
           borderStyle: 'solid',
@@ -419,7 +419,7 @@ const CalendarScreen = ({ navigation }) => {
       },
     };
 
-    return newMarkedDatesCopy;
+    return markedDatesCalculated;
   };
 
   return (
