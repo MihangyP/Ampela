@@ -30,7 +30,6 @@ export function getFecundityPeriod(lastMenstruationDate, cycleDurations) {
   }
 }
 
-
 export function getMenstruationPeriod(lastMenstruationDate, cycleDuration, menstruationDuration) {
   // Calculate next menstruation date
   const nextMenstruationDate = moment(lastMenstruationDate).add(
