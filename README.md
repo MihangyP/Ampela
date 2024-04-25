@@ -44,7 +44,7 @@ Nous sommes ravis d'accueillir les contributions de la communauté pour amélior
 
 3. Effectuez les modifications nécessaires et commit :
    ```
-   git commit -am 'Ajouter ma fonctionnalité'
+   git commit -m 'Ajouter ma fonctionnalité'
    ```
 
 4. Poussez les modifications vers votre branche :
